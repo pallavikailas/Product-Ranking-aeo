@@ -1,0 +1,86 @@
+name: AEO Diagnostic
+
+on:
+  # Run on-demand via GitHub UI or API
+  workflow_dispatch:
+    inputs:
+      query:
+        description: 'Product search query (e.g. "best magnesium supplement for seniors")'
+        required: true
+        default: "best magnesium supplement for seniors"
+      brand:
+        description: "Target brand to track (e.g. Nature Made)"
+        required: true
+        default: "Nature Made"
+
+  # Automated weekly run every Monday at 09:00 UTC
+  schedule:
+    - cron: "0 9 * * 1"
+
+jobs:
+  aeo-diagnostic:
+    name: Run AEO Diagnostic
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # allows committing the report back to the repo
+
+    steps:
+      # ── 1. checkout ──────────────────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── 2. python setup ───────────────────────────────────────────────────────
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # ── 3. resolve inputs (dispatch vs schedule) ──────────────────────────────
+      - name: Resolve query and brand
+        id: inputs
+        run: |
+          QUERY="${{ github.event.inputs.query }}"
+          BRAND="${{ github.event.inputs.brand }}"
+          # Fall back to defaults when triggered by the scheduler
+          QUERY="${QUERY:-best magnesium supplement for seniors}"
+          BRAND="${BRAND:-Nature Made}"
+          echo "query=$QUERY"   >> "$GITHUB_OUTPUT"
+          echo "brand=$BRAND"   >> "$GITHUB_OUTPUT"
+
+      # ── 4. run diagnostic ─────────────────────────────────────────────────────
+      - name: Run AEO Diagnostic
+        env:
+          OPENAI_API_KEY:    ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY:    ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          python aeo_diagnostic.py \
+            --query  "${{ steps.inputs.outputs.query }}" \
+            --brand  "${{ steps.inputs.outputs.brand }}" \
+            --output-dir reports/
+
+      # ── 5. upload as workflow artifact ────────────────────────────────────────
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aeo-report-${{ github.run_number }}
+          path: reports/
+          retention-days: 90
+
+      # ── 6. commit report to repo (creates a browsable history) ────────────────
+      - name: Commit report to repository
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add reports/
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            DATE=$(date -u +%Y-%m-%d)
+            git commit -m "AEO report: ${{ steps.inputs.outputs.brand }} — $DATE [ci skip]"
+            git push
+          fi
