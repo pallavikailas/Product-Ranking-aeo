@@ -1,9 +1,11 @@
-"""LangChain prompt chains for the AEO LLM ranking panel.
+"""LangChain prompt chains — all models hosted on Groq for free, fast inference.
 
-Each chain wraps a provider's chat model behind a unified interface:
-  {"query": str} → LLMRankingOutput (parsed ranked product list)
+Panel:
+  • Llama 3.3 70B   (Meta)
+  • Mixtral 8x7B    (Mistral AI)
+  • Gemma 2 9B      (Google)
 
-Fallback: if Pydantic parsing fails, regex-based parsing is used.
+All three are queried via a single GROQ_API_KEY.
 """
 
 from __future__ import annotations
@@ -34,8 +36,7 @@ Be specific with real brand and product names. Do not add extra sections.\
 
 
 def _text_to_ranking_output(text: str) -> LLMRankingOutput:
-    """Parse numbered-list LLM text into a structured LLMRankingOutput."""
-    from .parser import parse_products  # avoid circular at module load
+    from .parser import parse_products
     products = parse_products(text)
     return LLMRankingOutput(
         products=[
@@ -50,46 +51,34 @@ def build_ranking_chain(llm: BaseChatModel):
     return _RANKING_PROMPT | llm | StrOutputParser() | RunnableLambda(_text_to_ranking_output)
 
 
-# ── Provider LLM factories ────────────────────────────────────────────────────
+# ── Groq LLM factory ──────────────────────────────────────────────────────────
 
-def get_openai_llm() -> Optional[BaseChatModel]:
-    if not os.environ.get("OPENAI_API_KEY"):
+def _groq_llm(model_name: str) -> Optional[BaseChatModel]:
+    key = os.environ.get("GROQ_API_KEY")
+    if not key:
         return None
     try:
-        from langchain_openai import ChatOpenAI
-        return ChatOpenAI(model="gpt-4o", temperature=0.3, max_tokens=1200)
+        from langchain_groq import ChatGroq
+        return ChatGroq(model=model_name, temperature=0.3, max_tokens=1200, groq_api_key=key)
     except ImportError:
         return None
 
 
-def get_anthropic_llm() -> Optional[BaseChatModel]:
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        return None
-    try:
-        from langchain_anthropic import ChatAnthropic
-        return ChatAnthropic(model="claude-sonnet-4-6", max_tokens=1200, temperature=0.3)
-    except ImportError:
-        return None
+def get_llama_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("llama-3.3-70b-versatile")
 
 
-def get_gemini_llm() -> Optional[BaseChatModel]:
-    if not os.environ.get("GEMINI_API_KEY"):
-        return None
-    try:
-        from langchain_google_genai import ChatGoogleGenerativeAI
-        return ChatGoogleGenerativeAI(
-            model="gemini-1.5-pro",
-            google_api_key=os.environ["GEMINI_API_KEY"],
-            temperature=0.3,
-            max_output_tokens=1200,
-        )
-    except ImportError:
-        return None
+def get_mixtral_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("mixtral-8x7b-32768")
+
+
+def get_gemma_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("gemma2-9b-it")
 
 
 # Ordered panel: (display label, LLM factory)
 ALL_LLM_CONFIGS: list[tuple[str, callable]] = [
-    ("GPT-4o (OpenAI)", get_openai_llm),
-    ("Claude Sonnet (Anthropic)", get_anthropic_llm),
-    ("Gemini 1.5 Pro (Google)", get_gemini_llm),
+    ("Llama 3.3 70B (Meta / Groq)", get_llama_llm),
+    ("Mixtral 8x7B (Mistral / Groq)", get_mixtral_llm),
+    ("Gemma 2 9B (Google / Groq)", get_gemma_llm),
 ]

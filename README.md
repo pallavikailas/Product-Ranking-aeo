@@ -36,10 +36,10 @@ The pipeline is built on three layers:
 
 ## What it does
 
-1. **LangChain** sends a shopper query to a panel of **3 LLMs** via unified chains:
-   - **GPT-4o** (OpenAI)
-   - **Claude Sonnet** (Anthropic)
-   - **Gemini 1.5 Pro** (Google)
+1. **LangChain** sends a shopper query to a panel of **3 LLMs** via Groq — free, fast inference:
+   - **Llama 3.3 70B** (Meta)
+   - **Mixtral 8x7B** (Mistral AI)
+   - **Gemma 2 9B** (Google)
 2. **LangGraph** orchestrates the pipeline: query → parse → verify → score, with a conditional branch that skips web verification when `--no-verify` is passed.
 3. Parses each reply to find the target brand, its **rank**, and the **sentiment** of surrounding text.
 4. Extracts all cited brands and **verifies each against DuckDuckGo** to catch hallucinations.
@@ -48,15 +48,15 @@ The pipeline is built on three layers:
 
 ## Stack
 
-| Component                | Tool                                                              |
-|--------------------------|-------------------------------------------------------------------|
-| LLM panel (3 models)     | **LangChain** — `langchain-openai`, `-anthropic`, `-google-genai` |
-| Pipeline orchestration   | **LangGraph** — `StateGraph` with conditional routing             |
-| Deep research agent      | **LangGraph ReAct** — `create_react_agent` + custom tools         |
-| Citation verifier        | **DuckDuckGo HTML** — `requests` + `bs4`                          |
-| UI                       | **Streamlit**                                                     |
-| CI / scheduled runs      | **GitHub Actions**                                                |
-| Tests                    | **pytest**                                                        |
+| Component                | Tool                                                                      | 
+|--------------------------|---------------------------------------------------------------------------|
+| LLM panel (3 models)     | **Groq API** + **LangChain** — `langchain-groq` (Llama · Mixtral · Gemma) |
+| Pipeline orchestration   | **LangGraph** — `StateGraph` with conditional routing                     |
+| Deep research agent      | **LangGraph ReAct** — `create_react_agent` + custom tools                 |
+| Citation verifier        | **DuckDuckGo HTML** — `requests` + `bs4`                                  |
+| UI                       | **Streamlit**                                                             |
+| CI / scheduled runs      | **GitHub Actions**                                                        |
+| Tests                    | **pytest**                                                                |
 
 ## Quickstart
 
@@ -65,10 +65,8 @@ git clone https://github.com/<you>/aeo-diagnostic.git
 cd aeo-diagnostic
 pip install -r requirements.txt
 
-# Set at least one API key
-export OPENAI_API_KEY="sk-…"
-export ANTHROPIC_API_KEY="sk-ant-…"
-export GEMINI_API_KEY="AIza…"
+# Get a free Groq key at https://console.groq.com/keys
+export GROQ_API_KEY="gsk_…"
 
 # CLI (standard run)
 python aeo_diagnostic.py \
@@ -99,9 +97,9 @@ The CLI writes `reports/aeo_<slug>_<date>.html` and `.json`. Open the HTML in a 
   Target: Nature Made
 ============================================================
 
-  → Querying GPT-4o (OpenAI) …          ✓  812 chars in 1432 ms
-  → Querying Claude Sonnet (Anthropic) … ✓  941 chars in 2103 ms
-  → Querying Gemini 1.5 Pro (Google) …  ✓  774 chars in 1689 ms
+  → Querying Llama 3.3 70B (Meta / Groq) …     ✓  812 chars in 432 ms
+  → Querying Mixtral 8x7B (Mistral / Groq) …   ✓  941 chars in 503 ms
+  → Querying Gemma 2 9B (Google / Groq) …      ✓  774 chars in 389 ms
 
 Scoring & verifying …
 
@@ -175,11 +173,13 @@ Pass `--deep-analysis` on the CLI (or toggle in the Streamlit sidebar) to activa
 2. Calls `analyze_aeo_gap` — generates structured, rank-aware improvement recommendations
 3. Synthesises findings into a markdown report
 
-The agent uses Claude Sonnet if `ANTHROPIC_API_KEY` is set, otherwise GPT-4o.
+The agent uses `llama-3.3-70b-versatile` via Groq (same `GROQ_API_KEY`).
 
 ## Running autonomously
 
-The included GitHub Actions workflow runs on every `main` push **and** on a weekly schedule (`0 9 * * 1`). Set `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, and `GEMINI_API_KEY` as repo secrets. Reports are uploaded as workflow artifacts and committed back to the repo.
+The included GitHub Actions workflow has two jobs:
+- **`test`** — runs `pytest tests/` on **every push to `main`** (no secrets needed).
+- **`diagnostic`** — runs the full AEO diagnostic on `workflow_dispatch` and the weekly `schedule` trigger. Set `GROQ_API_KEY` as a repo secret. Reports are uploaded as workflow artifacts and committed back to the repo.
 
 ## License
 

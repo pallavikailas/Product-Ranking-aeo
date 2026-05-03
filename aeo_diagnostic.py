@@ -2,10 +2,10 @@
 """
 AEO Diagnostic CLI — powered by LangChain + LangGraph
 ------------------------------------------------------
-Queries GPT-4o, Claude Sonnet, and Gemini 1.5 Pro with the same product search
-query via LangChain chains, orchestrates the pipeline with LangGraph, and
-produces an HTML + JSON report card showing how a target brand ranks versus
-competitors across all three AI answer engines.
+Queries Llama 3.3 70B, Mixtral 8x7B, and Gemma 2 9B (all via Groq) with the
+same product search query via LangChain chains, orchestrates the pipeline with
+LangGraph, and produces an HTML + JSON report card showing how a target brand
+ranks versus competitors across all three AI answer engines.
 
 Usage
 -----
@@ -23,9 +23,7 @@ Usage
     python aeo_diagnostic.py --query "..." --target "..." --no-verify
 
 Required environment variables (set as GitHub Actions secrets or in .env):
-    OPENAI_API_KEY
-    ANTHROPIC_API_KEY
-    GEMINI_API_KEY
+    GROQ_API_KEY   — free key at https://console.groq.com/keys
 """
 
 from __future__ import annotations
@@ -68,7 +66,7 @@ def main() -> None:
     args = parser.parse_args()
 
     print(f"\n{'='*60}")
-    print(f"  AEO Diagnostic  (LangChain · LangGraph · Deep Agents)")
+    print(f"  AEO Diagnostic  (Groq · LangChain · LangGraph · Deep Agents)")
     print(f"  Query : {args.query}")
     print(f"  Target: {args.target}")
     print(f"{'='*60}\n")

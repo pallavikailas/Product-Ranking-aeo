@@ -92,20 +92,15 @@ def analyze_aeo_gap(brand: str, query: str, avg_rank: float = -1.0) -> str:
 # ── Agent factory ─────────────────────────────────────────────────────────────
 
 def _get_agent_llm():
-    """Return the best available LLM for the deep analysis agent."""
-    if os.environ.get("ANTHROPIC_API_KEY"):
-        try:
-            from langchain_anthropic import ChatAnthropic
-            return ChatAnthropic(model="claude-sonnet-4-6", max_tokens=1024, temperature=0.2)
-        except ImportError:
-            pass
-    if os.environ.get("OPENAI_API_KEY"):
-        try:
-            from langchain_openai import ChatOpenAI
-            return ChatOpenAI(model="gpt-4o", temperature=0.2, max_tokens=1024)
-        except ImportError:
-            pass
-    return None
+    """Return the Groq-hosted Llama model for the deep analysis agent."""
+    key = os.environ.get("GROQ_API_KEY")
+    if not key:
+        return None
+    try:
+        from langchain_groq import ChatGroq
+        return ChatGroq(model="llama-3.3-70b-versatile", temperature=0.2, max_tokens=1024, groq_api_key=key)
+    except ImportError:
+        return None
 
 
 def run_deep_analysis(
@@ -119,10 +114,7 @@ def run_deep_analysis(
     """
     llm = _get_agent_llm()
     if llm is None:
-        return (
-            "Deep analysis unavailable: set ANTHROPIC_API_KEY or OPENAI_API_KEY "
-            "to enable the research agent."
-        )
+        return "Deep analysis unavailable: set GROQ_API_KEY to enable the research agent."
 
     tools = [search_brand_presence, analyze_aeo_gap]
     agent = create_react_agent(llm, tools)
