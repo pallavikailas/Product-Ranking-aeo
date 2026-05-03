@@ -1,19 +1,16 @@
 """DuckDuckGo citation verifier.
 
-Checks whether a brand name returns real search results, helping detect
-hallucinated brand citations in LLM responses.
+Uses the duckduckgo-search package (DDGS) instead of scraping DDG HTML directly,
+which is fragile and blocked in many cloud environments.
 """
 
 from __future__ import annotations
 
 import time
 
-import requests
-from bs4 import BeautifulSoup
+from duckduckgo_search import DDGS
 
-_DDG_URL = "https://html.duckduckgo.com/html/"
-_HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; AEO-bot/1.0; +https://github.com/aeo-diagnostic)"}
-_TIMEOUT = 8
+_DELAY = 0.5   # seconds between requests to stay within DDG rate limits
 
 
 def verify_brand(brand: str) -> dict:
@@ -25,24 +22,18 @@ def verify_brand(brand: str) -> dict:
         "top_hit_title": None,
     }
     try:
-        resp = requests.post(
-            _DDG_URL,
-            data={"q": brand, "kl": "us-en"},
-            headers=_HEADERS,
-            timeout=_TIMEOUT,
-        )
-        soup = BeautifulSoup(resp.text, "html.parser")
-        hits = soup.select("a.result__a")
+        with DDGS() as ddgs:
+            hits = list(ddgs.text(brand, max_results=1))
         if hits:
             result["found"] = True
-            result["top_hit_title"] = hits[0].get_text(strip=True)
+            result["top_hit_title"] = hits[0].get("title", "")
             result["top_hit_url"] = hits[0].get("href", "")
     except Exception:
         pass
     return result
 
 
-def verify_brands(brands: list[str], delay: float = 0.6) -> list[dict]:
+def verify_brands(brands: list[str], delay: float = _DELAY) -> list[dict]:
     """Verify multiple brands with a small delay between requests."""
     results: list[dict] = []
     for brand in brands:

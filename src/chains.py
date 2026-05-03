@@ -6,6 +6,8 @@ Panel (all production-tier on Groq as of 2026):
   • Llama 4 Scout 17B  (Meta)
 
 All three are queried via a single GROQ_API_KEY.
+The chain returns the raw LLM text so the regex parser in scorer.py
+handles all response format variations without losing data.
 """
 
 from __future__ import annotations
@@ -16,9 +18,6 @@ from typing import Optional
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.language_models import BaseChatModel
-from langchain_core.runnables import RunnableLambda
-
-from .models import LLMRankingOutput, RankedProduct
 
 _RANKING_PROMPT = ChatPromptTemplate.from_messages([
     ("human", """\
@@ -35,20 +34,9 @@ Be specific with real brand and product names. Do not add extra sections.\
 ])
 
 
-def _text_to_ranking_output(text: str) -> LLMRankingOutput:
-    from .parser import parse_products
-    products = parse_products(text)
-    return LLMRankingOutput(
-        products=[
-            RankedProduct(rank=p.rank, name=p.name, description=p.description)
-            for p in products
-        ]
-    )
-
-
 def build_ranking_chain(llm: BaseChatModel):
-    """Return a runnable chain: {"query": str} → LLMRankingOutput."""
-    return _RANKING_PROMPT | llm | StrOutputParser() | RunnableLambda(_text_to_ranking_output)
+    """Return a runnable chain: {"query": str} → raw response text string."""
+    return _RANKING_PROMPT | llm | StrOutputParser()
 
 
 # ── Groq LLM factory ──────────────────────────────────────────────────────────
