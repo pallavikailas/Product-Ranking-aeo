@@ -74,9 +74,9 @@ def _extract_brands(state: AEOState) -> dict:
         if resp.error or not resp.text:
             continue
         for product in parse_products(resp.text):
-            first_word = product.name.split()[0].strip("®™") if product.name else ""
-            if len(first_word) > 2:
-                brands.add(first_word)
+            name = product.name.strip("®™ ") if product.name else ""
+            if len(name) > 2:
+                brands.add(name)
     return {"all_brands": sorted(brands)}
 
 

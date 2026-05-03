@@ -52,9 +52,9 @@ def score_panel(
             sentiments.append(sent)
 
             for p in products:
-                first = p.name.split()[0].strip("®™") if p.name else ""
-                if len(first) > 2:
-                    all_brands.add(first)
+                name = p.name.strip("®™ ") if p.name else ""
+                if len(name) > 2:
+                    all_brands.add(name)
 
         per_model.append(pm)
 
