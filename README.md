@@ -1,117 +1,186 @@
 # AEO Diagnostic
 
-Answer Engine Optimization (AEO) diagnostic tool that queries **GPT-4o**, **Claude Sonnet**, and **Gemini 1.5 Pro** with the same product search query and produces a scored report card showing how your brand ranks versus competitors across all three AI answer engines.
+> **AEO = Answer Engine Optimization.** When a shopper asks an AI assistant *"best magnesium supplement for seniors"*, where does your brand actually rank? This tool finds out — across three independent LLMs — and verifies every citation against the open web.
 
----
+## Why
 
-## How it works
+SEO told brands how they ranked on Google. **AEO** is the same question for the AI era: how do you rank on ChatGPT, Claude, Gemini, and the new wave of shopping assistants? Brands have no visibility into this today. This is the diagnostic step.
 
-```
-User query + target brand
-        │
-        ├─► OpenAI GPT-4o
-        ├─► Anthropic Claude Sonnet
-        └─► Google Gemini 1.5 Pro
-                │
-                ▼
-        Parse ranked product lists
-        Find target brand position
-        Score sentiment context
-                │
-                ▼
-        HTML + JSON report card
-        (grade A+–F, competitor table, share-of-voice, recommendations)
-```
+## Architecture
 
-**Scoring (per model, 0–100):**
-| Component | Weight |
-|---|---|
-| Brand mentioned at all | 40 pts |
-| Rank quality (1st = 40, each step −5) | 40 pts |
-| Contextual sentiment (-1…+1 → 0–20) | 20 pts |
-
-The overall grade is the average across all three models.
-
----
-
-## Project structure
+The pipeline is built on three layers:
 
 ```
-├── aeo_diagnostic.py          # CLI entry point
-├── src/
-│   ├── clients.py             # OpenAI / Claude / Gemini API wrappers
-│   ├── models.py              # Shared data classes
-│   ├── parser.py              # Ranked list extraction + sentiment
-│   ├── scoring.py             # Score, grade, competitor aggregation
-│   └── report.py              # HTML + JSON report generation
-├── reports/                   # Generated reports (committed by CI)
-├── requirements.txt
-└── .github/workflows/
-    └── aeo_diagnostic.yml     # GitHub Actions workflow
+┌─────────────────────────────────────────────────────────┐
+│  LangChain Chains  (src/chains.py)                       │
+│  Unified prompt + LLM interface for GPT-4o, Claude,      │
+│  and Gemini — one chain definition runs all three.        │
+└────────────────────────┬────────────────────────────────┘
+                         │
+┌────────────────────────▼────────────────────────────────┐
+│  LangGraph Pipeline  (src/graph.py)                      │
+│                                                          │
+│  START → query_panel → extract_brands                    │
+│              └─(conditional)─► verify_citations          │
+│                                      └─► compute_score   │
+│                                                END        │
+└────────────────────────┬────────────────────────────────┘
+                         │
+┌────────────────────────▼────────────────────────────────┐
+│  Deep Research Agent  (src/agents.py)                    │
+│  LangGraph ReAct agent with tools:                       │
+│    • search_brand_presence  (DuckDuckGo web check)       │
+│    • analyze_aeo_gap        (structured recommendations)  │
+└─────────────────────────────────────────────────────────┘
 ```
 
----
+## What it does
 
-## Local usage
+1. **LangChain** sends a shopper query to a panel of **3 LLMs** via unified chains:
+   - **GPT-4o** (OpenAI)
+   - **Claude Sonnet** (Anthropic)
+   - **Gemini 1.5 Pro** (Google)
+2. **LangGraph** orchestrates the pipeline: query → parse → verify → score, with a conditional branch that skips web verification when `--no-verify` is passed.
+3. Parses each reply to find the target brand, its **rank**, and the **sentiment** of surrounding text.
+4. Extracts all cited brands and **verifies each against DuckDuckGo** to catch hallucinations.
+5. Optionally runs a **LangGraph ReAct deep agent** that investigates brand presence and generates targeted AEO recommendations.
+6. Outputs a **report card** (HTML + JSON) with an A–F grade and per-model breakdown.
 
-### 1. Install dependencies
+## Stack
+
+| Component                | Tool                                                          |
+|--------------------------|---------------------------------------------------------------|
+| LLM panel (3 models)     | **LangChain** — `langchain-openai`, `-anthropic`, `-google-genai` |
+| Pipeline orchestration   | **LangGraph** — `StateGraph` with conditional routing         |
+| Deep research agent      | **LangGraph ReAct** — `create_react_agent` + custom tools     |
+| Citation verifier        | **DuckDuckGo HTML** — `requests` + `bs4`                      |
+| UI                       | **Streamlit**                                                 |
+| CI / scheduled runs      | **GitHub Actions**                                            |
+| Tests                    | **pytest**                                                    |
+
+## Quickstart
 
 ```bash
+git clone https://github.com/<you>/aeo-diagnostic.git
+cd aeo-diagnostic
 pip install -r requirements.txt
-```
 
-### 2. Set API keys
+# Set at least one API key
+export OPENAI_API_KEY="sk-…"
+export ANTHROPIC_API_KEY="sk-ant-…"
+export GEMINI_API_KEY="AIza…"
 
-```bash
-export OPENAI_API_KEY="sk-..."
-export ANTHROPIC_API_KEY="sk-ant-..."
-export GEMINI_API_KEY="AIza..."
-```
-
-Or create a `.env` file (never commit it — it's in `.gitignore`).
-
-### 3. Run
-
-```bash
+# CLI (standard run)
 python aeo_diagnostic.py \
   --query "best magnesium supplement for seniors" \
-  --brand "Nature Made" \
-  --output-dir reports/
+  --target "Nature Made"
+
+# CLI + deep agent analysis
+python aeo_diagnostic.py \
+  --query "best magnesium supplement for seniors" \
+  --target "Nature Made" \
+  --deep-analysis
+
+# Skip web citation verification
+python aeo_diagnostic.py --query "..." --target "..." --no-verify
+
+# Streamlit UI
+streamlit run app.py
 ```
 
-Reports are written to `reports/aeo_<brand>_<date>.html` and `.json`.
+The CLI writes `reports/aeo_<slug>_<date>.html` and `.json`. Open the HTML in a browser.
 
----
+## Sample output
 
-## GitHub Actions (hosted pipeline)
+```
+============================================================
+  AEO Diagnostic  (LangChain · LangGraph · Deep Agents)
+  Query : best magnesium supplement for seniors
+  Target: Nature Made
+============================================================
 
-The workflow at [.github/workflows/aeo_diagnostic.yml](.github/workflows/aeo_diagnostic.yml) runs two ways:
+  → Querying GPT-4o (OpenAI) …          ✓  812 chars in 1432 ms
+  → Querying Claude Sonnet (Anthropic) … ✓  941 chars in 2103 ms
+  → Querying Gemini 1.5 Pro (Google) …  ✓  774 chars in 1689 ms
 
-| Trigger | When |
-|---|---|
-| **Manual** (`workflow_dispatch`) | Run from the **Actions** tab with custom query + brand |
-| **Scheduled** | Every Monday 09:00 UTC with default values |
+Scoring & verifying …
 
-### Setup (one-time)
+  Overall  : 78.4/100   Grade : B
+  Mention  : 100% of models
+  Avg pos  : 2.0
+  Sentiment: 70
+  Citation : 87%
+```
 
-Add three repository secrets in **Settings → Secrets and variables → Actions**:
+## Scoring formula
 
-| Secret name | Where to get it |
-|---|---|
-| `OPENAI_API_KEY` | [platform.openai.com](https://platform.openai.com) |
-| `ANTHROPIC_API_KEY` | [console.anthropic.com](https://console.anthropic.com) |
-| `GEMINI_API_KEY` | [aistudio.google.com](https://aistudio.google.com) |
+```
+overall = 0.45 × mention_rate × 100    (was brand mentioned at all?)
+        + 0.30 × position_score        (1st = 100, 5th = 20, absent = 0)
+        + 0.15 × sentiment_score       (−1…+1 mapped to 0…100)
+        + 0.10 × citation_score        (% of cited brands findable on DDG)
+```
 
-After each run:
-- The HTML + JSON report is uploaded as a **workflow artifact** (retained 90 days).
-- The report is also **committed back to the repo** under `reports/` for a browsable history.
+Bands: **A+** ≥ 90 · **A** ≥ 80 · **B** ≥ 70 · **C** ≥ 55 · **D** ≥ 40 · **F** > 0.
 
----
+## Repo layout
 
-## Output
+```
+aeo-diagnostic/
+├── aeo_diagnostic.py           # CLI entry point
+├── app.py                      # Streamlit UI
+├── src/
+│   ├── chains.py               # LangChain prompt chains (NEW)
+│   ├── graph.py                # LangGraph pipeline (NEW)
+│   ├── agents.py               # LangGraph ReAct deep-research agent (NEW)
+│   ├── clients.py              # query_all() — calls LangChain chains
+│   ├── scorer.py               # score_panel() — aggregates ScoreCard
+│   ├── web_verifier.py         # DuckDuckGo citation verifier (NEW)
+│   ├── models.py               # Dataclasses + Pydantic output models
+│   ├── parser.py               # Regex-based ranked-list parser
+│   ├── scoring.py              # Scoring helpers (legacy compat)
+│   └── report.py               # HTML + JSON report writer
+├── tests/
+│   └── test_scorer.py          # Offline unit tests (pytest)
+├── .github/workflows/
+│   └── aeo_diagnostic.yml      # CI + on-demand diagnostic runs
+├── requirements.txt
+└── reports/                    # Generated reports land here
+```
 
-The HTML report includes:
-- **Overall AEO grade** (A+ to F) and score bar
-- **Per-model breakdown** — rank, sentiment, full ranked list with target highlighted
-- **Competitor table** — best rank, total mentions, share of voice across all 3 models
-- **Recommendations** — actionable steps to improve visibility
+## LangGraph pipeline detail
+
+```
+AEOState
+  query, target_brand, verify_citations
+  ↓
+query_panel          ← LangChain chain per model (GPT-4o / Claude / Gemini)
+  raw_responses[]
+  ↓
+extract_brands       ← pull unique brand names from all responses
+  all_brands[]
+  ↓  (conditional)
+verify_citations     ← DuckDuckGo POST for each brand          ┐
+  verifications[]                                              │ skipped if
+  ↓                                                            │ --no-verify
+compute_score        ← aggregate mention rate, position,       ┘
+  score_card           sentiment, citation score → ScoreCard
+```
+
+## Deep Agent (LangGraph ReAct)
+
+Pass `--deep-analysis` on the CLI (or toggle in the Streamlit sidebar) to activate a **ReAct agent** that:
+
+1. Calls `search_brand_presence` — hits DuckDuckGo to confirm the brand is a real entity
+2. Calls `analyze_aeo_gap` — generates structured, rank-aware improvement recommendations
+3. Synthesises findings into a markdown report
+
+The agent uses Claude Sonnet if `ANTHROPIC_API_KEY` is set, otherwise GPT-4o.
+
+## Running autonomously
+
+The included GitHub Actions workflow runs on every `main` push **and** on a weekly schedule (`0 9 * * 1`). Set `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, and `GEMINI_API_KEY` as repo secrets. Reports are uploaded as workflow artifacts and committed back to the repo.
+
+## License
+
+MIT.

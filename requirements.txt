@@ -1,3 +1,24 @@
-openai>=1.0.0
-anthropic>=0.20.0
-google-generativeai>=0.4.0
+# ── LangChain ecosystem ───────────────────────────────────────────────────────
+langchain-core>=0.3.0
+langchain-openai>=0.2.0
+langchain-anthropic>=0.2.0
+langchain-google-genai>=2.0.0
+langgraph>=0.2.0
+
+# ── LLM provider SDKs (used by LangChain internally) ─────────────────────────
+openai>=1.40.0
+anthropic>=0.34.0
+google-generativeai>=0.7.0
+
+# ── Web citation verifier ─────────────────────────────────────────────────────
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+
+# ── UI ────────────────────────────────────────────────────────────────────────
+streamlit>=1.36.0
+
+# ── Pydantic (LangChain requires v2) ─────────────────────────────────────────
+pydantic>=2.0.0
+
+# ── Tests ─────────────────────────────────────────────────────────────────────
+pytest>=8.0.0

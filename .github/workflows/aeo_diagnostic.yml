@@ -8,10 +8,16 @@ on:
         description: 'Product search query (e.g. "best magnesium supplement for seniors")'
         required: true
         default: "best magnesium supplement for seniors"
-      brand:
+      target:
         description: "Target brand to track (e.g. Nature Made)"
         required: true
         default: "Nature Made"
+      deep_analysis:
+        description: "Run deep agent analysis?"
+        required: false
+        default: "false"
+        type: choice
+        options: ["true", "false"]
 
   # Automated weekly run every Monday at 09:00 UTC
   schedule:
@@ -39,31 +45,43 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # ── 3. resolve inputs (dispatch vs schedule) ──────────────────────────────
-      - name: Resolve query and brand
+      # ── 3. run offline tests ──────────────────────────────────────────────────
+      - name: Run unit tests (offline)
+        run: pytest tests/ -v
+
+      # ── 4. resolve inputs (dispatch vs schedule) ──────────────────────────────
+      - name: Resolve query and target
         id: inputs
         run: |
           QUERY="${{ github.event.inputs.query }}"
-          BRAND="${{ github.event.inputs.brand }}"
+          TARGET="${{ github.event.inputs.target }}"
+          DEEP="${{ github.event.inputs.deep_analysis }}"
           # Fall back to defaults when triggered by the scheduler
           QUERY="${QUERY:-best magnesium supplement for seniors}"
-          BRAND="${BRAND:-Nature Made}"
+          TARGET="${TARGET:-Nature Made}"
+          DEEP="${DEEP:-false}"
           echo "query=$QUERY"   >> "$GITHUB_OUTPUT"
-          echo "brand=$BRAND"   >> "$GITHUB_OUTPUT"
+          echo "target=$TARGET" >> "$GITHUB_OUTPUT"
+          echo "deep=$DEEP"     >> "$GITHUB_OUTPUT"
 
-      # ── 4. run diagnostic ─────────────────────────────────────────────────────
+      # ── 5. run diagnostic ─────────────────────────────────────────────────────
       - name: Run AEO Diagnostic
         env:
           OPENAI_API_KEY:    ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GEMINI_API_KEY:    ${{ secrets.GEMINI_API_KEY }}
         run: |
+          DEEP_FLAG=""
+          if [ "${{ steps.inputs.outputs.deep }}" = "true" ]; then
+            DEEP_FLAG="--deep-analysis"
+          fi
           python aeo_diagnostic.py \
             --query  "${{ steps.inputs.outputs.query }}" \
-            --brand  "${{ steps.inputs.outputs.brand }}" \
-            --output-dir reports/
+            --target "${{ steps.inputs.outputs.target }}" \
+            --output-dir reports/ \
+            $DEEP_FLAG
 
-      # ── 5. upload as workflow artifact ────────────────────────────────────────
+      # ── 6. upload as workflow artifact ────────────────────────────────────────
       - name: Upload report artifact
         uses: actions/upload-artifact@v4
         with:
@@ -71,7 +89,7 @@ jobs:
           path: reports/
           retention-days: 90
 
-      # ── 6. commit report to repo (creates a browsable history) ────────────────
+      # ── 7. commit report to repo (creates a browsable history) ────────────────
       - name: Commit report to repository
         run: |
           git config user.name  "github-actions[bot]"
@@ -81,6 +99,6 @@ jobs:
             echo "No changes to commit."
           else
             DATE=$(date -u +%Y-%m-%d)
-            git commit -m "AEO report: ${{ steps.inputs.outputs.brand }} — $DATE [ci skip]"
+            git commit -m "AEO report: ${{ steps.inputs.outputs.target }} — $DATE [ci skip]"
             git push
           fi
