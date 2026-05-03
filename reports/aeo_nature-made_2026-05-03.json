@@ -1,11 +1,11 @@
 {
   "query": "best magnesium supplement for seniors",
   "target": "Nature Made",
-  "overall": 17.5,
-  "grade": "F",
-  "mention_rate": 0.0,
-  "avg_position": null,
-  "sentiment_score": 0.0,
+  "overall": 59.0,
+  "grade": "C",
+  "mention_rate": 0.3333333333333333,
+  "avg_position": 2.0,
+  "sentiment_score": 33.3,
   "citation_score": 100.0,
   "per_model": [
     {
@@ -18,21 +18,21 @@
         "Nature's Bounty Magnesium",
         "Jarrow Formulas Magnesium Optimizer",
         "Doctor's Best Magnesium",
-        "NOW Foods Magnesium Citrate"
+        "Thorne Research Magnesium Citrate"
       ],
       "error": null
     },
     {
       "model": "GPT-OSS 120B (OpenAI / Groq)",
-      "mentioned": false,
-      "position": null,
-      "sentiment": "Neutral",
+      "mentioned": true,
+      "position": 2,
+      "sentiment": "Positive",
       "competitors": [
-        "Thorne Research Magnesium Bisglycinate Powder",
-        "Pure Encapsulations Magnesium (Citrate)",
-        "Designs for Health Magnesium Glycinate",
-        "Life Extension Magnesium Caps",
-        "Jigsaw Health Magnesium w/ Vitamin B6"
+        "Doctor's Best High Absorption Magnesium Glycinate",
+        "KAL Magnesium Glycinate 400",
+        "Pure Encapsulations Magnesium (Citrate/Malate)",
+        "Thorne Research Magnesium Bisglycinate",
+        "NOW Foods Magnesium Citrate Softgels"
       ],
       "error": null
     },
@@ -44,73 +44,73 @@
       "competitors": [
         "Nature's Bounty Magnesium, 400mg",
         "Garden of Life Magnesium",
-        "Thorne Research Magnesium Citrate",
-        "Doctor's Best Magnesium",
-        "Jarrow Formulas Magnesium"
+        "Thorne Research Magnesium",
+        "NOW Foods Magnesium Citrate",
+        "Doctor's Best Magnesium"
       ],
       "error": null
     }
   ],
   "verifications": [
     {
-      "brand": "Country",
+      "brand": "Country Life Magnesium",
       "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/Country",
-      "top_hit_title": "Country"
+      "top_hit_url": "https://countrylifevitamins.com/products/magnesium-glycinate",
+      "top_hit_title": "Magnesium Glycinate Supplement - Country Life Vitamins"
     },
     {
-      "brand": "Designs",
+      "brand": "Doctor's Best High Absorption Magnesium Glycinate",
       "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/Design",
-      "top_hit_title": "Design"
+      "top_hit_url": "https://grokipedia.com/page/Doctors_Best_High_Absorption_Magnesium_Lysinate_Glycinate",
+      "top_hit_title": "Doctor's Best High Absorption Magnesium Lysinate Glycinate"
     },
     {
-      "brand": "Doctor's",
+      "brand": "Doctor's Best Magnesium",
       "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/Doctor's",
-      "top_hit_title": "Doctor's"
+      "top_hit_url": "https://grokipedia.com/page/Doctors_Best_High_Absorption_Magnesium_Lysinate_Glycinate",
+      "top_hit_title": "Doctor's Best High Absorption Magnesium Lysinate Glycinate"
     },
     {
-      "brand": "Garden",
+      "brand": "Garden of Life Magnesium",
       "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/Garden",
-      "top_hit_title": "Garden"
+      "top_hit_url": "https://www.gardenoflife.com/products/our-supplements/magnesium",
+      "top_hit_title": "Dr. Formulated Whole Food Magnesium | Garden of Life"
     },
     {
-      "brand": "Jarrow",
+      "brand": "Garden of Life Vitamin Code Magnesium",
       "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/Jarrow",
-      "top_hit_title": "Jarrow"
+      "top_hit_url": "https://www.gardenoflife.com/vitamin-code",
+      "top_hit_title": "Vitamin Code | Garden of Life"
     },
     {
-      "brand": "Jigsaw",
+      "brand": "Jarrow Formulas Magnesium",
       "found": true,
-      "top_hit_url": "https://grokipedia.com/page/jigsaw_an_unsentimental_education_(book)",
-      "top_hit_title": "Jigsaw: An Unsentimental Education (book)"
+      "top_hit_url": "https://jarrow.com/collections/magnesium-supplements",
+      "top_hit_title": "Magnesium Supplements - Jarrow Formulas"
     },
     {
-      "brand": "KAL",
+      "brand": "Jarrow Formulas Magnesium Optimizer",
       "found": true,
-      "top_hit_url": "https://grokipedia.com/page/kalgoorlie_suburb",
-      "top_hit_title": "Kalgoorlie (suburb)"
+      "top_hit_url": "https://www.amazon.com/Jarrow-Formulas-Magnesium-Optimizer-Important/dp/B0001TNRL4",
+      "top_hit_title": "Amazon.com: Jarrow Formulas Magnesium Optimizer - 200 Tablets - Supports Bone Health & Muscle Function - Exercise & Endurance Benefits - Includes Taurine, P5P & Vitamin B6 - 100 Servings : Health & Household"
     },
     {
-      "brand": "Life",
+      "brand": "KAL Magnesium Glycinate 400",
       "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/Life",
-      "top_hit_title": "Life"
+      "top_hit_url": "https://www.amazon.com/Magnesium-Glycinate-Chelated-Non-GMO-Servings/dp/B07RM7VXFV",
+      "top_hit_title": "Amazon.com: KAL Magnesium Glycinate 400 mg | Healthy ...KAL Magnesium Glycinate Review: Does It Support Stress?Kal Magnesium Glycinate 400mg Softgels - Pass Health FoodsKAL Magnesium Glycinate 400 | High Absorption Formula - TargetMagnesium Glycinate 400 180ct 400mg by Kal available at VitaNetKAL Magnesium Glycinate 400 Mg Softgels, 60 ct - King Soopers"
     },
     {
-      "brand": "MRM",
+      "brand": "Life Extension Magnesium Caps",
       "found": true,
-      "top_hit_url": "https://grokipedia.com/page/maintenance_resource_management",
-      "top_hit_title": "Maintenance resource management"
+      "top_hit_url": "https://www.lifeextension.com/vitamins-supplements/item01459/magnesium-caps",
+      "top_hit_title": "Magnesium, 500 mg, 100 capsules - Life Extension"
     },
     {
-      "brand": "MegaFood",
+      "brand": "MRM Magnesium Glycinate",
       "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/Megafoods",
-      "top_hit_title": "Megafoods"
+      "top_hit_url": "https://en.wikipedia.org/wiki/Magnesium_glycinate",
+      "top_hit_title": "Magnesium glycinate - Wikipedia"
     }
   ]
 }
