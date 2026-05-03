@@ -1,0 +1,116 @@
+{
+  "query": "best magnesium supplement for seniors",
+  "target": "Nature Made",
+  "overall": 17.5,
+  "grade": "F",
+  "mention_rate": 0.0,
+  "avg_position": null,
+  "sentiment_score": 0.0,
+  "citation_score": 100.0,
+  "per_model": [
+    {
+      "model": "Llama 3.3 70B (Meta / Groq)",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Garden of Life Magnesium",
+        "Nature's Bounty Magnesium",
+        "Jarrow Formulas Magnesium Optimizer",
+        "Doctor's Best Magnesium",
+        "NOW Foods Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "GPT-OSS 120B (OpenAI / Groq)",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Thorne Research Magnesium Bisglycinate Powder",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "Designs for Health Magnesium Glycinate",
+        "Life Extension Magnesium Caps",
+        "Jigsaw Health Magnesium w/ Vitamin B6"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 4 Scout 17B (Meta / Groq)",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Nature's Bounty Magnesium, 400mg",
+        "Garden of Life Magnesium",
+        "Thorne Research Magnesium Citrate",
+        "Doctor's Best Magnesium",
+        "Jarrow Formulas Magnesium"
+      ],
+      "error": null
+    }
+  ],
+  "verifications": [
+    {
+      "brand": "Country",
+      "found": true,
+      "top_hit_url": "https://en.wikipedia.org/wiki/Country",
+      "top_hit_title": "Country"
+    },
+    {
+      "brand": "Designs",
+      "found": true,
+      "top_hit_url": "https://en.wikipedia.org/wiki/Design",
+      "top_hit_title": "Design"
+    },
+    {
+      "brand": "Doctor's",
+      "found": true,
+      "top_hit_url": "https://en.wikipedia.org/wiki/Doctor's",
+      "top_hit_title": "Doctor's"
+    },
+    {
+      "brand": "Garden",
+      "found": true,
+      "top_hit_url": "https://en.wikipedia.org/wiki/Garden",
+      "top_hit_title": "Garden"
+    },
+    {
+      "brand": "Jarrow",
+      "found": true,
+      "top_hit_url": "https://en.wikipedia.org/wiki/Jarrow",
+      "top_hit_title": "Jarrow"
+    },
+    {
+      "brand": "Jigsaw",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/jigsaw_an_unsentimental_education_(book)",
+      "top_hit_title": "Jigsaw: An Unsentimental Education (book)"
+    },
+    {
+      "brand": "KAL",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/kalgoorlie_suburb",
+      "top_hit_title": "Kalgoorlie (suburb)"
+    },
+    {
+      "brand": "Life",
+      "found": true,
+      "top_hit_url": "https://en.wikipedia.org/wiki/Life",
+      "top_hit_title": "Life"
+    },
+    {
+      "brand": "MRM",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/maintenance_resource_management",
+      "top_hit_title": "Maintenance resource management"
+    },
+    {
+      "brand": "MegaFood",
+      "found": true,
+      "top_hit_url": "https://en.wikipedia.org/wiki/Megafoods",
+      "top_hit_title": "Megafoods"
+    }
+  ]
+}
