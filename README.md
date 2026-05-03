@@ -1,6 +1,6 @@
 # AEO Diagnostic
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://pallavikailas-product-ranking-aeo-app-rqhxxx.streamlit.app)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://brand-aeo.streamlit.app)
 [![CI](https://github.com/pallavikailas/Product-Ranking-aeo/actions/workflows/aeo_diagnostic.yml/badge.svg)](https://github.com/pallavikailas/Product-Ranking-aeo/actions/workflows/aeo_diagnostic.yml)
 
 > **AEO = Answer Engine Optimization.** When a shopper asks an AI assistant *"best magnesium supplement for seniors"*, where does your brand actually rank? This tool finds out — across three independent LLMs — and verifies every citation against the open web.
@@ -65,9 +65,7 @@ The pipeline is built on three layers:
 
 Click the badge at the top — or go directly to the deployed app:
 
-**[→ Open AEO Diagnostic](https://pallavikailas-product-ranking-aeo-app-rqhxxx.streamlit.app)**
-
-*(Update this URL with the actual Streamlit Cloud URL after the first deploy — see below.)*
+**[→ Open AEO Diagnostic](https://brand-aeo.streamlit.app)**
 
 ## Deploy to Streamlit Community Cloud (one-time setup)
 
@@ -78,9 +76,9 @@ Click the badge at the top — or go directly to the deployed app:
    ```toml
    GROQ_API_KEY = "gsk_…"
    ```
-5. Click **Deploy**. Streamlit Cloud gives you a permanent public URL (e.g. `https://pallavikailas-product-ranking-aeo-app-xxxxx.streamlit.app`). Replace the placeholder link above and in the badge with that URL.
+5. Click **Deploy**. The app is live at **[brand-aeo.streamlit.app](https://brand-aeo.streamlit.app)**.
 
-After that, every push to `main` auto-redeploys the app — no further action needed.
+Every push to `main` auto-redeploys the app — no further action needed.
 
 ## Local quickstart (optional)
 

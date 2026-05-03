@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import time
 
-from duckduckgo_search import DDGS
+from ddgs import DDGS
 
 _DELAY = 0.5   # seconds between requests to stay within DDG rate limits
 
