@@ -1,12 +1,12 @@
 {
   "query": "best magnesium supplement for seniors",
   "target": "Nature Made",
-  "overall": 51.2,
-  "grade": "D",
+  "overall": 34.0,
+  "grade": "F",
   "mention_rate": 0.3333333333333333,
-  "avg_position": 3.0,
-  "sentiment_score": 10.0,
-  "citation_score": 100.0,
+  "avg_position": 10.0,
+  "sentiment_score": 33.3,
+  "citation_score": 90.0,
   "per_model": [
     {
       "model": "Llama 3.3 70B (Meta / Groq)",
@@ -25,13 +25,13 @@
     {
       "model": "GPT-OSS 120B (OpenAI / Groq)",
       "mentioned": true,
-      "position": 3,
+      "position": 10,
       "sentiment": "Positive",
       "competitors": [
-        "Thorne Magnesium Bisglycinate",
-        "Pure Encapsulations Magnesium (Citrate) 200",
-        "Doctor\u2019s Best High Absorption Magnesium",
-        "Life Extension Magnesium Caps",
+        "Thorne Research Magnesium Bisglycinate",
+        "Doctor\u2019s Best High Absorption Magnesium (Glycinate)",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "KAL Magnesium Glycinate 400",
         "NOW Foods Magnesium Citrate"
       ],
       "error": null
@@ -46,7 +46,7 @@
         "Garden of Life Magnesium",
         "Thorne Research Magnesium Citrate",
         "NOW Foods Magnesium Glycinate",
-        "Jarrow Formulas Magnesium Optimizer"
+        "Doctor's Best Magnesium"
       ],
       "error": null
     }
@@ -55,26 +55,26 @@
     {
       "brand": "Country Life",
       "found": true,
-      "top_hit_url": "https://grokipedia.com/page/the_practical_homestead_the_backyard_handbook_for_growing_food_raising_animals_and_nurturing__(book)",
-      "top_hit_title": "The Practical Homestead: The Backyard Handbook for Growing Food, Raising Animals, and Nurturing Your Land (book)"
+      "top_hit_url": "https://www.amazon.com/country-life-calcium/s?k=country+life+calcium",
+      "top_hit_title": "Amazon.com: Country Life Calcium"
     },
     {
       "brand": "Doctor's Best",
       "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/Doctor's_mess",
-      "top_hit_title": "Doctor's mess"
+      "top_hit_url": "https://www.doctorsbest.com/",
+      "top_hit_title": "Doctor's Best"
     },
     {
       "brand": "Doctor\u2019s Best",
-      "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/Doctor's_mess",
-      "top_hit_title": "Doctor's mess"
+      "found": false,
+      "top_hit_url": null,
+      "top_hit_title": null
     },
     {
       "brand": "Garden of Life",
       "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/Garden_of_Love_(album)",
-      "top_hit_title": "Garden of Love (album)"
+      "top_hit_url": "https://www.gardenoflife.com/",
+      "top_hit_title": "Clean Vitamins and Supplements | Garden of Life"
     },
     {
       "brand": "Jarrow Formulas",
@@ -83,34 +83,34 @@
       "top_hit_title": "Jarrow Formulas | High Quality Dietary Supplements"
     },
     {
+      "brand": "Jigsaw Health",
+      "found": true,
+      "top_hit_url": "https://www.jigsawhealth.com/",
+      "top_hit_title": "Jigsaw Health"
+    },
+    {
+      "brand": "KAL",
+      "found": true,
+      "top_hit_url": "https://www.kalvitamins.com/",
+      "top_hit_title": "KAL Vitamins | Since 1932 \u2013 Kal Vitamins"
+    },
+    {
       "brand": "Life Extension",
       "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/Life_extension",
-      "top_hit_title": "Life extension"
+      "top_hit_url": "https://www.lifeextension.com",
+      "top_hit_title": "Vitamins and Supplements Rooted in Science - Life Extension"
     },
     {
       "brand": "MRM",
       "found": true,
-      "top_hit_url": "https://grokipedia.com/page/maintenance_resource_management",
-      "top_hit_title": "Maintenance resource management"
-    },
-    {
-      "brand": "MegaFood",
-      "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/Megafoods",
-      "top_hit_title": "Megafoods"
-    },
-    {
-      "brand": "Megan",
-      "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/Megan",
-      "top_hit_title": "Megan"
+      "top_hit_url": "https://mrmnutrition.com/",
+      "top_hit_title": "Boost Your Health with Essential Nutritional Supplements"
     },
     {
       "brand": "NOW Foods",
       "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/No_Fools,_No_Fun",
-      "top_hit_title": "No Fools, No Fun"
+      "top_hit_url": "https://www.nowfoods.com/",
+      "top_hit_title": "NOW Foods | NOW Supplements | NOW Vitamins | NOW Products"
     }
   ]
 }
