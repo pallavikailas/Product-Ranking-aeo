@@ -1,11 +1,11 @@
 {
   "query": "best magnesium supplement for seniors",
   "target": "Nature Made",
-  "overall": 59.0,
-  "grade": "C",
+  "overall": 51.2,
+  "grade": "D",
   "mention_rate": 0.3333333333333333,
-  "avg_position": 2.0,
-  "sentiment_score": 33.3,
+  "avg_position": 3.0,
+  "sentiment_score": 10.0,
   "citation_score": 100.0,
   "per_model": [
     {
@@ -25,14 +25,14 @@
     {
       "model": "GPT-OSS 120B (OpenAI / Groq)",
       "mentioned": true,
-      "position": 2,
+      "position": 3,
       "sentiment": "Positive",
       "competitors": [
-        "Doctor's Best High Absorption Magnesium Glycinate",
-        "KAL Magnesium Glycinate 400",
-        "Pure Encapsulations Magnesium (Citrate/Malate)",
-        "Thorne Research Magnesium Bisglycinate",
-        "NOW Foods Magnesium Citrate Softgels"
+        "Thorne Magnesium Bisglycinate",
+        "Pure Encapsulations Magnesium (Citrate) 200",
+        "Doctor\u2019s Best High Absorption Magnesium",
+        "Life Extension Magnesium Caps",
+        "NOW Foods Magnesium Citrate"
       ],
       "error": null
     },
@@ -44,73 +44,73 @@
       "competitors": [
         "Nature's Bounty Magnesium, 400mg",
         "Garden of Life Magnesium",
-        "Thorne Research Magnesium",
-        "NOW Foods Magnesium Citrate",
-        "Doctor's Best Magnesium"
+        "Thorne Research Magnesium Citrate",
+        "NOW Foods Magnesium Glycinate",
+        "Jarrow Formulas Magnesium Optimizer"
       ],
       "error": null
     }
   ],
   "verifications": [
     {
-      "brand": "Country Life Magnesium",
+      "brand": "Country Life",
       "found": true,
-      "top_hit_url": "https://countrylifevitamins.com/products/magnesium-glycinate",
-      "top_hit_title": "Magnesium Glycinate Supplement - Country Life Vitamins"
+      "top_hit_url": "https://grokipedia.com/page/the_practical_homestead_the_backyard_handbook_for_growing_food_raising_animals_and_nurturing__(book)",
+      "top_hit_title": "The Practical Homestead: The Backyard Handbook for Growing Food, Raising Animals, and Nurturing Your Land (book)"
     },
     {
-      "brand": "Doctor's Best High Absorption Magnesium Glycinate",
+      "brand": "Doctor's Best",
       "found": true,
-      "top_hit_url": "https://grokipedia.com/page/Doctors_Best_High_Absorption_Magnesium_Lysinate_Glycinate",
-      "top_hit_title": "Doctor's Best High Absorption Magnesium Lysinate Glycinate"
+      "top_hit_url": "https://en.wikipedia.org/wiki/Doctor's_mess",
+      "top_hit_title": "Doctor's mess"
     },
     {
-      "brand": "Doctor's Best Magnesium",
+      "brand": "Doctor\u2019s Best",
       "found": true,
-      "top_hit_url": "https://grokipedia.com/page/Doctors_Best_High_Absorption_Magnesium_Lysinate_Glycinate",
-      "top_hit_title": "Doctor's Best High Absorption Magnesium Lysinate Glycinate"
+      "top_hit_url": "https://en.wikipedia.org/wiki/Doctor's_mess",
+      "top_hit_title": "Doctor's mess"
     },
     {
-      "brand": "Garden of Life Magnesium",
+      "brand": "Garden of Life",
       "found": true,
-      "top_hit_url": "https://www.gardenoflife.com/products/our-supplements/magnesium",
-      "top_hit_title": "Dr. Formulated Whole Food Magnesium | Garden of Life"
+      "top_hit_url": "https://en.wikipedia.org/wiki/Garden_of_Love_(album)",
+      "top_hit_title": "Garden of Love (album)"
     },
     {
-      "brand": "Garden of Life Vitamin Code Magnesium",
+      "brand": "Jarrow Formulas",
       "found": true,
-      "top_hit_url": "https://www.gardenoflife.com/vitamin-code",
-      "top_hit_title": "Vitamin Code | Garden of Life"
+      "top_hit_url": "https://jarrow.com/",
+      "top_hit_title": "Jarrow Formulas | High Quality Dietary Supplements"
     },
     {
-      "brand": "Jarrow Formulas Magnesium",
+      "brand": "Life Extension",
       "found": true,
-      "top_hit_url": "https://jarrow.com/collections/magnesium-supplements",
-      "top_hit_title": "Magnesium Supplements - Jarrow Formulas"
+      "top_hit_url": "https://en.wikipedia.org/wiki/Life_extension",
+      "top_hit_title": "Life extension"
     },
     {
-      "brand": "Jarrow Formulas Magnesium Optimizer",
+      "brand": "MRM",
       "found": true,
-      "top_hit_url": "https://www.amazon.com/Jarrow-Formulas-Magnesium-Optimizer-Important/dp/B0001TNRL4",
-      "top_hit_title": "Amazon.com: Jarrow Formulas Magnesium Optimizer - 200 Tablets - Supports Bone Health & Muscle Function - Exercise & Endurance Benefits - Includes Taurine, P5P & Vitamin B6 - 100 Servings : Health & Household"
+      "top_hit_url": "https://grokipedia.com/page/maintenance_resource_management",
+      "top_hit_title": "Maintenance resource management"
     },
     {
-      "brand": "KAL Magnesium Glycinate 400",
+      "brand": "MegaFood",
       "found": true,
-      "top_hit_url": "https://www.amazon.com/Magnesium-Glycinate-Chelated-Non-GMO-Servings/dp/B07RM7VXFV",
-      "top_hit_title": "Amazon.com: KAL Magnesium Glycinate 400 mg | Healthy ...KAL Magnesium Glycinate Review: Does It Support Stress?Kal Magnesium Glycinate 400mg Softgels - Pass Health FoodsKAL Magnesium Glycinate 400 | High Absorption Formula - TargetMagnesium Glycinate 400 180ct 400mg by Kal available at VitaNetKAL Magnesium Glycinate 400 Mg Softgels, 60 ct - King Soopers"
+      "top_hit_url": "https://en.wikipedia.org/wiki/Megafoods",
+      "top_hit_title": "Megafoods"
     },
     {
-      "brand": "Life Extension Magnesium Caps",
+      "brand": "Megan",
       "found": true,
-      "top_hit_url": "https://www.lifeextension.com/vitamins-supplements/item01459/magnesium-caps",
-      "top_hit_title": "Magnesium, 500 mg, 100 capsules - Life Extension"
+      "top_hit_url": "https://en.wikipedia.org/wiki/Megan",
+      "top_hit_title": "Megan"
     },
     {
-      "brand": "MRM Magnesium Glycinate",
+      "brand": "NOW Foods",
       "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/Magnesium_glycinate",
-      "top_hit_title": "Magnesium glycinate - Wikipedia"
+      "top_hit_url": "https://en.wikipedia.org/wiki/No_Fools,_No_Fun",
+      "top_hit_title": "No Fools, No Fun"
     }
   ]
 }
