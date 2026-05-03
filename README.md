@@ -39,10 +39,13 @@ The pipeline is built on three layers:
 
 ## What it does
 
-1. **LangChain** sends a shopper query to a panel of **3 LLMs** via Groq — free, fast inference:
+1. **LangChain** sends a shopper query to a panel of **6 LLMs** via Groq — free, fast inference:
    - **Llama 3.3 70B** (Meta)
    - **GPT-OSS 120B** (OpenAI open weights)
    - **Llama 4 Scout 17B** (Meta)
+   - **Gemma 2 9B** (Google)
+   - **DeepSeek R1 Distill 70B** (DeepSeek)
+   - **QwQ 32B** (Qwen / Alibaba)
 2. **LangGraph** orchestrates the pipeline: query → parse → verify → score, with a conditional branch that skips web verification when `--no-verify` is passed.
 3. Parses each reply to find the target brand, its **rank**, and the **sentiment** of surrounding text.
 4. Extracts all cited brands and **verifies each against DuckDuckGo** to catch hallucinations.
@@ -53,10 +56,10 @@ The pipeline is built on three layers:
 
 | Component                | Tool                                                                      | 
 |--------------------------|---------------------------------------------------------------------------|
-| LLM panel (3 models)     | **Groq API** + **LangChain** — `langchain-groq` (Llama · Mixtral · Gemma) |
+| LLM panel (6 models)     | **Groq API** + **LangChain** — Meta · OpenAI · Google · DeepSeek · Qwen   |
 | Pipeline orchestration   | **LangGraph** — `StateGraph` with conditional routing                     |
 | Deep research agent      | **LangGraph ReAct** — `create_react_agent` + custom tools                 |
-| Citation verifier        | **DuckDuckGo HTML** — `requests` + `bs4`                                  |
+| Citation verifier        | **DuckDuckGo** — `ddgs` package + Llama 3.3 70B brand extraction          |
 | UI                       | **Streamlit**                                                             |
 | CI / scheduled runs      | **GitHub Actions**                                                        |
 | Tests                    | **pytest**                                                                |
