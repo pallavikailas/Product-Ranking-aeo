@@ -61,7 +61,7 @@ The pipeline is built on three layers:
 ## Quickstart
 
 ```bash
-git clone https://github.com/<you>/aeo-diagnostic.git
+git clone https://github.com/pallavikailas/Product-Ranking-aeo.git
 cd aeo-diagnostic
 pip install -r requirements.txt
 
