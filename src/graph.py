@@ -23,6 +23,7 @@ from typing_extensions import TypedDict
 from .models import ModelResponse, ScoreCard, LLMRankingOutput
 from .chains import ALL_LLM_CONFIGS, build_ranking_chain
 from .parser import parse_products, find_target, score_sentiment
+from .scorer import extract_brands_with_llm
 from .web_verifier import verify_brands
 
 
@@ -68,16 +69,19 @@ def _query_panel(state: AEOState) -> dict:
 
 
 def _extract_brands(state: AEOState) -> dict:
-    """Extract unique brand names from all LLM responses."""
-    brands: set[str] = set()
+    """Extract brand names from all LLM responses using Llama 3.3 70B."""
+    product_names: set[str] = set()
     for resp in state["raw_responses"]:
         if resp.error or not resp.text:
             continue
         for product in parse_products(resp.text):
             name = product.name.strip("®™ ") if product.name else ""
             if len(name) > 2:
-                brands.add(name)
-    return {"all_brands": sorted(brands)}
+                product_names.add(name)
+
+    product_list = sorted(product_names)[:15]
+    brand_names = extract_brands_with_llm(product_list)
+    return {"all_brands": sorted(set(brand_names))}
 
 
 def _verify_citations_node(state: AEOState) -> dict:
