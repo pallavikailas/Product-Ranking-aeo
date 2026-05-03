@@ -11,6 +11,14 @@ from pathlib import Path
 
 import streamlit as st
 
+# Bridge Streamlit Cloud secrets → os.environ so all downstream code works
+# unchanged whether running locally or on Streamlit Community Cloud.
+try:
+    if "GROQ_API_KEY" in st.secrets:
+        os.environ.setdefault("GROQ_API_KEY", st.secrets["GROQ_API_KEY"])
+except Exception:
+    pass  # secrets.toml not present locally — fall back to env var
+
 from src.clients import query_all
 from src.scorer import score_panel
 from src.report import write_reports

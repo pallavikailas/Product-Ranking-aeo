@@ -1,5 +1,8 @@
 # AEO Diagnostic
 
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://pallavikailas-product-ranking-aeo-app-rqhxxx.streamlit.app)
+[![CI](https://github.com/pallavikailas/Product-Ranking-aeo/actions/workflows/aeo_diagnostic.yml/badge.svg)](https://github.com/pallavikailas/Product-Ranking-aeo/actions/workflows/aeo_diagnostic.yml)
+
 > **AEO = Answer Engine Optimization.** When a shopper asks an AI assistant *"best magnesium supplement for seniors"*, where does your brand actually rank? This tool finds out — across three independent LLMs — and verifies every citation against the open web.
 
 ## Why
@@ -58,17 +61,42 @@ The pipeline is built on three layers:
 | CI / scheduled runs      | **GitHub Actions**                                                        |
 | Tests                    | **pytest**                                                                |
 
-## Quickstart
+## Live demo
+
+Click the badge at the top — or go directly to the deployed app:
+
+**[→ Open AEO Diagnostic](https://pallavikailas-product-ranking-aeo-app-rqhxxx.streamlit.app)**
+
+*(Update this URL with the actual Streamlit Cloud URL after the first deploy — see below.)*
+
+## Deploy to Streamlit Community Cloud (one-time setup)
+
+1. Push this repo to GitHub (already done at `pallavikailas/Product-Ranking-aeo`).
+2. Go to **[share.streamlit.io](https://share.streamlit.io)** → **New app**.
+3. Select repository `pallavikailas/Product-Ranking-aeo`, branch `main`, main file `app.py`.
+4. Click **Advanced settings → Secrets** and paste:
+   ```toml
+   GROQ_API_KEY = "gsk_…"
+   ```
+5. Click **Deploy**. Streamlit Cloud gives you a permanent public URL (e.g. `https://pallavikailas-product-ranking-aeo-app-xxxxx.streamlit.app`). Replace the placeholder link above and in the badge with that URL.
+
+After that, every push to `main` auto-redeploys the app — no further action needed.
+
+## Local quickstart (optional)
 
 ```bash
 git clone https://github.com/pallavikailas/Product-Ranking-aeo.git
-cd aeo-diagnostic
+cd Product-Ranking-aeo
 pip install -r requirements.txt
 
 # Get a free Groq key at https://console.groq.com/keys
 export GROQ_API_KEY="gsk_…"
+# or copy .streamlit/secrets.toml.example → .streamlit/secrets.toml and fill in
 
-# CLI (standard run)
+# Streamlit UI
+streamlit run app.py
+
+# CLI
 python aeo_diagnostic.py \
   --query "best magnesium supplement for seniors" \
   --target "Nature Made"
@@ -78,12 +106,6 @@ python aeo_diagnostic.py \
   --query "best magnesium supplement for seniors" \
   --target "Nature Made" \
   --deep-analysis
-
-# Skip web citation verification
-python aeo_diagnostic.py --query "..." --target "..." --no-verify
-
-# Streamlit UI
-streamlit run app.py
 ```
 
 The CLI writes `reports/aeo_<slug>_<date>.html` and `.json`. Open the HTML in a browser.
@@ -177,9 +199,14 @@ The agent uses `llama-3.3-70b-versatile` via Groq (same `GROQ_API_KEY`).
 
 ## Running autonomously
 
-The included GitHub Actions workflow has two jobs:
-- **`test`** — runs `pytest tests/` on **every push to `main`** (no secrets needed).
-- **`diagnostic`** — runs the full AEO diagnostic on `workflow_dispatch` and the weekly `schedule` trigger. Set `GROQ_API_KEY` as a repo secret. Reports are uploaded as workflow artifacts and committed back to the repo.
+The included GitHub Actions workflow has two jobs that run on **every push to `main`**, on `workflow_dispatch`, and on the weekly Monday schedule:
+
+| Job | Trigger | Needs secret? |
+|-----|---------|---------------|
+| **`test`** | every push | No |
+| **`diagnostic`** | every push (after tests pass) | `GROQ_API_KEY` |
+
+Add `GROQ_API_KEY` under **Settings → Secrets → Actions** in your repo. If the secret is absent the diagnostic step logs a warning and exits cleanly — the run still shows green. Reports are uploaded as workflow artifacts (90-day retention) and committed back to `reports/`.
 
 ## License
 
