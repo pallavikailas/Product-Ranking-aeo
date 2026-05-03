@@ -60,25 +60,21 @@ with st.sidebar:
     run = st.button("Run diagnostic", type="primary", use_container_width=True)
     st.divider()
     st.caption(
-        "Panel: GPT-4o · Claude Sonnet · Gemini 1.5 Pro — via **LangChain**.  \n"
+        "Panel: Llama 3.3 70B · Mixtral 8x7B · Gemma 2 9B — via **Groq + LangChain**.  \n"
         "Pipeline: **LangGraph** state machine.  \n"
         "Citation verifier: DuckDuckGo."
     )
-    missing_keys = [
-        k for k in ("OPENAI_API_KEY", "ANTHROPIC_API_KEY", "GEMINI_API_KEY")
-        if not os.environ.get(k)
-    ]
-    if missing_keys:
-        st.warning(f"Missing env vars: {', '.join(missing_keys)}")
+    if not os.environ.get("GROQ_API_KEY"):
+        st.warning("GROQ_API_KEY env var is not set.")
 
 if run:
-    if len(missing_keys) == 3:
-        st.error("At least one of OPENAI_API_KEY, ANTHROPIC_API_KEY, or GEMINI_API_KEY must be set.")
+    if not os.environ.get("GROQ_API_KEY"):
+        st.error("Set GROQ_API_KEY before running. Get a free key at https://console.groq.com/keys")
         st.stop()
 
     progress = st.empty()
     with progress.container():
-        with st.spinner("Querying the LLM panel via LangChain …"):
+        with st.spinner("Querying Llama, Mixtral & Gemma via Groq + LangChain …"):
             responses = query_all(query)
         with st.spinner("Scoring, verifying citations, running LangGraph pipeline …"):
             card = score_panel(target, query, responses, verify_citations=verify)

@@ -1,7 +1,8 @@
 name: AEO Diagnostic
 
 on:
-  # Run on-demand via GitHub UI or API
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       query:
@@ -18,26 +19,19 @@ on:
         default: "false"
         type: choice
         options: ["true", "false"]
-
-  # Automated weekly run every Monday at 09:00 UTC
   schedule:
-    - cron: "0 9 * * 1"
+    - cron: "0 9 * * 1"   # every Monday at 09:00 UTC
 
 jobs:
-  aeo-diagnostic:
-    name: Run AEO Diagnostic
+  # ── Job 1: unit tests — runs on every push, dispatch, and schedule ────────────
+  test:
+    name: Unit tests
     runs-on: ubuntu-latest
-    permissions:
-      contents: write   # allows committing the report back to the repo
 
     steps:
-      # ── 1. checkout ──────────────────────────────────────────────────────────
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # ── 2. python setup ───────────────────────────────────────────────────────
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
@@ -45,18 +39,35 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      # ── 3. run offline tests ──────────────────────────────────────────────────
-      - name: Run unit tests (offline)
+      - name: Run offline unit tests
         run: pytest tests/ -v
 
-      # ── 4. resolve inputs (dispatch vs schedule) ──────────────────────────────
+  # ── Job 2: full diagnostic — only on dispatch and schedule ────────────────────
+  diagnostic:
+    name: Run AEO Diagnostic
+    runs-on: ubuntu-latest
+    needs: test                          # don't run if tests fail
+    if: github.event_name != 'push'      # skip on plain push; needs GROQ_API_KEY
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
       - name: Resolve query and target
         id: inputs
         run: |
           QUERY="${{ github.event.inputs.query }}"
           TARGET="${{ github.event.inputs.target }}"
           DEEP="${{ github.event.inputs.deep_analysis }}"
-          # Fall back to defaults when triggered by the scheduler
           QUERY="${QUERY:-best magnesium supplement for seniors}"
           TARGET="${TARGET:-Nature Made}"
           DEEP="${DEEP:-false}"
@@ -64,12 +75,9 @@ jobs:
           echo "target=$TARGET" >> "$GITHUB_OUTPUT"
           echo "deep=$DEEP"     >> "$GITHUB_OUTPUT"
 
-      # ── 5. run diagnostic ─────────────────────────────────────────────────────
       - name: Run AEO Diagnostic
         env:
-          OPENAI_API_KEY:    ${{ secrets.OPENAI_API_KEY }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          GEMINI_API_KEY:    ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
           DEEP_FLAG=""
           if [ "${{ steps.inputs.outputs.deep }}" = "true" ]; then
@@ -81,7 +89,6 @@ jobs:
             --output-dir reports/ \
             $DEEP_FLAG
 
-      # ── 6. upload as workflow artifact ────────────────────────────────────────
       - name: Upload report artifact
         uses: actions/upload-artifact@v4
         with:
@@ -89,7 +96,6 @@ jobs:
           path: reports/
           retention-days: 90
 
-      # ── 7. commit report to repo (creates a browsable history) ────────────────
       - name: Commit report to repository
         run: |
           git config user.name  "github-actions[bot]"
