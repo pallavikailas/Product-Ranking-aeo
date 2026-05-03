@@ -15,25 +15,25 @@ The pipeline is built on three layers:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  LangChain Chains  (src/chains.py)                       │
-│  Unified prompt + LLM interface for GPT-4o, Claude,      │
-│  and Gemini — one chain definition runs all three.        │
+│  LangChain Chains  (src/chains.py)                      │
+│  Unified prompt + LLM interface for GPT-4o, Claude,     │
+│  and Gemini — one chain definition runs all three.      │
 └────────────────────────┬────────────────────────────────┘
                          │
 ┌────────────────────────▼────────────────────────────────┐
-│  LangGraph Pipeline  (src/graph.py)                      │
-│                                                          │
-│  START → query_panel → extract_brands                    │
-│              └─(conditional)─► verify_citations          │
-│                                      └─► compute_score   │
-│                                                END        │
+│  LangGraph Pipeline  (src/graph.py)                     │
+│                                                         │
+│  START → query_panel → extract_brands                   │
+│              └─(conditional)─► verify_citations         │
+│                                      └─► compute_score  │
+│                                                END      │
 └────────────────────────┬────────────────────────────────┘
                          │
 ┌────────────────────────▼────────────────────────────────┐
-│  Deep Research Agent  (src/agents.py)                    │
-│  LangGraph ReAct agent with tools:                       │
-│    • search_brand_presence  (DuckDuckGo web check)       │
-│    • analyze_aeo_gap        (structured recommendations)  │
+│  Deep Research Agent  (src/agents.py)                   │
+│  LangGraph ReAct agent with tools:                      │
+│    • search_brand_presence  (DuckDuckGo web check)      │
+│    • analyze_aeo_gap        (structured recommendations)│
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -51,15 +51,15 @@ The pipeline is built on three layers:
 
 ## Stack
 
-| Component                | Tool                                                          |
-|--------------------------|---------------------------------------------------------------|
+| Component                | Tool                                                                      | 
+|--------------------------|---------------------------------------------------------------------------|
 | LLM panel (3 models)     | **Groq API** + **LangChain** — `langchain-groq` (Llama · Mixtral · Gemma) |
-| Pipeline orchestration   | **LangGraph** — `StateGraph` with conditional routing         |
-| Deep research agent      | **LangGraph ReAct** — `create_react_agent` + custom tools     |
-| Citation verifier        | **DuckDuckGo HTML** — `requests` + `bs4`                      |
-| UI                       | **Streamlit**                                                 |
-| CI / scheduled runs      | **GitHub Actions**                                            |
-| Tests                    | **pytest**                                                    |
+| Pipeline orchestration   | **LangGraph** — `StateGraph` with conditional routing                     |
+| Deep research agent      | **LangGraph ReAct** — `create_react_agent` + custom tools                 |
+| Citation verifier        | **DuckDuckGo HTML** — `requests` + `bs4`                                  |
+| UI                       | **Streamlit**                                                             |
+| CI / scheduled runs      | **GitHub Actions**                                                        |
+| Tests                    | **pytest**                                                                |
 
 ## Live demo
 
