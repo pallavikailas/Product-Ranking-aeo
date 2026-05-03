@@ -23,7 +23,7 @@ on:
     - cron: "0 9 * * 1"   # every Monday at 09:00 UTC
 
 jobs:
-  # ── Job 1: unit tests — runs on every push, dispatch, and schedule ────────────
+  # ── Job 1: unit tests — always runs, no secrets needed ───────────────────────
   test:
     name: Unit tests
     runs-on: ubuntu-latest
@@ -42,12 +42,11 @@ jobs:
       - name: Run offline unit tests
         run: pytest tests/ -v
 
-  # ── Job 2: full diagnostic — only on dispatch and schedule ────────────────────
+  # ── Job 2: full diagnostic — runs on ALL triggers after tests pass ─────────────
   diagnostic:
     name: Run AEO Diagnostic
     runs-on: ubuntu-latest
-    needs: test                          # don't run if tests fail
-    if: github.event_name != 'push'      # skip on plain push; needs GROQ_API_KEY
+    needs: test          # only starts if tests pass
     permissions:
       contents: write
 
@@ -79,6 +78,10 @@ jobs:
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
+          if [ -z "$GROQ_API_KEY" ]; then
+            echo "::warning::GROQ_API_KEY secret not set — add it at Settings › Secrets › Actions to enable live diagnostics."
+            exit 0
+          fi
           DEEP_FLAG=""
           if [ "${{ steps.inputs.outputs.deep }}" = "true" ]; then
             DEEP_FLAG="--deep-analysis"
@@ -90,6 +93,9 @@ jobs:
             $DEEP_FLAG
 
       - name: Upload report artifact
+        if: env.GROQ_API_KEY != ''
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         uses: actions/upload-artifact@v4
         with:
           name: aeo-report-${{ github.run_number }}
@@ -97,6 +103,9 @@ jobs:
           retention-days: 90
 
       - name: Commit report to repository
+        if: env.GROQ_API_KEY != ''
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
