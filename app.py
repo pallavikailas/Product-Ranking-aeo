@@ -60,7 +60,7 @@ with st.sidebar:
     run = st.button("Run diagnostic", type="primary", use_container_width=True)
     st.divider()
     st.caption(
-        "Panel: Llama 3.3 70B · Mixtral 8x7B · Gemma 2 9B — via **Groq + LangChain**.  \n"
+        "Panel: Llama 3.3 70B · GPT-OSS 120B · Llama 4 Scout — via **Groq + LangChain**.  \n"
         "Pipeline: **LangGraph** state machine.  \n"
         "Citation verifier: DuckDuckGo."
     )
@@ -74,7 +74,7 @@ if run:
 
     progress = st.empty()
     with progress.container():
-        with st.spinner("Querying Llama, Mixtral & Gemma via Groq + LangChain …"):
+        with st.spinner("Querying Llama 3.3, GPT-OSS 120B & Llama 4 via Groq + LangChain …"):
             responses = query_all(query)
         with st.spinner("Scoring, verifying citations, running LangGraph pipeline …"):
             card = score_panel(target, query, responses, verify_citations=verify)

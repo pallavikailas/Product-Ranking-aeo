@@ -38,8 +38,8 @@ The pipeline is built on three layers:
 
 1. **LangChain** sends a shopper query to a panel of **3 LLMs** via Groq — free, fast inference:
    - **Llama 3.3 70B** (Meta)
-   - **Mixtral 8x7B** (Mistral AI)
-   - **Gemma 2 9B** (Google)
+   - **GPT-OSS 120B** (OpenAI open weights)
+   - **Llama 4 Scout 17B** (Meta)
 2. **LangGraph** orchestrates the pipeline: query → parse → verify → score, with a conditional branch that skips web verification when `--no-verify` is passed.
 3. Parses each reply to find the target brand, its **rank**, and the **sentiment** of surrounding text.
 4. Extracts all cited brands and **verifies each against DuckDuckGo** to catch hallucinations.
@@ -97,9 +97,9 @@ The CLI writes `reports/aeo_<slug>_<date>.html` and `.json`. Open the HTML in a 
   Target: Nature Made
 ============================================================
 
-  → Querying Llama 3.3 70B (Meta / Groq) …     ✓  812 chars in 432 ms
-  → Querying Mixtral 8x7B (Mistral / Groq) …   ✓  941 chars in 503 ms
-  → Querying Gemma 2 9B (Google / Groq) …      ✓  774 chars in 389 ms
+  → Querying Llama 3.3 70B (Meta / Groq) …         ✓  812 chars in 432 ms
+  → Querying GPT-OSS 120B (OpenAI / Groq) …        ✓  941 chars in 503 ms
+  → Querying Llama 4 Scout 17B (Meta / Groq) …     ✓  774 chars in 389 ms
 
 Scoring & verifying …
 
