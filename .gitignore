@@ -23,3 +23,13 @@ env/
 
 # Generated reports are committed via CI; ignore local test runs in subdirs
 reports/local/
+
+# Node.js / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env.local
+*.tsbuildinfo
+
+# Fly.io
+.fly/

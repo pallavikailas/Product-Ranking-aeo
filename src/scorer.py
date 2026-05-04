@@ -128,7 +128,15 @@ def score_panel(
     if verify_citations and all_brands:
         product_list = sorted(all_brands)[:15]
         brand_names = extract_brands_with_llm(product_list)
-        unique_brands = sorted(set(brand_names))[:10]
+
+        # Deduplicate: preserve first occurrence of each case-insensitive brand name
+        seen_lower: dict[str, str] = {}
+        for b in brand_names:
+            key = b.lower().strip()
+            if key and key not in seen_lower:
+                seen_lower[key] = b
+        unique_brands = sorted(seen_lower.values())[:10]
+
         verifications = verify_brands(unique_brands)
 
     citation_score = (

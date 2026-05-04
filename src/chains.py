@@ -4,15 +4,13 @@ Panel (all production-tier on Groq):
   • Llama 3.3 70B        (Meta)
   • GPT-OSS 120B         (OpenAI open weights)
   • Llama 4 Scout 17B    (Meta)
-  • Gemma 2 9B           (Google)
-  • DeepSeek R1 70B      (DeepSeek)
-  • QwQ 32B              (Qwen / Alibaba)
+  • Llama 3.1 8B Instant (Meta)
+  • GPT-OSS 20B          (OpenAI open weights)
+  • Qwen3 32B            (Qwen / Alibaba)
 
 All six are queried via a single GROQ_API_KEY.
 The chain returns the raw LLM text so the regex parser in scorer.py
 handles all response format variations without losing data.
-
-Note: Anthropic Claude is not available on Groq (requires Anthropic API).
 """
 
 from __future__ import annotations
@@ -63,6 +61,19 @@ def get_llama_llm() -> Optional[BaseChatModel]:
     return _groq_llm("llama-3.3-70b-versatile")
 
 
+def get_mixtral_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("mixtral-8x7b-32768")
+
+
+# ── Google ────────────────────────────────────────────────────────────────────
+
+def get_gemma_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("gemma2-9b-it")
+=======
+def get_llama31_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("llama-3.1-8b-instant")
+
+
 def get_llama4_llm() -> Optional[BaseChatModel]:
     return _groq_llm("meta-llama/llama-4-scout-17b-16e-instruct")
 
@@ -73,10 +84,14 @@ def get_gpt_oss_llm() -> Optional[BaseChatModel]:
     return _groq_llm("openai/gpt-oss-120b")
 
 
-# ── Google ────────────────────────────────────────────────────────────────────
+def get_gpt_oss20_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("openai/gpt-oss-20b")
 
-def get_gemma_llm() -> Optional[BaseChatModel]:
-    return _groq_llm("gemma2-9b-it")
+
+# ── Qwen / Alibaba ────────────────────────────────────────────────────────────
+
+def get_qwen3_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("qwen/qwen3-32b")
 
 
 # ── DeepSeek ──────────────────────────────────────────────────────────────────
