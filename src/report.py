@@ -333,7 +333,7 @@ def write_reports(card, out_dir) -> tuple:
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     slug = re.sub(r"[^a-z0-9]+", "-", card.target.lower()).strip("-")
-    date_str = datetime.datetime.utcnow().strftime("%Y-%m-%d")
+    date_str = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
     base = out_dir / f"aeo_{slug}_{date_str}"
     html_path = base.with_suffix(".html")
     json_path = base.with_suffix(".json")
