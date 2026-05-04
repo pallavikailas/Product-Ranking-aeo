@@ -1,9 +1,19 @@
 """LangChain prompt chains — all models hosted on Groq for free, fast inference.
 
+<<<<<<< Updated upstream
 Panel:
   • Llama 3.3 70B   (Meta)
   • Mixtral 8x7B    (Mistral AI)
   • Gemma 2 9B      (Google)
+=======
+Panel (all production-tier on Groq):
+  • Llama 3.3 70B        (Meta)
+  • GPT-OSS 120B         (OpenAI open weights)
+  • Llama 4 Scout 17B    (Meta)
+  • Llama 3.1 8B Instant (Meta)
+  • GPT-OSS 20B          (OpenAI open weights)
+  • Qwen3 32B            (Qwen / Alibaba)
+>>>>>>> Stashed changes
 
 All three are queried via a single GROQ_API_KEY.
 """
@@ -68,17 +78,51 @@ def get_llama_llm() -> Optional[BaseChatModel]:
     return _groq_llm("llama-3.3-70b-versatile")
 
 
+<<<<<<< Updated upstream
 def get_mixtral_llm() -> Optional[BaseChatModel]:
     return _groq_llm("mixtral-8x7b-32768")
 
 
 def get_gemma_llm() -> Optional[BaseChatModel]:
     return _groq_llm("gemma2-9b-it")
+=======
+def get_llama31_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("llama-3.1-8b-instant")
+
+
+def get_llama4_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("meta-llama/llama-4-scout-17b-16e-instruct")
+
+
+# ── OpenAI open weights ───────────────────────────────────────────────────────
+
+def get_gpt_oss_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("openai/gpt-oss-120b")
+
+
+def get_gpt_oss20_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("openai/gpt-oss-20b")
+
+
+# ── Qwen / Alibaba ────────────────────────────────────────────────────────────
+
+def get_qwen3_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("qwen/qwen3-32b")
+>>>>>>> Stashed changes
 
 
 # Ordered panel: (display label, LLM factory)
 ALL_LLM_CONFIGS: list[tuple[str, callable]] = [
+<<<<<<< Updated upstream
     ("Llama 3.3 70B (Meta / Groq)", get_llama_llm),
     ("Mixtral 8x7B (Mistral / Groq)", get_mixtral_llm),
     ("Gemma 2 9B (Google / Groq)", get_gemma_llm),
+=======
+    ("Llama 3.3 70B",        get_llama_llm),
+    ("GPT-OSS 120B",         get_gpt_oss_llm),
+    ("Llama 4 Scout 17B",    get_llama4_llm),
+    ("Llama 3.1 8B Instant", get_llama31_llm),
+    ("GPT-OSS 20B",          get_gpt_oss20_llm),
+    ("Qwen3 32B",            get_qwen3_llm),
+>>>>>>> Stashed changes
 ]
