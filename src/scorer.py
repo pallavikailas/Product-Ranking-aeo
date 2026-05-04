@@ -13,70 +13,9 @@ Scoring formula (out of 100):
 
 from __future__ import annotations
 
-import json
-import os
-import re
-
 from .models import ModelResponse, PerModelResult, ScoreCard
 from .parser import parse_products, find_target, score_sentiment
 from .web_verifier import verify_brands
-
-
-def extract_brands_with_llm(product_names: list[str]) -> list[str]:
-    """Use Llama 3.3 70B to extract the brand-name portion from full product strings.
-
-    Falls back to the raw product names if the API key is absent or the call fails.
-    """
-    key = os.environ.get("GROQ_API_KEY")
-    if not key or not product_names:
-        return product_names
-
-    try:
-        from langchain_groq import ChatGroq
-        from langchain_core.prompts import ChatPromptTemplate
-        from langchain_core.output_parsers import StrOutputParser
-
-        llm = ChatGroq(
-            model="llama-3.3-70b-versatile",
-            temperature=0,
-            max_tokens=512,
-            groq_api_key=key,
-        )
-        prompt = ChatPromptTemplate.from_messages([
-            (
-                "system",
-                (
-                    "You extract supplement brand names from product strings. "
-                    "Given a list of product names, return ONLY the manufacturer/brand "
-                    "portion (not the product type, form, or dosage). "
-                    "Examples: "
-                    "'Garden of Life Magnesium' → 'Garden of Life', "
-                    "'Doctor's Best High Absorption Magnesium (Magnesium Glycinate)' → 'Doctor\\'s Best', "
-                    "'NOW Foods Magnesium Citrate' → 'NOW Foods', "
-                    "'Nature Made Magnesium Citrate' → 'Nature Made', "
-                    "'KAL Magnesium Glycinate 400' → 'KAL', "
-                    "'Jigsaw Health MagSRT' → 'Jigsaw Health'. "
-                    "Return a JSON array of strings — one brand per entry, same order as input."
-                ),
-            ),
-            (
-                "human",
-                "Extract brand names:\n{products}\n\nReturn only a JSON array of strings.",
-            ),
-        ])
-        chain = prompt | llm | StrOutputParser()
-        raw = chain.invoke({"products": "\n".join(f"- {p}" for p in product_names)})
-
-        m = re.search(r"\[.*?\]", raw, re.DOTALL)
-        if m:
-            parsed = json.loads(m.group())
-            brands = [b.strip() for b in parsed if isinstance(b, str) and b.strip()]
-            if brands:
-                return brands
-    except Exception:
-        pass
-
-    return product_names
 
 
 def score_panel(
@@ -113,9 +52,9 @@ def score_panel(
             sentiments.append(sent)
 
             for p in products:
-                name = p.name.strip("®™ ") if p.name else ""
-                if len(name) > 2:
-                    all_brands.add(name)
+                first = p.name.split()[0].strip("®™") if p.name else ""
+                if len(first) > 2:
+                    all_brands.add(first)
 
         per_model.append(pm)
 
@@ -123,21 +62,10 @@ def score_panel(
     avg_pos = sum(positions) / len(positions) if positions else None
     avg_sent = sum(sentiments) / len(sentiments) if sentiments else 0.0
 
-    # Use LLM to extract clean brand names, then verify via DuckDuckGo
+    # Citation verification via DuckDuckGo
     verifications: list[dict] = []
     if verify_citations and all_brands:
-        product_list = sorted(all_brands)[:15]
-        brand_names = extract_brands_with_llm(product_list)
-
-        # Deduplicate: preserve first occurrence of each case-insensitive brand name
-        seen_lower: dict[str, str] = {}
-        for b in brand_names:
-            key = b.lower().strip()
-            if key and key not in seen_lower:
-                seen_lower[key] = b
-        unique_brands = sorted(seen_lower.values())[:10]
-
-        verifications = verify_brands(unique_brands)
+        verifications = verify_brands(sorted(all_brands)[:10])
 
     citation_score = (
         sum(1 for v in verifications if v["found"]) / len(verifications) * 100
