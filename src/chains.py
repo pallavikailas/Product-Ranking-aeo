@@ -74,7 +74,17 @@ def get_gpt_oss_llm() -> Optional[BaseChatModel]:
 
 
 def get_compound_llm() -> Optional[BaseChatModel]:
-    return _groq_llm("groq/compound")
+    key = os.environ.get("GROQ_API_KEY")
+    if not key:
+        return None
+    try:
+        from langchain_groq import ChatGroq
+        # compound-mini avoids the 413 "request_too_large" error that compound
+        # triggers when web-search results inflate the context beyond its limit.
+        return ChatGroq(model="groq/compound-mini", temperature=0.3,
+                        max_tokens=600, groq_api_key=key)
+    except ImportError:
+        return None
 
 
 # ── Qwen / Alibaba ────────────────────────────────────────────────────────────

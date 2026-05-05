@@ -7,6 +7,7 @@ Run: streamlit run app.py
 from __future__ import annotations
 
 import os
+import unicodedata
 from collections import Counter
 from pathlib import Path
 
@@ -242,6 +243,7 @@ if run:
     st.caption("Brands recommended most consistently across all models — a proxy for AEO authority in this category")
 
     active = [pm for pm in card.per_model if not pm.error]
+    n_total = len(card.per_model)
     comp_counts: Counter = Counter()
     for pm in active:
         seen_this_model: set[str] = set()
@@ -252,15 +254,14 @@ if run:
                 seen_this_model.add(c_norm.lower())
 
     if comp_counts:
-        n = max(len(active), 1)
         for brand, count in comp_counts.most_common(8):
-            pct = count / n * 100
+            pct = count / n_total * 100
             bar_col = "#0d9b6c" if pct >= 60 else "#3b82f6" if pct >= 30 else "#94a3b8"
             st.markdown(
                 f"<div style='margin-bottom:10px'>"
                 f"<div style='display:flex;justify-content:space-between;margin-bottom:3px'>"
                 f"<span class='comp-name'>{brand}</span>"
-                f"<span class='comp-count'>{count}/{n} models</span></div>"
+                f"<span class='comp-count'>{count}/{n_total} models</span></div>"
                 f"<div class='comp-track'>"
                 f"<div style='background:{bar_col};width:{pct:.0f}%;height:6px;border-radius:4px'></div>"
                 f"</div></div>",
@@ -276,9 +277,15 @@ if run:
     if not card.verifications:
         st.info("No brands extracted to verify (or verification was skipped).")
     else:
+        def _cite_key(s: str) -> str:
+            # NFKD decomposition + drop non-ASCII → collapses all apostrophe/quote
+            # variants, diacritics, and other Unicode punctuation differences
+            nfkd = unicodedata.normalize("NFKD", s)
+            return nfkd.encode("ascii", "ignore").decode().casefold().strip()
+
         seen: set[str] = set()
         for v in card.verifications:
-            key = v["brand"].lower().strip()
+            key = _cite_key(v["brand"])
             if key in seen:
                 continue
             seen.add(key)
