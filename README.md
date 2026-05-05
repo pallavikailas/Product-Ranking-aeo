@@ -39,12 +39,9 @@ The pipeline is built on three layers:
 
 ## What it does
 
-1. **LangChain** sends a shopper query to a panel of **3 LLMs** via Groq — free, fast inference:
-   - **Llama 3.3 70B** (Meta)
-   - **Mixtral 8x7B** (Mistral AI)
-   - **Gemma 2 9B** (Google)
+1. **LangChain** sends a shopper query to a panel of **6 LLMs** via Groq — free, fast inference:
 2. **LangGraph** orchestrates the pipeline: query → parse → verify → score, with a conditional branch that skips web verification when `--no-verify` is passed.
-3. Parses each reply to find the target brand, its **rank**, and the **sentiment** of surrounding text.
+3. Parses each reply to find the target brand, its **rank**, and the **sentiment** of the surrounding text.
 4. Extracts all cited brands and **verifies each against DuckDuckGo** to catch hallucinations.
 5. Optionally runs a **LangGraph ReAct deep agent** that investigates brand presence and generates targeted AEO recommendations.
 6. Outputs a **report card** (HTML + JSON) with an A–F grade and per-model breakdown.
@@ -53,84 +50,13 @@ The pipeline is built on three layers:
 
 | Component                | Tool                                                                      | 
 |--------------------------|---------------------------------------------------------------------------|
-| LLM panel (3 models)     | **Groq API** + **LangChain** — `langchain-groq` (Llama · Mixtral · Gemma) |
+| LLM panel (6 models)     | **Groq API** + **LangChain** — `langchain-groq`                           |
 | Pipeline orchestration   | **LangGraph** — `StateGraph` with conditional routing                     |
 | Deep research agent      | **LangGraph ReAct** — `create_react_agent` + custom tools                 |
 | Citation verifier        | **DuckDuckGo HTML** — `requests` + `bs4`                                  |
 | UI                       | **Streamlit**                                                             |
 | CI / scheduled runs      | **GitHub Actions**                                                        |
 | Tests                    | **pytest**                                                                |
-
-## Live demo
-
-Click the badge at the top — or go directly to the deployed app:
-
-**[→ Open AEO Diagnostic](https://pallavikailas-product-ranking-aeo-app-rqhxxx.streamlit.app)**
-
-*(Update this URL with the actual Streamlit Cloud URL after the first deploy — see below.)*
-
-## Deploy to Streamlit Community Cloud (one-time setup)
-
-1. Push this repo to GitHub (already done at `pallavikailas/Product-Ranking-aeo`).
-2. Go to **[share.streamlit.io](https://share.streamlit.io)** → **New app**.
-3. Select repository `pallavikailas/Product-Ranking-aeo`, branch `main`, main file `app.py`.
-4. Click **Advanced settings → Secrets** and paste:
-   ```toml
-   GROQ_API_KEY = "gsk_…"
-   ```
-5. Click **Deploy**. Streamlit Cloud gives you a permanent public URL (e.g. `https://pallavikailas-product-ranking-aeo-app-xxxxx.streamlit.app`). Replace the placeholder link above and in the badge with that URL.
-
-After that, every push to `main` auto-redeploys the app — no further action needed.
-
-## Local quickstart (optional)
-
-```bash
-git clone https://github.com/pallavikailas/Product-Ranking-aeo.git
-cd Product-Ranking-aeo
-pip install -r requirements.txt
-
-# Get a free Groq key at https://console.groq.com/keys
-export GROQ_API_KEY="gsk_…"
-# or copy .streamlit/secrets.toml.example → .streamlit/secrets.toml and fill in
-
-# Streamlit UI
-streamlit run app.py
-
-# CLI
-python aeo_diagnostic.py \
-  --query "best magnesium supplement for seniors" \
-  --target "Nature Made"
-
-# CLI + deep agent analysis
-python aeo_diagnostic.py \
-  --query "best magnesium supplement for seniors" \
-  --target "Nature Made" \
-  --deep-analysis
-```
-
-The CLI writes `reports/aeo_<slug>_<date>.html` and `.json`. Open the HTML in a browser.
-
-## Sample output
-
-```
-============================================================
-  AEO Diagnostic  (LangChain · LangGraph · Deep Agents)
-  Query : best magnesium supplement for seniors
-  Target: Nature Made
-============================================================
-
-  → Querying Llama 3.3 70B (Meta / Groq) …     ✓  812 chars in 432 ms
-  → Querying Mixtral 8x7B (Mistral / Groq) …   ✓  941 chars in 503 ms
-  → Querying Gemma 2 9B (Google / Groq) …      ✓  774 chars in 389 ms
-
-Scoring & verifying …
-
-  Overall  : 78.4/100   Grade : B
-  Mention  : 100% of models
-  Avg pos  : 2.0
-  Sentiment: 70
-  Citation : 87%
-```
 
 ## Scoring formula
 
@@ -206,8 +132,3 @@ The included GitHub Actions workflow has two jobs that run on **every push to `m
 | **`test`** | every push | No |
 | **`diagnostic`** | every push (after tests pass) | `GROQ_API_KEY` |
 
-Add `GROQ_API_KEY` under **Settings → Secrets → Actions** in your repo. If the secret is absent the diagnostic step logs a warning and exits cleanly — the run still shows green. Reports are uploaded as workflow artifacts (90-day retention) and committed back to `reports/`.
-
-## License
-
-MIT.
