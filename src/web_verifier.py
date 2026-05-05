@@ -46,7 +46,7 @@ def _brand_in_hit(brand: str, title: str, url: str) -> bool:
 # Agentic verification (Groq LLM)
 # -------------------------------
 def agent_verify_brand(brand: str, title: str, url: str) -> Dict:
-        prompt = f"""
+    prompt = f"""
                     You are verifying whether a search result refers to a specific brand.
                     Brand: {brand}
                     Title: {title}
@@ -57,7 +57,6 @@ def agent_verify_brand(brand: str, title: str, url: str) -> Dict:
                         "confidence": number between 0 and 1
                     }}
                     """
-
     try:
         response = client.chat.completions.create(
             model=GROQ_MODEL,
