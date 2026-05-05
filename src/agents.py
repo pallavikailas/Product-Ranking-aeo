@@ -2,12 +2,14 @@
 
 A LangGraph ReAct agent that uses web-search tools to investigate why
 a brand is performing a certain way in AI answer engines and generates
-specific, actionable recommendations.
+specific, actionable recommendations — including temporal analysis based
+on each model's knowledge cutoff date.
 """
 
 from __future__ import annotations
 
 import os
+from datetime import datetime
 from typing import Optional
 
 from langchain_core.tools import tool
@@ -16,8 +18,31 @@ from langgraph.prebuilt import create_react_agent
 
 from .web_verifier import verify_brand
 
+# ── Model info: cutoff dates ──────────────────────────────────────────────────
 
-# ── Tools available to the deep research agent ───────────────────────────────
+MODEL_INFO: dict[str, dict] = {
+    "Llama 3.3 70B":       {"cutoff": "December 2023",  "web_search": False},
+    "GPT-OSS 120B":        {"cutoff": "March 2024",     "web_search": False},
+    "Mistral Saba 24B":    {"cutoff": "March 2024",     "web_search": False},
+    "GPT-OSS 20B":         {"cutoff": "March 2024",     "web_search": False},
+    "Qwen3 32B":           {"cutoff": "September 2024", "web_search": False},
+    "DeepSeek R1 Distill": {"cutoff": "July 2024",      "web_search": False},
+}
+
+# Models with significantly more recent knowledge than Dec-2023 baseline
+_NEWER_CUTOFFS = {"Qwen3 32B", "DeepSeek R1 Distill"}
+
+
+def _months_ago(cutoff_str: str) -> str:
+    try:
+        cutoff = datetime.strptime(cutoff_str, "%B %Y")
+        months = max(1, round((datetime.now() - cutoff).days / 30))
+        return f"~{months} months ago"
+    except Exception:
+        return "unknown"
+
+
+# ── Tools ─────────────────────────────────────────────────────────────────────
 
 @tool
 def search_brand_presence(brand: str) -> str:
@@ -89,10 +114,76 @@ def analyze_aeo_gap(brand: str, query: str, avg_rank: float = -1.0) -> str:
     return "\n".join(lines)
 
 
+@tool
+def analyze_temporal_context(brand: str, mentioned_by: str, not_mentioned_by: str) -> str:
+    """Analyse how knowledge-cutoff dates affect which models mention a brand.
+
+    Divergence between older and newer cutoff models reveals AEO trajectory.
+
+    Args:
+        brand: The target brand.
+        mentioned_by: Comma-separated list of models that DID mention the brand.
+        not_mentioned_by: Comma-separated list of models that did NOT mention it.
+    """
+    now_str = datetime.now().strftime("%B %Y")
+    lines = [
+        f"Temporal Analysis — '{brand}' (as of {now_str})",
+        "",
+        "Panel model details:",
+    ]
+
+    mentioned_list     = [m.strip() for m in mentioned_by.split(",")     if m.strip() and m.strip() != "none"]
+    not_mentioned_list = [m.strip() for m in not_mentioned_by.split(",") if m.strip() and m.strip() != "none"]
+
+    for model in mentioned_list + not_mentioned_list:
+        info = MODEL_INFO.get(model, {"cutoff": "unknown", "web_search": False})
+        cut  = info["cutoff"]
+        age  = _months_ago(cut)
+        mark = "✅" if model in mentioned_list else "❌"
+        lines.append(f"  {mark} {model}  [📚 trained {cut} ({age})]")
+
+    training_mentioned     = [m for m in mentioned_list     if not MODEL_INFO.get(m, {}).get("web_search")]
+    training_not_mentioned = [m for m in not_mentioned_list if not MODEL_INFO.get(m, {}).get("web_search")]
+
+    newer_mention = any(m in _NEWER_CUTOFFS for m in training_mentioned)
+    newer_miss    = any(m in _NEWER_CUTOFFS for m in training_not_mentioned)
+    older_mention = any(m not in _NEWER_CUTOFFS for m in training_mentioned)
+    older_miss    = any(m not in _NEWER_CUTOFFS for m in training_not_mentioned)
+
+    lines += ["", "── Temporal interpretation ─────────────────────────────────────"]
+
+    if not training_mentioned and not training_not_mentioned:
+        lines.append("  No training-data models in this comparison.")
+    elif newer_mention and older_miss:
+        lines.append(
+            "  → Newer-cutoff models mention the brand; older ones don't.\n"
+            "    Your AEO/SEO work from the past 12–24 months is paying off.\n"
+            "    Older models will reflect this at their next training cycle."
+        )
+    elif older_mention and newer_miss:
+        lines.append(
+            "  → Older-cutoff models mention the brand; newer ones don't.\n"
+            "    The brand may have lost authority recently — investigate\n"
+            "    negative press, product changes, or rising competitors."
+        )
+    elif not training_mentioned:
+        lines.append(
+            "  → No model mentions the brand.\n"
+            "    This is a structural issue (low web authority).\n"
+            "    A comprehensive AEO/SEO overhaul is required."
+        )
+    else:
+        lines.append(
+            "  → Visibility is consistent across model generations.\n"
+            "    Brand authority is stable. Focus on pushing into the top-3 positions."
+        )
+
+    return "\n".join(lines)
+
+
 # ── Agent factory ─────────────────────────────────────────────────────────────
 
 def _get_agent_llm():
-    """Return the Groq-hosted Llama model for the deep analysis agent."""
     key = os.environ.get("GROQ_API_KEY")
     if not key:
         return None
@@ -107,8 +198,9 @@ def run_deep_analysis(
     brand: str,
     query: str,
     avg_position: Optional[float] = None,
+    per_model: Optional[list] = None,
 ) -> str:
-    """Run a ReAct agent to produce a deep AEO analysis with recommendations.
+    """Run a ReAct agent to produce a deep AEO analysis with temporal insights.
 
     Returns a markdown-formatted analysis string.
     """
@@ -116,19 +208,37 @@ def run_deep_analysis(
     if llm is None:
         return "Deep analysis unavailable: set GROQ_API_KEY to enable the research agent."
 
-    tools = [search_brand_presence, analyze_aeo_gap]
+    mentioned_models:     list[str] = []
+    not_mentioned_models: list[str] = []
+    if per_model:
+        for pm in per_model:
+            if isinstance(pm, dict):
+                label, mentioned = pm.get("model_label", ""), pm.get("mentioned", False)
+            else:
+                label, mentioned = getattr(pm, "model_label", ""), getattr(pm, "mentioned", False)
+            (mentioned_models if mentioned else not_mentioned_models).append(label)
+
+    mentioned_str     = ", ".join(mentioned_models)     or "none"
+    not_mentioned_str = ", ".join(not_mentioned_models) or "none"
+
+    tools = [search_brand_presence, analyze_aeo_gap, analyze_temporal_context]
     agent = create_react_agent(llm, tools)
 
     rank_desc = f"average rank #{avg_position:.1f}" if avg_position else "not mentioned by any model"
     prompt = (
-        f"You are an AEO (Answer Engine Optimization) analyst. "
+        f"You are an AEO (Answer Engine Optimization) analyst.\n"
         f"Investigate the brand '{brand}' for the query: \"{query}\". "
         f"The brand currently has {rank_desc} across AI answer engines.\n\n"
+        f"Models that DID mention the brand: {mentioned_str}\n"
+        f"Models that did NOT mention the brand: {not_mentioned_str}\n\n"
         f"Steps:\n"
         f"1. Use search_brand_presence to verify '{brand}' has a real web presence.\n"
-        f"2. Use analyze_aeo_gap with brand='{brand}', query='{query}', "
+        f"2. Use analyze_temporal_context with brand='{brand}', "
+        f"mentioned_by='{mentioned_str}', not_mentioned_by='{not_mentioned_str}' "
+        f"to interpret what training cutoffs reveal.\n"
+        f"3. Use analyze_aeo_gap with brand='{brand}', query='{query}', "
         f"avg_rank={avg_position if avg_position else -1.0} to generate recommendations.\n"
-        f"3. Synthesize findings into a concise, actionable report."
+        f"4. Synthesize all findings into a concise, actionable report with clear sections."
     )
 
     try:
