@@ -5,10 +5,6 @@ from __future__ import annotations
 import re
 from typing import Optional
 
-from langchain_core.prompts import ChatPromptTemplate
-from pydantic import BaseModel, Field
-
-from .chains import get_llama31_llm
 from .models import ModelResult, Product
 
 # ── sentiment word lists ──────────────────────────────────────────────────────
@@ -23,24 +19,8 @@ _NEGATIVE = {
 }
 
 
-class CitationExtraction(BaseModel):
-    """Brand/citation extraction with query-aware reasoning."""
-
-    brand_name: Optional[str] = Field(default=None, description="Canonical brand name if present.")
-    mentioned: bool = Field(description="Whether the target brand is explicitly or implicitly mentioned.")
-    rank: Optional[int] = Field(default=None, description="Product rank for the target brand when present.")
-    citations: list[str] = Field(default_factory=list, description="Quoted supporting snippets from response.")
-    confidence: float = Field(default=0.0, description="Confidence from 0 to 1.")
-
-
-def _strip_think(text: str) -> str:
-    """Remove <think>…</think> chain-of-thought blocks (Qwen3, DeepSeek-R1)."""
-    return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
-
-
 def parse_products(text: str) -> list[Product]:
     """Extract a numbered product list from raw AI response text."""
-    text = _strip_think(text)
     products: list[Product] = []
 
     # Primary: "1. **Name** – description" (bold optional, dash variants)
@@ -74,67 +54,17 @@ def parse_products(text: str) -> list[Product]:
     return products
 
 
-def extract_brand_context(
-    raw: str,
-    target_brand: str,
-    query: str,
-    products: list[Product],
-) -> CitationExtraction:
-    """Use an LLM extractor so brand matching uses query and contextual cues.
-
-    Falls back to deterministic matching if no LLM is configured.
-    """
-    llm = get_llama31_llm()
-    if llm is None:
-        needle = target_brand.lower()
-        for p in products:
-            if needle in p.name.lower() or needle in p.description.lower():
-                return CitationExtraction(
-                    brand_name=target_brand,
-                    mentioned=True,
-                    rank=p.rank,
-                    citations=[f"{p.name} — {p.description}"],
-                    confidence=0.6,
-                )
-        if needle in raw.lower():
-            return CitationExtraction(brand_name=target_brand, mentioned=True, citations=[target_brand], confidence=0.4)
-        return CitationExtraction(brand_name=None, mentioned=False, citations=[], confidence=0.2)
-
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", """You extract brand evidence from model-generated recommendation lists.
-Use semantic matching (aliases, abbreviations, product-level references) with the shopper query context.
-Return only structured fields."""),
-        ("human", """Target brand: {target_brand}
-User query: {query}
-
-Parsed ranked products:
-{products_text}
-
-Raw model response:
-{raw}
-
-Determine if the target brand appears in the response.
-If yes, infer canonical brand name and rank when possible, and return 1-3 short citation snippets from the response.
-"""),
-    ])
-    extractor = prompt | llm.with_structured_output(CitationExtraction)
-    products_text = "\n".join(f"{p.rank}. {p.name} — {p.description}" for p in products)
-    return extractor.invoke(
-        {
-            "target_brand": target_brand,
-            "query": query,
-            "products_text": products_text or "(none)",
-            "raw": raw,
-        }
-    )
-
-
 def find_target(
-    products: list[Product], raw: str, target_brand: str, query: str = ""
+    products: list[Product], raw: str, target_brand: str
 ) -> tuple[Optional[int], bool]:
-    """Return (rank, mentioned) for the target brand using contextual extraction."""
-    extraction = extract_brand_context(raw=raw, target_brand=target_brand, query=query, products=products)
-    return extraction.rank, extraction.mentioned
+    """Return (rank, mentioned) for the target brand (case-insensitive)."""
+    needle = target_brand.lower()
+    for p in products:
+        if needle in p.name.lower() or needle in p.description.lower():
+            return p.rank, True
+    if needle in raw.lower():
+        return None, True
+    return None, False
 
 
 def score_sentiment(raw: str, target_brand: str) -> float:
@@ -152,13 +82,13 @@ def score_sentiment(raw: str, target_brand: str) -> float:
     return (pos - neg) / total
 
 
-def process_result(result: ModelResult, target_brand: str, query: str = "") -> ModelResult:
+def process_result(result: ModelResult, target_brand: str) -> ModelResult:
     """Populate parsed fields on a ModelResult in-place and return it."""
     if result.error or not result.raw_response:
         return result
     result.products = parse_products(result.raw_response)
     result.target_rank, result.target_mentioned = find_target(
-        result.products, result.raw_response, target_brand, query=query
+        result.products, result.raw_response, target_brand
     )
     result.sentiment_score = score_sentiment(result.raw_response, target_brand)
     return result
