@@ -1,12 +1,12 @@
 {
   "query": "best magnesium supplement for seniors",
   "target": "Nature Made",
-  "overall": 33.2,
-  "grade": "F",
+  "overall": 41.2,
+  "grade": "D",
   "mention_rate": 0.3333333333333333,
-  "avg_position": 7.5,
+  "avg_position": 4.5,
   "sentiment_score": 10.0,
-  "citation_score": 100.0,
+  "citation_score": 90.0,
   "per_model": [
     {
       "model": "Llama 3.3 70B",
@@ -18,7 +18,7 @@
         "Nature's Bounty Magnesium",
         "Jarrow Formulas Magnesium Optimizer",
         "Doctor's Best Magnesium",
-        "Thorne Research Magnesium Citrate"
+        "NOW Foods Magnesium Citrate"
       ],
       "error": null
     },
@@ -29,8 +29,8 @@
       "sentiment": "Positive",
       "competitors": [
         "Doctor's Best High Absorption Magnesium (Magnesium Glycinate)",
-        "Thorne Research Magnesium Bisglycinate",
         "KAL Magnesium Glycinate 400",
+        "Thorne Research Magnesium Bisglycinate",
         "Pure Encapsulations Magnesium (Citrate)",
         "NOW Foods Magnesium Citrate"
       ],
@@ -42,25 +42,25 @@
       "position": null,
       "sentiment": "Neutral",
       "competitors": [
-        "Nature's Bounty Magnesium, 500 mg",
+        "Nature's Bounty Magnesium, 400mg",
         "Garden of Life Magnesium",
         "Thorne Research Magnesium Citrate",
         "NOW Foods Magnesium Glycinate",
-        "Doctor's Best Magnesium"
+        "Jarrow Formulas Magnesium Optimizer"
       ],
       "error": null
     },
     {
       "model": "Compound",
       "mentioned": true,
-      "position": 10,
+      "position": 4,
       "sentiment": "Positive",
       "competitors": [
-        "Thorne Research Magnesium Bisglycinate",
-        "Doctor's Best High Absorption Magnesium",
-        "KAL Magnesium Glycinate 400",
-        "Jigsaw Health Magnesium SRT",
-        "Pure Encapsulations Magnesium (Citrate)"
+        "Thorne Research Magnesium Bisglycinate Powder",
+        "Pure Encapsulations Magnesium (Citrate/Malate)",
+        "Doctor\u2019s Best High Absorption Magnesium Glycinate",
+        "Life Extension Magnesium Caps",
+        "Garden of Life Dr. Formulated Magnesium"
       ],
       "error": null
     },
@@ -70,11 +70,11 @@
       "position": null,
       "sentiment": "Neutral",
       "competitors": [
-        "Thorne Research Magnesium Glycinate",
-        "Pure Encapsulations Magnesium Citrate",
-        "Garden of Life Raw Magnesium",
-        "NOW Foods Magnesium Citrate",
-        "Solgar Magnesium Glycinate"
+        "Garden of Life",
+        "NOW Foods",
+        "Thorne Research",
+        "Pure Encapsulations",
+        "Solgar"
       ],
       "error": null
     },
@@ -84,11 +84,11 @@
       "position": null,
       "sentiment": "Neutral",
       "competitors": [
-        "Doctor's Best Magnesium L",
-        "Jarrow Formulas Magnesium Citrate",
-        "Garden of Life RAW Magnesium",
-        "Nature's Bounty Magnesium Oxide",
-        "Thorne Research Magnesium Citrate"
+        "Garden of Life Magnesium",
+        "Doctor's Best Magnesium",
+        "Jarrow Formulas Magnesium",
+        "Nature's Bounty Magnesium",
+        "Thorne Research Magnesium"
       ],
       "error": null
     }
@@ -105,6 +105,12 @@
       "found": true,
       "top_hit_url": "https://www.doctorsbest.com/",
       "top_hit_title": "Doctor's Best"
+    },
+    {
+      "brand": "Doctor\u2019s",
+      "found": false,
+      "top_hit_url": null,
+      "top_hit_title": null
     },
     {
       "brand": "Garden",
@@ -131,6 +137,12 @@
       "top_hit_title": "KAL Vitamins | Since 1932 \u2013 Kal Vitamins"
     },
     {
+      "brand": "Klaire",
+      "found": true,
+      "top_hit_url": "https://www.amazon.com/Vitamin-B-Supplements-Klaire-Labs/s?keywords=Vitamin+B+Supplements&rh=n:3774671,p_89:Klaire+Labs&c=ts&ts_id=3774671",
+      "top_hit_title": "Amazon.com: Vitamin B Supplements - Klaire Labs / Vitamin..."
+    },
+    {
       "brand": "Life",
       "found": true,
       "top_hit_url": "https://grokipedia.com/page/Beginning_Life_Ayurvedic_supplement",
@@ -141,18 +153,6 @@
       "found": true,
       "top_hit_url": "https://www.amazon.com/mrm-supplements/s?k=mrm+supplements",
       "top_hit_title": "Amazon.com: Mrm Supplements"
-    },
-    {
-      "brand": "MegaFood",
-      "found": true,
-      "top_hit_url": "https://megafood.com/",
-      "top_hit_title": "MegaFood: Real Food Vitamins with Added Nutrients | MegaFood"
-    },
-    {
-      "brand": "NOW",
-      "found": true,
-      "top_hit_url": "https://grokipedia.com/page/central_casting_heroes_now_role_playing_game_supplement",
-      "top_hit_title": "Central Casting: Heroes Now! (role-playing game supplement)"
     }
   ]
 }
