@@ -3,7 +3,10 @@
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://brand-aeo.streamlit.app/)
 [![CI](https://github.com/pallavikailas/Product-Ranking-aeo/actions/workflows/aeo_diagnostic.yml/badge.svg)](https://github.com/pallavikailas/Product-Ranking-aeo/actions/workflows/aeo_diagnostic.yml)
 
+
 > **AEO = Answer Engine Optimization.** When a shopper asks an AI assistant *"best magnesium supplement for seniors"*, where does your brand actually rank? This tool finds out — across three independent LLMs — and verifies every citation against the open web.
+
+https://github.com/user-attachments/assets/6ea4251a-8983-459d-91ca-c50df06f85b0
 
 ## Why
 
