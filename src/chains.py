@@ -3,10 +3,10 @@
 Panel:
   • Llama 3.3 70B          (Meta)
   • GPT-OSS 120B           (OpenAI)
-  • Mistral Saba 24B       (Mistral)
+  • Llama 4 Scout 17B      (Meta)
   • GPT-OSS 20B            (OpenAI)
   • Qwen3 32B              (Alibaba)
-  • DeepSeek R1 Distill    (DeepSeek)
+  • Llama 3.1 8B Instant   (Meta)
 
 All six are queried via a single GROQ_API_KEY.
 """
@@ -59,32 +59,36 @@ def get_llama_llm() -> Optional[BaseChatModel]:
     return _groq_llm("llama-3.3-70b-versatile")
 
 
+def get_llama4_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("meta-llama/llama-4-scout-17b-16e-instruct")
+
+
+def get_llama31_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("llama-3.1-8b-instant")
+
+
+# ── OpenAI open weights ───────────────────────────────────────────────────────
+
 def get_gpt_oss_llm() -> Optional[BaseChatModel]:
     return _groq_llm("openai/gpt-oss-120b")
-
-
-def get_mistral_llm() -> Optional[BaseChatModel]:
-    return _groq_llm("mistral-saba-24b")
 
 
 def get_gpt_oss20_llm() -> Optional[BaseChatModel]:
     return _groq_llm("openai/gpt-oss-20b")
 
 
+# ── Qwen / Alibaba ────────────────────────────────────────────────────────────
+
 def get_qwen3_llm() -> Optional[BaseChatModel]:
     return _groq_llm("qwen/qwen3-32b")
 
 
-def get_deepseek_llm() -> Optional[BaseChatModel]:
-    return _groq_llm("deepseek-r1-distill-llama-70b")
-
-
 # Ordered panel: (display label, LLM factory)
 ALL_LLM_CONFIGS: list[tuple[str, callable]] = [
-    ("Llama 3.3 70B",       get_llama_llm),
-    ("GPT-OSS 120B",        get_gpt_oss_llm),
-    ("Mistral Saba 24B",    get_mistral_llm),
-    ("GPT-OSS 20B",         get_gpt_oss20_llm),
-    ("Qwen3 32B",           get_qwen3_llm),
-    ("DeepSeek R1 Distill", get_deepseek_llm),
+    ("Llama 3.3 70B",        get_llama_llm),
+    ("GPT-OSS 120B",         get_gpt_oss_llm),
+    ("Llama 4 Scout 17B",    get_llama4_llm),
+    ("GPT-OSS 20B",          get_gpt_oss20_llm),
+    ("Qwen3 32B",            get_qwen3_llm),
+    ("Llama 3.1 8B Instant", get_llama31_llm),
 ]

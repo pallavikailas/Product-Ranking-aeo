@@ -26,19 +26,17 @@ st.set_page_config(page_title="AEO Diagnostic", page_icon="🔍", layout="wide")
 
 # ── Model metadata ────────────────────────────────────────────────────────────
 
-_LOGO_META     = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Meta_Platforms_Inc._logo.svg/200px-Meta_Platforms_Inc._logo.svg.png"
-_LOGO_OPENAI   = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/OpenAI_Logo.svg/200px-OpenAI_Logo.svg.png"
-_LOGO_MISTRAL  = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Mistral_AI_logo_%282025%29.svg/200px-Mistral_AI_logo_%282025%29.svg.png"
-_LOGO_ALIBABA  = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Alibaba_Group_Logo.svg/200px-Alibaba_Group_Logo.svg.png"
-_LOGO_DEEPSEEK = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/DeepSeek_logo.svg/200px-DeepSeek_logo.svg.png"
+_LOGO_META    = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Meta_Platforms_Inc._logo.svg/200px-Meta_Platforms_Inc._logo.svg.png"
+_LOGO_OPENAI  = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/OpenAI_Logo.svg/200px-OpenAI_Logo.svg.png"
+_LOGO_ALIBABA = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Alibaba_Group_Logo.svg/200px-Alibaba_Group_Logo.svg.png"
 
 _MODEL_META: dict[str, dict] = {
-    "Llama 3.3 70B":       {"company": "Meta",     "logo": _LOGO_META,     "badge": "badge-meta"},
-    "GPT-OSS 120B":        {"company": "OpenAI",   "logo": _LOGO_OPENAI,   "badge": "badge-openai"},
-    "Mistral Saba 24B":    {"company": "Mistral",  "logo": _LOGO_MISTRAL,  "badge": "badge-mistral"},
-    "GPT-OSS 20B":         {"company": "OpenAI",   "logo": _LOGO_OPENAI,   "badge": "badge-openai"},
-    "Qwen3 32B":           {"company": "Alibaba",  "logo": _LOGO_ALIBABA,  "badge": "badge-alibaba"},
-    "DeepSeek R1 Distill": {"company": "DeepSeek", "logo": _LOGO_DEEPSEEK, "badge": "badge-deepseek"},
+    "Llama 3.3 70B":        {"company": "Meta",    "logo": _LOGO_META,    "badge": "badge-meta"},
+    "GPT-OSS 120B":         {"company": "OpenAI",  "logo": _LOGO_OPENAI,  "badge": "badge-openai"},
+    "Llama 4 Scout 17B":    {"company": "Meta",    "logo": _LOGO_META,    "badge": "badge-meta"},
+    "GPT-OSS 20B":          {"company": "OpenAI",  "logo": _LOGO_OPENAI,  "badge": "badge-openai"},
+    "Qwen3 32B":            {"company": "Alibaba", "logo": _LOGO_ALIBABA, "badge": "badge-alibaba"},
+    "Llama 3.1 8B Instant": {"company": "Meta",    "logo": _LOGO_META,    "badge": "badge-meta"},
 }
 
 # ── CSS ───────────────────────────────────────────────────────────────────────
@@ -67,11 +65,7 @@ st.markdown("""
                    padding:2px 7px;font-size:11px;font-weight:600;}
   .badge-openai   {background:#e6f5f1;color:#10A37F;border-radius:4px;
                    padding:2px 7px;font-size:11px;font-weight:600;}
-  .badge-mistral  {background:#fff4e6;color:#f97316;border-radius:4px;
-                   padding:2px 7px;font-size:11px;font-weight:600;}
   .badge-alibaba  {background:#fff1e6;color:#FF6A00;border-radius:4px;
-                   padding:2px 7px;font-size:11px;font-weight:600;}
-  .badge-deepseek {background:#eff6ff;color:#2563eb;border-radius:4px;
                    padding:2px 7px;font-size:11px;font-weight:600;}
 </style>
 """, unsafe_allow_html=True)
@@ -163,10 +157,10 @@ with st.sidebar:
         "**LLM Panel (Groq):**  \n"
         "• Llama 3.3 70B *(Meta)*  \n"
         "• GPT-OSS 120B *(OpenAI)*  \n"
-        "• Mistral Saba 24B *(Mistral)*  \n"
+        "• Llama 4 Scout 17B *(Meta)*  \n"
         "• GPT-OSS 20B *(OpenAI)*  \n"
         "• Qwen3 32B *(Alibaba)*  \n"
-        "• DeepSeek R1 Distill *(DeepSeek)*  \n\n"
+        "• Llama 3.1 8B Instant *(Meta)*  \n\n"
         "Pipeline: **LangGraph** state machine.  \n"
         "Citations: DuckDuckGo verifier."
     )
@@ -182,7 +176,7 @@ if run:
 
     progress = st.empty()
     with progress.container():
-        with st.spinner("Querying 6 LLMs (Meta · OpenAI · Mistral · Alibaba · DeepSeek) via Groq + LangChain …"):
+        with st.spinner("Querying 6 LLMs (Meta · OpenAI · Alibaba) via Groq + LangChain …"):
             responses = query_all(query)
         with st.spinner("Scoring, verifying citations, running LangGraph pipeline …"):
             card = score_panel(target, query, responses, verify_citations=verify)

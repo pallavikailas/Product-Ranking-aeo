@@ -21,16 +21,16 @@ from .web_verifier import verify_brand
 # ── Model info: cutoff dates ──────────────────────────────────────────────────
 
 MODEL_INFO: dict[str, dict] = {
-    "Llama 3.3 70B":       {"cutoff": "December 2023",  "web_search": False},
-    "GPT-OSS 120B":        {"cutoff": "March 2024",     "web_search": False},
-    "Mistral Saba 24B":    {"cutoff": "March 2024",     "web_search": False},
-    "GPT-OSS 20B":         {"cutoff": "March 2024",     "web_search": False},
-    "Qwen3 32B":           {"cutoff": "September 2024", "web_search": False},
-    "DeepSeek R1 Distill": {"cutoff": "July 2024",      "web_search": False},
+    "Llama 3.3 70B":        {"cutoff": "December 2023",  "web_search": False},
+    "GPT-OSS 120B":         {"cutoff": "March 2024",     "web_search": False},
+    "Llama 4 Scout 17B":    {"cutoff": "March 2025",     "web_search": False},
+    "GPT-OSS 20B":          {"cutoff": "March 2024",     "web_search": False},
+    "Qwen3 32B":            {"cutoff": "September 2024", "web_search": False},
+    "Llama 3.1 8B Instant": {"cutoff": "December 2023", "web_search": False},
 }
 
 # Models with significantly more recent knowledge than Dec-2023 baseline
-_NEWER_CUTOFFS = {"Qwen3 32B", "DeepSeek R1 Distill"}
+_NEWER_CUTOFFS = {"Llama 4 Scout 17B", "Qwen3 32B"}
 
 
 def _months_ago(cutoff_str: str) -> str:
