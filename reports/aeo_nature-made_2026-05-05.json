@@ -1,11 +1,11 @@
 {
   "query": "best magnesium supplement for seniors",
   "target": "Nature Made",
-  "overall": 39.1,
-  "grade": "F",
+  "overall": 44.2,
+  "grade": "D",
   "mention_rate": 0.3333333333333333,
-  "avg_position": 5.0,
-  "sentiment_score": 21.7,
+  "avg_position": 4.0,
+  "sentiment_score": 10.0,
   "citation_score": 90.0,
   "per_model": [
     {
@@ -18,21 +18,21 @@
         "Nature's Bounty Magnesium",
         "Jarrow Formulas Magnesium Optimizer",
         "Doctor's Best Magnesium",
-        "NOW Foods Magnesium Citrate"
+        "Thorne Research Magnesium Citrate"
       ],
       "error": null
     },
     {
       "model": "GPT-OSS 120B",
       "mentioned": true,
-      "position": 1,
+      "position": 3,
       "sentiment": "Positive",
       "competitors": [
-        "Doctor\u2019s Best High Absorption Magnesium",
-        "KAL Magnesium Glycinate 400",
-        "NOW Foods Magnesium Citrate",
-        "Pure Encapsulations Magnesium (Citrate/Malate)",
-        "Thorne Research Magnesium Bisglycinate"
+        "Doctor's Best High Absorption Magnesium (Magnesium Glycinate)",
+        "Thorne Research Magnesium Bisglycinate",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "Life Extension Magnesium Caps (Magnesium Citrate)",
+        "Solgar Magnesium Citrate"
       ],
       "error": null
     },
@@ -45,22 +45,22 @@
         "Nature's Bounty Magnesium, 400mg",
         "Garden of Life Magnesium",
         "Thorne Research Magnesium Citrate",
-        "Jarrow Formulas Magnesium Optimizer",
-        "NOW Foods Magnesium Citrate"
+        "NOW Foods Magnesium Glycinate",
+        "Jarrow Formulas Magnesium Optimizer"
       ],
       "error": null
     },
     {
       "model": "Compound",
       "mentioned": true,
-      "position": 9,
+      "position": 5,
       "sentiment": "Positive",
       "competitors": [
-        "Thorne Research Magnesium Bisglycinate Powder",
+        "Doctor\u2019s\u202fBest High Absorption Magnesium Glycinate",
+        "Thorne Research Magnesium Bisglycinate",
+        "KAL Magnesium Glycinate 400",
         "Pure Encapsulations Magnesium (Citrate)",
-        "Life Extension Magnesium Caps",
-        "Doctor\u2019s Best High Absorption Magnesium Glycinate",
-        "Jigsaw Health Magnesium SRT (Sustained Release Tablets)"
+        "NOW Foods Magnesium Citrate"
       ],
       "error": null
     },
@@ -70,11 +70,11 @@
       "position": null,
       "sentiment": "Neutral",
       "competitors": [
-        "Garden of Life",
-        "NOW Foods",
-        "Pure Encapsulations",
-        "Thorne Research",
-        "Nature's Way"
+        "Garden of Life Magnesium 7 Chelated",
+        "Natural Vitality Calm Magnesium Glycinate",
+        "Thorne Research Magnesium Glycinate",
+        "Solgar Magnesium Citrate",
+        "Pure Encapsulations Magnesium Citrate"
       ],
       "error": null
     },
@@ -84,9 +84,9 @@
       "position": null,
       "sentiment": "Neutral",
       "competitors": [
-        "Garden of Life Magnesium",
-        "Jarrow Formulas Magnesium Citrate",
         "Doctor's Best Magnesium L",
+        "Jarrow Formulas Magnesium Citrate",
+        "Garden of Life RAW Magnesium",
         "Nature's Bounty Magnesium",
         "Thorne Research Magnesium Citrate"
       ],
@@ -94,12 +94,6 @@
     }
   ],
   "verifications": [
-    {
-      "brand": "Country",
-      "found": true,
-      "top_hit_url": "https://grokipedia.com/page/merc_supplement_1_in_country",
-      "top_hit_title": "Merc Supplement 1: In Country"
-    },
     {
       "brand": "Doctor's",
       "found": true,
@@ -115,8 +109,8 @@
     {
       "brand": "Garden",
       "found": true,
-      "top_hit_url": "https://www.rgarden.com/",
-      "top_hit_title": "R-Garden"
+      "top_hit_url": "https://www.gardenoflife.com/",
+      "top_hit_title": "Clean Vitamins and Supplements | Garden of Life"
     },
     {
       "brand": "Jarrow",
@@ -125,16 +119,16 @@
       "top_hit_title": "Jarrow Formulas | High Quality Dietary Supplements"
     },
     {
-      "brand": "Jigsaw",
-      "found": true,
-      "top_hit_url": "https://www.jigsawhealth.com/",
-      "top_hit_title": "It's Fun To Feel Good\u00ae | High-Quality Nutritional Supplements"
-    },
-    {
       "brand": "KAL",
       "found": true,
       "top_hit_url": "https://www.kalvitamins.com/",
-      "top_hit_title": "KAL Vitamins | Since 1932"
+      "top_hit_title": "KAL Vitamins | Since 1932 \u2013 Kal Vitamins"
+    },
+    {
+      "brand": "Klaire",
+      "found": true,
+      "top_hit_url": "https://us.sfihealth.com/products",
+      "top_hit_title": "Nutritional Supplement Products - Klaire Labs - SFI Health"
     },
     {
       "brand": "Life",
@@ -147,6 +141,12 @@
       "found": true,
       "top_hit_url": "https://mrmnutrition.com/",
       "top_hit_title": "Boost Your Health with Essential Nutritional Supplements \u2013 MRM Nutrition"
+    },
+    {
+      "brand": "Magnesium",
+      "found": true,
+      "top_hit_url": "https://en.wikipedia.org/wiki/Magnesium_supplement",
+      "top_hit_title": "Magnesium supplement"
     },
     {
       "brand": "MegaFood",
