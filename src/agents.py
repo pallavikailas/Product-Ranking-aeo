@@ -24,9 +24,9 @@ MODEL_INFO: dict[str, dict] = {
     "Llama 3.3 70B":        {"cutoff": "December 2023",  "web_search": False},
     "GPT-OSS 120B":         {"cutoff": "March 2024",     "web_search": False},
     "Llama 4 Scout 17B":    {"cutoff": "March 2025",     "web_search": False},
-    "GPT-OSS 20B":          {"cutoff": "March 2024",     "web_search": False},
+    "Compound":             {"cutoff": "real-time",      "web_search": True},
     "Qwen3 32B":            {"cutoff": "September 2024", "web_search": False},
-    "Llama 3.1 8B Instant": {"cutoff": "December 2023", "web_search": False},
+    "Llama 3.1 8B Instant": {"cutoff": "December 2023",  "web_search": False},
 }
 
 # Models with significantly more recent knowledge than Dec-2023 baseline
@@ -137,13 +137,16 @@ def analyze_temporal_context(brand: str, mentioned_by: str, not_mentioned_by: st
 
     for model in mentioned_list + not_mentioned_list:
         info = MODEL_INFO.get(model, {"cutoff": "unknown", "web_search": False})
+        ws   = info.get("web_search", False)
         cut  = info["cutoff"]
-        age  = _months_ago(cut)
         mark = "✅" if model in mentioned_list else "❌"
-        lines.append(f"  {mark} {model}  [📚 trained {cut} ({age})]")
+        tag  = "🌐 live web search" if ws else f"📚 trained {cut} ({_months_ago(cut)})"
+        lines.append(f"  {mark} {model}  [{tag}]")
 
     training_mentioned     = [m for m in mentioned_list     if not MODEL_INFO.get(m, {}).get("web_search")]
     training_not_mentioned = [m for m in not_mentioned_list if not MODEL_INFO.get(m, {}).get("web_search")]
+    search_mentioned       = [m for m in mentioned_list     if MODEL_INFO.get(m, {}).get("web_search")]
+    search_not_mentioned   = [m for m in not_mentioned_list if MODEL_INFO.get(m, {}).get("web_search")]
 
     newer_mention = any(m in _NEWER_CUTOFFS for m in training_mentioned)
     newer_miss    = any(m in _NEWER_CUTOFFS for m in training_not_mentioned)
@@ -177,6 +180,20 @@ def analyze_temporal_context(brand: str, mentioned_by: str, not_mentioned_by: st
             "  → Visibility is consistent across model generations.\n"
             "    Brand authority is stable. Focus on pushing into the top-3 positions."
         )
+
+    if search_mentioned or search_not_mentioned:
+        lines += ["", "── Live web-search models ──────────────────────────────────────"]
+        if search_mentioned:
+            lines.append(
+                f"  ✅ {', '.join(search_mentioned)} found the brand via live search.\n"
+                "    Current web presence is strong for this query."
+            )
+        if search_not_mentioned:
+            lines.append(
+                f"  ❌ {', '.join(search_not_mentioned)} could NOT find the brand via live search.\n"
+                "    Fix: improve on-page SEO, structured data, and review velocity.\n"
+                "    For web-search models, training cutoff is irrelevant — only live signals count."
+            )
 
     return "\n".join(lines)
 

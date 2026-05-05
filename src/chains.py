@@ -1,12 +1,12 @@
 """LangChain prompt chains — all models hosted on Groq for free, fast inference.
 
 Panel:
-  • Llama 3.3 70B          (Meta)
-  • GPT-OSS 120B           (OpenAI)
-  • Llama 4 Scout 17B      (Meta)
-  • GPT-OSS 20B            (OpenAI)
-  • Qwen3 32B              (Alibaba)
-  • Llama 3.1 8B Instant   (Meta)
+  • Llama 3.3 70B        (Meta)
+  • GPT-OSS 120B         (OpenAI)
+  • Llama 4 Scout 17B    (Meta)
+  • Compound             (Groq — live web search)
+  • Qwen3 32B            (Alibaba)
+  • Llama 3.1 8B Instant (Meta)
 
 All six are queried via a single GROQ_API_KEY.
 """
@@ -73,8 +73,8 @@ def get_gpt_oss_llm() -> Optional[BaseChatModel]:
     return _groq_llm("openai/gpt-oss-120b")
 
 
-def get_gpt_oss20_llm() -> Optional[BaseChatModel]:
-    return _groq_llm("openai/gpt-oss-20b")
+def get_compound_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("groq/compound")
 
 
 # ── Qwen / Alibaba ────────────────────────────────────────────────────────────
@@ -88,7 +88,7 @@ ALL_LLM_CONFIGS: list[tuple[str, callable]] = [
     ("Llama 3.3 70B",        get_llama_llm),
     ("GPT-OSS 120B",         get_gpt_oss_llm),
     ("Llama 4 Scout 17B",    get_llama4_llm),
-    ("GPT-OSS 20B",          get_gpt_oss20_llm),
+    ("Compound",             get_compound_llm),
     ("Qwen3 32B",            get_qwen3_llm),
     ("Llama 3.1 8B Instant", get_llama31_llm),
 ]
