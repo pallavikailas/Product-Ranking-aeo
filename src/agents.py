@@ -3,8 +3,7 @@
 A LangGraph ReAct agent that uses web-search tools to investigate why
 a brand is performing a certain way in AI answer engines and generates
 specific, actionable recommendations — including temporal analysis based
-on each model's knowledge cutoff date (only relevant for training-data-only
-models; models with live web search always reflect current web presence).
+on each model's knowledge cutoff date.
 """
 
 from __future__ import annotations
@@ -19,29 +18,22 @@ from langgraph.prebuilt import create_react_agent
 
 from .web_verifier import verify_brand
 
-# ── Model info: cutoff + whether the model uses live web search ───────────────
+# ── Model info: cutoff dates ──────────────────────────────────────────────────
 
 MODEL_INFO: dict[str, dict] = {
-    # Training-data-only models — cutoff matters
-    "Llama 3.3 70B":        {"cutoff": "December 2023",   "web_search": False},
-    "GPT-OSS 120B":         {"cutoff": "March 2024",      "web_search": False},
-    "Llama 4 Scout 17B":    {"cutoff": "March 2025",      "web_search": False},
-    "Llama 3.1 8B Instant": {"cutoff": "December 2023",   "web_search": False},
-    "GPT-OSS 20B":          {"cutoff": "March 2024",      "web_search": False},
-    "Qwen3 32B":            {"cutoff": "September 2024",  "web_search": False},
-    # Web-search-enabled models (e.g. Groq Compound) — cutoff irrelevant
-    "Compound Beta":        {"cutoff": "real-time",       "web_search": True},
-    "Compound Mini":        {"cutoff": "real-time",       "web_search": True},
-    # Perplexity, ChatGPT Browse, etc. would also go here if added to the panel
+    "Llama 3.3 70B":       {"cutoff": "December 2023",  "web_search": False},
+    "GPT-OSS 120B":        {"cutoff": "March 2024",     "web_search": False},
+    "Mistral Saba 24B":    {"cutoff": "March 2024",     "web_search": False},
+    "GPT-OSS 20B":         {"cutoff": "March 2024",     "web_search": False},
+    "Qwen3 32B":           {"cutoff": "September 2024", "web_search": False},
+    "DeepSeek R1 Distill": {"cutoff": "July 2024",      "web_search": False},
 }
 
 # Models with significantly more recent knowledge than Dec-2023 baseline
-_NEWER_CUTOFFS = {"Llama 4 Scout 17B", "Qwen3 32B"}
+_NEWER_CUTOFFS = {"Qwen3 32B", "DeepSeek R1 Distill"}
 
 
 def _months_ago(cutoff_str: str) -> str:
-    if cutoff_str == "real-time":
-        return "live"
     try:
         cutoff = datetime.strptime(cutoff_str, "%B %Y")
         months = max(1, round((datetime.now() - cutoff).days / 30))
@@ -124,11 +116,9 @@ def analyze_aeo_gap(brand: str, query: str, avg_rank: float = -1.0) -> str:
 
 @tool
 def analyze_temporal_context(brand: str, mentioned_by: str, not_mentioned_by: str) -> str:
-    """Analyse how knowledge-cutoff dates (or live web search) affect which models mention a brand.
+    """Analyse how knowledge-cutoff dates affect which models mention a brand.
 
-    IMPORTANT: This analysis distinguishes between training-data-only models (where cutoff
-    dates are meaningful signals) and web-search-enabled models (where cutoff is irrelevant —
-    visibility there purely reflects current web presence and SEO).
+    Divergence between older and newer cutoff models reveals AEO trajectory.
 
     Args:
         brand: The target brand.
@@ -139,51 +129,36 @@ def analyze_temporal_context(brand: str, mentioned_by: str, not_mentioned_by: st
     lines = [
         f"Temporal Analysis — '{brand}' (as of {now_str})",
         "",
-        "── How to read this ────────────────────────────────────────────",
-        "Models with LIVE WEB SEARCH: cutoff dates are irrelevant for them.",
-        "  → If they miss your brand, the issue is your *current* web presence.",
-        "Models with TRAINING DATA ONLY: cutoff dates matter.",
-        "  → Divergence between older vs. newer cutoffs reveals whether",
-        "    your brand authority has grown or shrunk over time.",
-        "────────────────────────────────────────────────────────────────",
-        "",
         "Panel model details:",
     ]
 
-    training_mentioned:    list[str] = []
-    training_not_mentioned: list[str] = []
-    search_mentioned:      list[str] = []
-    search_not_mentioned:  list[str] = []
-
-    mentioned_list      = [m.strip() for m in mentioned_by.split(",")     if m.strip() and m.strip() != "none"]
-    not_mentioned_list  = [m.strip() for m in not_mentioned_by.split(",") if m.strip() and m.strip() != "none"]
+    mentioned_list     = [m.strip() for m in mentioned_by.split(",")     if m.strip() and m.strip() != "none"]
+    not_mentioned_list = [m.strip() for m in not_mentioned_by.split(",") if m.strip() and m.strip() != "none"]
 
     for model in mentioned_list + not_mentioned_list:
         info = MODEL_INFO.get(model, {"cutoff": "unknown", "web_search": False})
-        ws   = info["web_search"]
         cut  = info["cutoff"]
         age  = _months_ago(cut)
-        tag  = "🌐 web-search" if ws else f"📚 trained {cut} ({age})"
         mark = "✅" if model in mentioned_list else "❌"
-        lines.append(f"  {mark} {model}  [{tag}]")
-        if ws:
-            (search_mentioned if model in mentioned_list else search_not_mentioned).append(model)
-        else:
-            (training_mentioned if model in mentioned_list else training_not_mentioned).append(model)
+        lines.append(f"  {mark} {model}  [📚 trained {cut} ({age})]")
 
-    lines += ["", "── Training-data models — temporal interpretation ──────────────"]
+    training_mentioned     = [m for m in mentioned_list     if not MODEL_INFO.get(m, {}).get("web_search")]
+    training_not_mentioned = [m for m in not_mentioned_list if not MODEL_INFO.get(m, {}).get("web_search")]
+
     newer_mention = any(m in _NEWER_CUTOFFS for m in training_mentioned)
     newer_miss    = any(m in _NEWER_CUTOFFS for m in training_not_mentioned)
     older_mention = any(m not in _NEWER_CUTOFFS for m in training_mentioned)
     older_miss    = any(m not in _NEWER_CUTOFFS for m in training_not_mentioned)
 
+    lines += ["", "── Temporal interpretation ─────────────────────────────────────"]
+
     if not training_mentioned and not training_not_mentioned:
-        lines.append("  No training-data-only models in this comparison.")
+        lines.append("  No training-data models in this comparison.")
     elif newer_mention and older_miss:
         lines.append(
             "  → Newer-cutoff models mention the brand; older ones don't.\n"
             "    Your AEO/SEO work from the past 12–24 months is paying off.\n"
-            "    Keep the momentum — older models will reflect this at their next training cycle."
+            "    Older models will reflect this at their next training cycle."
         )
     elif older_mention and newer_miss:
         lines.append(
@@ -193,8 +168,8 @@ def analyze_temporal_context(brand: str, mentioned_by: str, not_mentioned_by: st
         )
     elif not training_mentioned:
         lines.append(
-            "  → No training-data model mentions the brand.\n"
-            "    This is a structural issue (low web authority), not just temporal.\n"
+            "  → No model mentions the brand.\n"
+            "    This is a structural issue (low web authority).\n"
             "    A comprehensive AEO/SEO overhaul is required."
         )
     else:
@@ -202,20 +177,6 @@ def analyze_temporal_context(brand: str, mentioned_by: str, not_mentioned_by: st
             "  → Visibility is consistent across model generations.\n"
             "    Brand authority is stable. Focus on pushing into the top-3 positions."
         )
-
-    if search_mentioned or search_not_mentioned:
-        lines += ["", "── Web-search models — current presence interpretation ─────────"]
-        if search_mentioned:
-            lines.append(
-                f"  ✅ {', '.join(search_mentioned)} found the brand via live search.\n"
-                "    Current web presence is strong for this query."
-            )
-        if search_not_mentioned:
-            lines.append(
-                f"  ❌ {', '.join(search_not_mentioned)} could NOT find the brand via live search.\n"
-                "    Fix: improve current on-page SEO, structured data, and review velocity.\n"
-                "    For web-search models, training cutoff is irrelevant — only live signals count."
-            )
 
     return "\n".join(lines)
 
@@ -247,7 +208,6 @@ def run_deep_analysis(
     if llm is None:
         return "Deep analysis unavailable: set GROQ_API_KEY to enable the research agent."
 
-    # Build mentioned / not-mentioned lists from per_model results
     mentioned_models:     list[str] = []
     not_mentioned_models: list[str] = []
     if per_model:
@@ -261,21 +221,12 @@ def run_deep_analysis(
     mentioned_str     = ", ".join(mentioned_models)     or "none"
     not_mentioned_str = ", ".join(not_mentioned_models) or "none"
 
-    # Flag if any web-search model is in the panel so the agent knows
-    all_models = mentioned_models + not_mentioned_models
-    has_web_search = any(MODEL_INFO.get(m, {}).get("web_search", False) for m in all_models)
-    ws_note = (
-        "\nNote: this panel includes web-search-enabled models. "
-        "For those models, knowledge cutoff is irrelevant — visibility reflects current web presence."
-        if has_web_search else ""
-    )
-
     tools = [search_brand_presence, analyze_aeo_gap, analyze_temporal_context]
     agent = create_react_agent(llm, tools)
 
     rank_desc = f"average rank #{avg_position:.1f}" if avg_position else "not mentioned by any model"
     prompt = (
-        f"You are an AEO (Answer Engine Optimization) analyst.{ws_note}\n"
+        f"You are an AEO (Answer Engine Optimization) analyst.\n"
         f"Investigate the brand '{brand}' for the query: \"{query}\". "
         f"The brand currently has {rank_desc} across AI answer engines.\n\n"
         f"Models that DID mention the brand: {mentioned_str}\n"
@@ -284,7 +235,7 @@ def run_deep_analysis(
         f"1. Use search_brand_presence to verify '{brand}' has a real web presence.\n"
         f"2. Use analyze_temporal_context with brand='{brand}', "
         f"mentioned_by='{mentioned_str}', not_mentioned_by='{not_mentioned_str}' "
-        f"to interpret what training cutoffs vs. live web-search reveal.\n"
+        f"to interpret what training cutoffs reveal.\n"
         f"3. Use analyze_aeo_gap with brand='{brand}', query='{query}', "
         f"avg_rank={avg_position if avg_position else -1.0} to generate recommendations.\n"
         f"4. Synthesize all findings into a concise, actionable report with clear sections."

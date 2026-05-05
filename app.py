@@ -11,13 +11,11 @@ from pathlib import Path
 
 import streamlit as st
 
-# Bridge Streamlit Cloud secrets → os.environ so all downstream code works
-# unchanged whether running locally or on Streamlit Community Cloud.
 try:
     if "GROQ_API_KEY" in st.secrets:
         os.environ.setdefault("GROQ_API_KEY", st.secrets["GROQ_API_KEY"])
 except Exception:
-    pass  # secrets.toml not present locally — fall back to env var
+    pass
 
 from src.clients import query_all
 from src.scorer import score_panel
@@ -28,67 +26,55 @@ st.set_page_config(page_title="AEO Diagnostic", page_icon="🔍", layout="wide")
 
 # ── Model metadata ────────────────────────────────────────────────────────────
 
-_LOGO_META    = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Meta_Platforms_Inc._logo.svg/200px-Meta_Platforms_Inc._logo.svg.png"
-_LOGO_OPENAI  = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/OpenAI_Logo.svg/200px-OpenAI_Logo.svg.png"
-_LOGO_ALIBABA = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Alibaba_Group_Logo.svg/200px-Alibaba_Group_Logo.svg.png"
+_LOGO_META     = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Meta_Platforms_Inc._logo.svg/200px-Meta_Platforms_Inc._logo.svg.png"
+_LOGO_OPENAI   = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/OpenAI_Logo.svg/200px-OpenAI_Logo.svg.png"
+_LOGO_MISTRAL  = "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Mistral_AI_logo_%282025%29.svg/200px-Mistral_AI_logo_%282025%29.svg.png"
+_LOGO_ALIBABA  = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Alibaba_Group_Logo.svg/200px-Alibaba_Group_Logo.svg.png"
+_LOGO_DEEPSEEK = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/DeepSeek_logo.svg/200px-DeepSeek_logo.svg.png"
 
 _MODEL_META: dict[str, dict] = {
-    "Llama 3.3 70B":        {"company": "Meta",    "logo": _LOGO_META,    "badge": "badge-meta"},
-    "GPT-OSS 120B":         {"company": "OpenAI",  "logo": _LOGO_OPENAI,  "badge": "badge-openai"},
-    "Llama 4 Scout 17B":    {"company": "Meta",    "logo": _LOGO_META,    "badge": "badge-meta"},
-    "Llama 3.1 8B Instant": {"company": "Meta",    "logo": _LOGO_META,    "badge": "badge-meta"},
-    "GPT-OSS 20B":          {"company": "OpenAI",  "logo": _LOGO_OPENAI,  "badge": "badge-openai"},
-    "Qwen3 32B":            {"company": "Alibaba", "logo": _LOGO_ALIBABA, "badge": "badge-alibaba"},
+    "Llama 3.3 70B":       {"company": "Meta",     "logo": _LOGO_META,     "badge": "badge-meta"},
+    "GPT-OSS 120B":        {"company": "OpenAI",   "logo": _LOGO_OPENAI,   "badge": "badge-openai"},
+    "Mistral Saba 24B":    {"company": "Mistral",  "logo": _LOGO_MISTRAL,  "badge": "badge-mistral"},
+    "GPT-OSS 20B":         {"company": "OpenAI",   "logo": _LOGO_OPENAI,   "badge": "badge-openai"},
+    "Qwen3 32B":           {"company": "Alibaba",  "logo": _LOGO_ALIBABA,  "badge": "badge-alibaba"},
+    "DeepSeek R1 Distill": {"company": "DeepSeek", "logo": _LOGO_DEEPSEEK, "badge": "badge-deepseek"},
 }
 
 # ── CSS ───────────────────────────────────────────────────────────────────────
 
-_COMMON = """
-  .grade-card  {border-radius:16px;padding:24px;text-align:center;}
-  .grade-letter{font-size:72px;font-weight:700;line-height:1;}
-  .stat-card   {border-radius:12px;padding:16px;}
-  .stat-k      {font-size:12px;text-transform:uppercase;letter-spacing:.04em;}
-  .stat-v      {font-size:24px;font-weight:600;margin-top:4px;}
-  .model-table {width:100%;border-collapse:collapse;font-size:14px;}
+st.markdown("""
+<style>
+  .grade-card   {background:#fff;border:1px solid #e2e8f0;border-radius:16px;
+                 padding:24px;text-align:center;}
+  .grade-letter {font-size:72px;font-weight:700;line-height:1;}
+  .stat-card    {background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;}
+  .stat-k       {color:#64748b;font-size:12px;text-transform:uppercase;letter-spacing:.04em;}
+  .stat-v       {font-size:24px;font-weight:600;margin-top:4px;}
+
+  .model-table  {width:100%;border-collapse:collapse;font-size:14px;}
   .model-table th {text-transform:uppercase;font-size:11px;letter-spacing:.05em;
-                   padding:8px 12px;text-align:left;}
-  .model-table td {padding:10px 12px;vertical-align:middle;}
-  .company-logo{height:15px;max-width:60px;object-fit:contain;vertical-align:middle;}
-  .badge-meta   {background:#e8f0fd;color:#1877F2;border-radius:4px;
-                 padding:2px 7px;font-size:11px;font-weight:600;}
-  .badge-openai {background:#e6f5f1;color:#10A37F;border-radius:4px;
-                 padding:2px 7px;font-size:11px;font-weight:600;}
-  .badge-alibaba{background:#fff1e6;color:#FF6A00;border-radius:4px;
-                 padding:2px 7px;font-size:11px;font-weight:600;}
-"""
+                   background:#f8fafc;color:#64748b;
+                   border-bottom:2px solid #e2e8f0;padding:8px 12px;text-align:left;}
+  .model-table td {padding:10px 12px;vertical-align:middle;
+                   border-bottom:1px solid #f1f5f9;}
+  .model-table tr:hover td {background:#f8fafc;}
 
-_LIGHT_CSS = f"<style>{_COMMON}\n"  \
-    ".grade-card{background:#fff;border:1px solid #e2e8f0;}\n" \
-    ".stat-card{background:#fff;border:1px solid #e2e8f0;}\n" \
-    ".stat-k{color:#64748b;}\n" \
-    ".model-table th{background:#f8fafc;color:#64748b;border-bottom:2px solid #e2e8f0;}\n" \
-    ".model-table td{border-bottom:1px solid #f1f5f9;}\n" \
-    ".model-table tr:hover td{background:#f8fafc;}\n" \
-    ".comp-cell{color:#94a3b8;font-size:13px;}\n" \
-    "</style>"
+  .company-logo {height:14px;max-width:56px;object-fit:contain;
+                 vertical-align:middle;margin-right:6px;}
 
-_DARK_CSS = f"<style>{_COMMON}\n" \
-    ".stApp,.main .block-container{background-color:#0f172a !important;color:#f8fafc !important;}\n" \
-    ".stSidebar{background-color:#1e293b !important;}\n" \
-    ".grade-card{background:#1e293b;border:1px solid #334155;}\n" \
-    ".stat-card{background:#1e293b;border:1px solid #334155;}\n" \
-    ".stat-k{color:#94a3b8;}\n.stat-v{color:#f8fafc;}\n" \
-    ".model-table th{background:#1e293b;color:#94a3b8;border-bottom:2px solid #334155;}\n" \
-    ".model-table td{border-bottom:1px solid #263045;color:#e2e8f0;}\n" \
-    ".model-table tr:hover td{background:#293548;}\n" \
-    ".company-logo{filter:brightness(0) invert(1);}\n" \
-    ".badge-meta{background:#1e3a5f;color:#60a5fa;}\n" \
-    ".badge-openai{background:#14302a;color:#34d399;}\n" \
-    ".badge-alibaba{background:#2d1a0a;color:#fb923c;}\n" \
-    ".comp-cell{color:#64748b;font-size:13px;}\n" \
-    "p,li,.stMarkdown{color:#e2e8f0 !important;}\n" \
-    "h1,h2,h3,h4,h5,h6{color:#f8fafc !important;}\n" \
-    "</style>"
+  .badge-meta     {background:#e8f0fd;color:#1877F2;border-radius:4px;
+                   padding:2px 7px;font-size:11px;font-weight:600;}
+  .badge-openai   {background:#e6f5f1;color:#10A37F;border-radius:4px;
+                   padding:2px 7px;font-size:11px;font-weight:600;}
+  .badge-mistral  {background:#fff4e6;color:#f97316;border-radius:4px;
+                   padding:2px 7px;font-size:11px;font-weight:600;}
+  .badge-alibaba  {background:#fff1e6;color:#FF6A00;border-radius:4px;
+                   padding:2px 7px;font-size:11px;font-weight:600;}
+  .badge-deepseek {background:#eff6ff;color:#2563eb;border-radius:4px;
+                   padding:2px 7px;font-size:11px;font-weight:600;}
+</style>
+""", unsafe_allow_html=True)
 
 
 # ── Colour helpers ────────────────────────────────────────────────────────────
@@ -115,7 +101,9 @@ def position_color(pos) -> str:
 
 def _logo_html(label: str) -> str:
     m = _MODEL_META.get(label, {})
-    url, company, badge = m.get("logo", ""), m.get("company", ""), m.get("badge", "badge-meta")
+    url   = m.get("logo", "")
+    company = m.get("company", "")
+    badge = m.get("badge", "badge-meta")
     if url:
         return f'<img src="{url}" class="company-logo" alt="{company}" title="{company}">'
     return f'<span class="{badge}">{company}</span>'
@@ -132,8 +120,8 @@ def _model_table_html(per_model) -> str:
             f"<td><strong>{m.model_label}</strong>{err}</td>"
             f"<td style='text-align:center'>{'✅' if m.mentioned else '❌'}</td>"
             f"<td style='text-align:center'>{m.position or '–'}</td>"
-            f"<td>{m.sentiment}</td>"
-            f"<td class='comp-cell'>{comps}</td>"
+            f"<td>{m.sentiment or '–'}</td>"
+            f"<td style='color:#94a3b8;font-size:13px'>{comps}</td>"
             f"</tr>"
         )
     return (
@@ -145,11 +133,6 @@ def _model_table_html(per_model) -> str:
         f"</tr></thead><tbody>{rows}</tbody></table><br>"
     )
 
-
-# ── Apply CSS ─────────────────────────────────────────────────────────────────
-
-dark = st.session_state.get("dark_mode", False)
-st.markdown(_DARK_CSS if dark else _LIGHT_CSS, unsafe_allow_html=True)
 
 # ── Page header ───────────────────────────────────────────────────────────────
 
@@ -172,25 +155,18 @@ with st.sidebar:
     verify = st.checkbox("Verify citations on the open web", value=True)
     deep = st.checkbox(
         "Run deep agent analysis", value=False,
-        help="LangGraph ReAct agent with temporal analysis (training cutoff vs. live web search).",
+        help="LangGraph ReAct agent with temporal analysis.",
     )
     run = st.button("Run diagnostic", type="primary", use_container_width=True)
-    st.divider()
-
-    night = st.toggle("🌙 Night mode", value=dark)
-    if night != dark:
-        st.session_state.dark_mode = night
-        st.rerun()
-
     st.divider()
     st.caption(
         "**LLM Panel (Groq):**  \n"
         "• Llama 3.3 70B *(Meta)*  \n"
-        "• Llama 4 Scout 17B *(Meta)*  \n"
-        "• Llama 3.1 8B Instant *(Meta)*  \n"
         "• GPT-OSS 120B *(OpenAI)*  \n"
+        "• Mistral Saba 24B *(Mistral)*  \n"
         "• GPT-OSS 20B *(OpenAI)*  \n"
-        "• Qwen3 32B *(Alibaba)*  \n\n"
+        "• Qwen3 32B *(Alibaba)*  \n"
+        "• DeepSeek R1 Distill *(DeepSeek)*  \n\n"
         "Pipeline: **LangGraph** state machine.  \n"
         "Citations: DuckDuckGo verifier."
     )
@@ -206,7 +182,7 @@ if run:
 
     progress = st.empty()
     with progress.container():
-        with st.spinner("Querying 6 LLMs (Meta · OpenAI · Alibaba) via Groq + LangChain …"):
+        with st.spinner("Querying 6 LLMs (Meta · OpenAI · Mistral · Alibaba · DeepSeek) via Groq + LangChain …"):
             responses = query_all(query)
         with st.spinner("Scoring, verifying citations, running LangGraph pipeline …"):
             card = score_panel(target, query, responses, verify_citations=verify)
@@ -231,10 +207,10 @@ if run:
     s1, s2, s3, s4 = st.columns(4)
     avg_pos = card.avg_position
     for col, k, v, color in [
-        (s1, "Mention rate",       f"{card.mention_rate * 100:.0f}%",  mention_color(card.mention_rate)),
-        (s2, "Avg position",       f"{avg_pos:.1f}" if avg_pos else "–", position_color(avg_pos)),
-        (s3, "Sentiment",          f"{card.sentiment_score:.0f}",       "#6b7280"),
-        (s4, "Citation grounding", f"{card.citation_score:.0f}%",       "#6b7280"),
+        (s1, "Mention rate",       f"{card.mention_rate * 100:.0f}%",      mention_color(card.mention_rate)),
+        (s2, "Avg position",       f"{avg_pos:.1f}" if avg_pos else "–",    position_color(avg_pos)),
+        (s3, "Sentiment",          f"{card.sentiment_score:.0f}",           "#6b7280"),
+        (s4, "Citation grounding", f"{card.citation_score:.0f}%",           "#6b7280"),
     ]:
         with col:
             st.markdown(
@@ -273,7 +249,7 @@ if run:
         st.divider()
         st.subheader("Deep Agent Analysis (LangGraph ReAct)")
         st.caption(
-            "Temporal analysis compares model knowledge cutoffs vs. live web-search models. "
+            "Temporal analysis compares model knowledge cutoffs. "
             "Divergence reveals whether recent AEO strategy changes are working."
         )
         with st.spinner("Running deep research agent …"):

@@ -31,5 +31,13 @@ frontend/out/
 frontend/.env.local
 *.tsbuildinfo
 
-# Fly.io
-.fly/
+# Pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+Thumbs.db

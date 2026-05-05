@@ -1,16 +1,14 @@
 """LangChain prompt chains — all models hosted on Groq for free, fast inference.
 
-Panel (all production-tier on Groq):
-  • Llama 3.3 70B        (Meta)
-  • GPT-OSS 120B         (OpenAI open weights)
-  • Llama 4 Scout 17B    (Meta)
-  • Llama 3.1 8B Instant (Meta)
-  • GPT-OSS 20B          (OpenAI open weights)
-  • Qwen3 32B            (Qwen / Alibaba)
+Panel:
+  • Llama 3.3 70B          (Meta)
+  • GPT-OSS 120B           (OpenAI)
+  • Mistral Saba 24B       (Mistral)
+  • GPT-OSS 20B            (OpenAI)
+  • Qwen3 32B              (Alibaba)
+  • DeepSeek R1 Distill    (DeepSeek)
 
 All six are queried via a single GROQ_API_KEY.
-The chain returns the raw LLM text so the regex parser in scorer.py
-handles all response format variations without losing data.
 """
 
 from __future__ import annotations
@@ -61,57 +59,32 @@ def get_llama_llm() -> Optional[BaseChatModel]:
     return _groq_llm("llama-3.3-70b-versatile")
 
 
-def get_mixtral_llm() -> Optional[BaseChatModel]:
-    return _groq_llm("mixtral-8x7b-32768")
-
-
-# ── Google ────────────────────────────────────────────────────────────────────
-
-def get_gemma_llm() -> Optional[BaseChatModel]:
-    return _groq_llm("gemma2-9b-it")
-=======
-def get_llama31_llm() -> Optional[BaseChatModel]:
-    return _groq_llm("llama-3.1-8b-instant")
-
-
-def get_llama4_llm() -> Optional[BaseChatModel]:
-    return _groq_llm("meta-llama/llama-4-scout-17b-16e-instruct")
-
-
-# ── OpenAI open weights ───────────────────────────────────────────────────────
-
 def get_gpt_oss_llm() -> Optional[BaseChatModel]:
     return _groq_llm("openai/gpt-oss-120b")
+
+
+def get_mistral_llm() -> Optional[BaseChatModel]:
+    return _groq_llm("mistral-saba-24b")
 
 
 def get_gpt_oss20_llm() -> Optional[BaseChatModel]:
     return _groq_llm("openai/gpt-oss-20b")
 
 
-# ── Qwen / Alibaba ────────────────────────────────────────────────────────────
-
 def get_qwen3_llm() -> Optional[BaseChatModel]:
     return _groq_llm("qwen/qwen3-32b")
 
-
-# ── DeepSeek ──────────────────────────────────────────────────────────────────
 
 def get_deepseek_llm() -> Optional[BaseChatModel]:
     return _groq_llm("deepseek-r1-distill-llama-70b")
 
 
-# ── Qwen / Alibaba ────────────────────────────────────────────────────────────
-
-def get_qwq_llm() -> Optional[BaseChatModel]:
-    return _groq_llm("qwen-qwq-32b")
-
-
 # Ordered panel: (display label, LLM factory)
 ALL_LLM_CONFIGS: list[tuple[str, callable]] = [
-    ("Llama 3.3 70B (Meta / Groq)",          get_llama_llm),
-    ("GPT-OSS 120B (OpenAI / Groq)",          get_gpt_oss_llm),
-    ("Llama 4 Scout 17B (Meta / Groq)",       get_llama4_llm),
-    ("Gemma 2 9B (Google / Groq)",            get_gemma_llm),
-    ("DeepSeek R1 Distill 70B (DeepSeek / Groq)", get_deepseek_llm),
-    ("QwQ 32B (Qwen·Alibaba / Groq)",         get_qwq_llm),
+    ("Llama 3.3 70B",       get_llama_llm),
+    ("GPT-OSS 120B",        get_gpt_oss_llm),
+    ("Mistral Saba 24B",    get_mistral_llm),
+    ("GPT-OSS 20B",         get_gpt_oss20_llm),
+    ("Qwen3 32B",           get_qwen3_llm),
+    ("DeepSeek R1 Distill", get_deepseek_llm),
 ]
