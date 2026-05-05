@@ -102,7 +102,7 @@ def main() -> None:
     print(f"  JSON → {json_path}")
     print(f"\nDone.  Open {html_path} in a browser to view the report card.")
 
-    sys.exit(0 if card.grade not in ("F", "N/A") else 1)
+    sys.exit(0)  # grade F is a valid diagnostic result, not a pipeline failure
 
 
 if __name__ == "__main__":

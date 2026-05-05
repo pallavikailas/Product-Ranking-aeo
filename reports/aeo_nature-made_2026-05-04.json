@@ -1,0 +1,140 @@
+{
+  "query": "best magnesium supplement for seniors",
+  "target": "Nature Made",
+  "overall": 54.8,
+  "grade": "D",
+  "mention_rate": 0.16666666666666666,
+  "avg_position": 1.0,
+  "sentiment_score": 10.0,
+  "citation_score": 90.0,
+  "per_model": [
+    {
+      "model": "Llama 3.3 70B (Meta / Groq)",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Garden of Life Magnesium",
+        "Nature's Bounty Magnesium",
+        "Jarrow Formulas Magnesium Optimizer",
+        "Doctor's Best Magnesium",
+        "Thorne Research Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "GPT-OSS 120B (OpenAI / Groq)",
+      "mentioned": true,
+      "position": 1,
+      "sentiment": "Positive",
+      "competitors": [
+        "Doctor\u2019s Best High Absorption Magnesium (Magnesium Glycinate)",
+        "Pure Encapsulations Magnesium (Citrate/Malate)",
+        "Thorne Research Magnesium Bisglycinate",
+        "Garden of Life Vitamin Code Magnesium",
+        "NOW Foods Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 4 Scout 17B (Meta / Groq)",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Nature's Bounty Magnesium, 400mg",
+        "Garden of Life Magnesium",
+        "Thorne Research Magnesium Citrate",
+        "NOW Foods Magnesium Glycinate",
+        "Jarrow Formulas Magnesium Optimizer"
+      ],
+      "error": null
+    },
+    {
+      "model": "Gemma 2 9B (Google / Groq)",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 400 - {'error': {'message': 'The model `gemma2-9b-it` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}"
+    },
+    {
+      "model": "DeepSeek R1 Distill 70B (DeepSeek / Groq)",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 400 - {'error': {'message': 'The model `deepseek-r1-distill-llama-70b` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}"
+    },
+    {
+      "model": "QwQ 32B (Qwen\u00b7Alibaba / Groq)",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 400 - {'error': {'message': 'The model `qwen-qwq-32b` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}"
+    }
+  ],
+  "verifications": [
+    {
+      "brand": "Country Life",
+      "found": true,
+      "top_hit_url": "https://countrylifevitamins.com/",
+      "top_hit_title": "Country Life Vitamins"
+    },
+    {
+      "brand": "Doctor's Best",
+      "found": true,
+      "top_hit_url": "https://www.doctorsbest.com/",
+      "top_hit_title": "Doctor's Best"
+    },
+    {
+      "brand": "Doctor\u2019s Best",
+      "found": false,
+      "top_hit_url": null,
+      "top_hit_title": null
+    },
+    {
+      "brand": "Garden of Life",
+      "found": true,
+      "top_hit_url": "https://www.gardenoflife.com/",
+      "top_hit_title": "Clean Vitamins and Supplements | Garden of Life"
+    },
+    {
+      "brand": "Jarrow Formulas",
+      "found": true,
+      "top_hit_url": "https://jarrow.com/",
+      "top_hit_title": "Jarrow Formulas | High Quality Dietary Supplements"
+    },
+    {
+      "brand": "Life Extension",
+      "found": true,
+      "top_hit_url": "https://www.lifeextension.com/",
+      "top_hit_title": "Vitamins and Supplements Rooted in Science - Life Extension"
+    },
+    {
+      "brand": "MRM",
+      "found": true,
+      "top_hit_url": "https://mrmnutrition.com/",
+      "top_hit_title": "Boost Your Health with Essential Nutritional Supplements"
+    },
+    {
+      "brand": "MegaFood",
+      "found": true,
+      "top_hit_url": "https://megafood.com/",
+      "top_hit_title": "MegaFood: Real Food Vitamins with Added Nutrients | MegaFood"
+    },
+    {
+      "brand": "NOW Foods",
+      "found": true,
+      "top_hit_url": "https://www.nowfoods.com/",
+      "top_hit_title": "NOW Foods | NOW Supplements | NOW Vitamins | NOW Products"
+    },
+    {
+      "brand": "Nature Made",
+      "found": true,
+      "top_hit_url": "https://en.wikipedia.org/wiki/Nature_Made",
+      "top_hit_title": "Nature Made - Wikipedia"
+    }
+  ]
+}
