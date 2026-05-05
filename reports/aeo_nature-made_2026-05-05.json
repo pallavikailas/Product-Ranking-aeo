@@ -1,11 +1,11 @@
 {
   "query": "best magnesium supplement for seniors",
   "target": "Nature Made",
-  "overall": 38.2,
+  "overall": 36.5,
   "grade": "F",
-  "mention_rate": 0.3333333333333333,
-  "avg_position": 5.5,
-  "sentiment_score": 50.0,
+  "mention_rate": 0.16666666666666666,
+  "avg_position": 4.0,
+  "sentiment_score": 6.0,
   "citation_score": 90.0,
   "per_model": [
     {
@@ -18,7 +18,7 @@
         "Nature's Bounty Magnesium",
         "Jarrow Formulas Magnesium Optimizer",
         "Doctor's Best Magnesium",
-        "Thorne Research Magnesium Citrate"
+        "NOW Foods Magnesium Citrate"
       ],
       "error": null
     },
@@ -28,35 +28,35 @@
       "position": 4,
       "sentiment": "Positive",
       "competitors": [
-        "Doctor's Best High Absorption Magnesium (Magnesium Glycinate)",
+        "Doctor\u2019s Best High Absorption Magnesium (Magnesium Glycinate)",
         "Pure Encapsulations Magnesium (Citrate)",
         "Thorne Research Magnesium Bisglycinate",
-        "Life Extension Magnesium Caps (Magnesium Oxide & Citrate Blend)",
-        "NOW Foods Magnesium Citrate"
+        "NOW Foods Magnesium Citrate",
+        "Life Extension Magnesium Caps"
       ],
       "error": null
     },
     {
-      "model": "Mistral Saba 24B",
+      "model": "Llama 4 Scout 17B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Nature's Bounty Magnesium, 400mg",
+        "Garden of Life Magnesium",
+        "Thorne Research Magnesium Citrate",
+        "NOW Foods Magnesium Glycinate",
+        "Doctor's Best Magnesium"
+      ],
+      "error": null
+    },
+    {
+      "model": "GPT-OSS 20B",
       "mentioned": false,
       "position": null,
       "sentiment": "Neutral",
       "competitors": [],
-      "error": "Error code: 400 - {'error': {'message': 'The model `mistral-saba-24b` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}"
-    },
-    {
-      "model": "GPT-OSS 20B",
-      "mentioned": true,
-      "position": 7,
-      "sentiment": "Positive",
-      "competitors": [
-        "NOW Magnesium Glycinate 200\u202fmg",
-        "Thorne Research Magnesium Bisglycinate 200\u202fmg",
-        "Life Extension Magnesium Glycinate 200\u202fmg",
-        "Doctor's Best High Absorption Magnesium (Citrate\u202f+\u202fGlycinate) 200\u202fmg",
-        "Solgar Magnesium Citrate 200\u202fmg"
-      ],
-      "error": null
+      "error": "Model returned an empty response"
     },
     {
       "model": "Qwen3 32B",
@@ -64,24 +64,36 @@
       "position": null,
       "sentiment": "Neutral",
       "competitors": [
-        "Garden of Life RAW Magnesium Glycinate",
+        "Garden of Life Raw Magnesium",
+        "Now Foods Magnesium Citrate",
+        "Pure Encapsulations Magnesium Citrate",
         "Thorne Research Magnesium Glycinate",
-        "Pure Encapsulations Magnesium Glycinate",
-        "Solgar Magnesium Citrate",
-        "Klaire Labs Magnesium Malate"
+        "Nature\u2019s Way Magnesium Glycinate"
       ],
       "error": null
     },
     {
-      "model": "DeepSeek R1 Distill",
+      "model": "Llama 3.1 8B Instant",
       "mentioned": false,
       "position": null,
       "sentiment": "Neutral",
-      "competitors": [],
-      "error": "Error code: 400 - {'error': {'message': 'The model `deepseek-r1-distill-llama-70b` has been decommissioned and is no longer supported. Please refer to https://console.groq.com/docs/deprecations for a recommendation on which model to use instead.', 'type': 'invalid_request_error', 'code': 'model_decommissioned'}}"
+      "competitors": [
+        "Doctor's Best Magnesium L",
+        "Jarrow Formulas Magnesium Citrate",
+        "Garden of Life RAW Magnesium",
+        "Nature's Bounty Magnesium",
+        "Thorne Research Magnesium Citrate"
+      ],
+      "error": null
     }
   ],
   "verifications": [
+    {
+      "brand": "Country",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/merc_supplement_1_in_country",
+      "top_hit_title": "Merc Supplement 1: In Country"
+    },
     {
       "brand": "Doctor's",
       "found": true,
@@ -95,40 +107,16 @@
       "top_hit_title": null
     },
     {
-      "brand": "GNC",
-      "found": true,
-      "top_hit_url": "https://en.wikipedia.org/wiki/GNC_(company)",
-      "top_hit_title": "GNC (company) - Wikipedia"
-    },
-    {
       "brand": "Garden",
       "found": true,
-      "top_hit_url": "https://www.htgsupply.com/product-category/nutrients/supplements/",
-      "top_hit_title": "Supplements for Hydroponic Indoor Gardening | HTG Supply"
+      "top_hit_url": "https://www.gardenoflife.com/",
+      "top_hit_title": "Clean Vitamins and Supplements | Garden of Life"
     },
     {
       "brand": "Jarrow",
       "found": true,
       "top_hit_url": "https://jarrow.com/",
       "top_hit_title": "Jarrow Formulas | High Quality Dietary Supplements"
-    },
-    {
-      "brand": "KAL",
-      "found": true,
-      "top_hit_url": "https://www.kalvitamins.com/",
-      "top_hit_title": "KAL Vitamins | Since 1932 \u2013 Kal Vitamins"
-    },
-    {
-      "brand": "Kirkland",
-      "found": true,
-      "top_hit_url": "https://grokipedia.com/page/Kirkland_Signature_Psyllium_Fiber_Supplement",
-      "top_hit_title": "Kirkland Signature Psyllium Fiber Supplement"
-    },
-    {
-      "brand": "Klaire",
-      "found": true,
-      "top_hit_url": "https://us.sfihealth.com/products",
-      "top_hit_title": "Nutritional Supplement Products - Klaire Labs - SFI Health"
     },
     {
       "brand": "Life",
@@ -141,6 +129,24 @@
       "found": true,
       "top_hit_url": "https://www.amazon.com/mrm-supplements/s?k=mrm+supplements",
       "top_hit_title": "Amazon.com: Mrm Supplements"
+    },
+    {
+      "brand": "MegaFood",
+      "found": true,
+      "top_hit_url": "https://megafood.com/collections/vitamins-and-supplements",
+      "top_hit_title": "Vitamins and Supplements"
+    },
+    {
+      "brand": "Megan",
+      "found": true,
+      "top_hit_url": "https://www.meganandco.com/supplements/",
+      "top_hit_title": "Supplements - MEGAN & CO. Herbal Apothecary and Clinic"
+    },
+    {
+      "brand": "NOW",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/central_casting_heroes_now_role_playing_game_supplement",
+      "top_hit_title": "Central Casting: Heroes Now! (role-playing game supplement)"
     }
   ]
 }
