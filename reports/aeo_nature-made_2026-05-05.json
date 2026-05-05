@@ -1,11 +1,11 @@
 {
   "query": "best magnesium supplement for seniors",
   "target": "Nature Made",
-  "overall": 54.5,
+  "overall": 51.1,
   "grade": "D",
-  "mention_rate": 0.16666666666666666,
-  "avg_position": 1.0,
-  "sentiment_score": 6.0,
+  "mention_rate": 0.3333333333333333,
+  "avg_position": 3.0,
+  "sentiment_score": 21.7,
   "citation_score": 90.0,
   "per_model": [
     {
@@ -18,20 +18,20 @@
         "Nature's Bounty Magnesium",
         "Jarrow Formulas Magnesium Optimizer",
         "Doctor's Best Magnesium",
-        "NOW Foods Magnesium Citrate"
+        "Thorne Research Magnesium Citrate"
       ],
       "error": null
     },
     {
       "model": "GPT-OSS 120B",
       "mentioned": true,
-      "position": 1,
+      "position": 2,
       "sentiment": "Positive",
       "competitors": [
         "Doctor\u2019s Best High Absorption Magnesium (Magnesium Glycinate)",
         "Thorne Research Magnesium Bisglycinate",
         "Pure Encapsulations Magnesium (Citrate)",
-        "Life Extension Magnesium Caps (Magnesium Citrate)",
+        "Kirkland Signature Magnesium Citrate",
         "NOW Foods Magnesium Citrate"
       ],
       "error": null
@@ -52,11 +52,17 @@
     },
     {
       "model": "Compound",
-      "mentioned": false,
-      "position": null,
-      "sentiment": "Neutral",
-      "competitors": [],
-      "error": "Error code: 413 - {'error': {'message': 'Request Entity Too Large', 'type': 'invalid_request_error', 'code': 'request_too_large'}}"
+      "mentioned": true,
+      "position": 4,
+      "sentiment": "Positive",
+      "competitors": [
+        "Doctor\u2019s Best High Absorption Magnesium (Magnesium Glycinate)",
+        "Thorne Research Magnesium Bisglycinate",
+        "KAL Magnesium Glycinate 400",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "NOW Foods Magnesium Caps (Magnesium Oxide & Citrate Blend)"
+      ],
+      "error": null
     },
     {
       "model": "Qwen3 32B",
@@ -64,11 +70,11 @@
       "position": null,
       "sentiment": "Neutral",
       "competitors": [
-        "Natural Vitality Calm Magnesium Supplement (Powder)",
+        "Garden of Life Raw Magnesium Glycinate",
+        "Now Foods Magnesium Citrate",
+        "Pure Encapsulations Magnesium Bisglycinate",
         "Thorne Research Magnesium Glycinate",
-        "Pure Encapsulations Magnesium Glycinate",
-        "Klaire Labs Magnesium Citrate",
-        "Source Naturals Magnesium Citrate"
+        "Solgar Magnesium Citrate"
       ],
       "error": null
     },
@@ -78,11 +84,11 @@
       "position": null,
       "sentiment": "Neutral",
       "competitors": [
-        "Doctor's Best Magnesium Citrate",
         "Garden of Life RAW Magnesium",
-        "Nature's Bounty Magnesium",
+        "Doctor's Best Magnesium Citrate",
         "Jarrow Formulas Magnesium Glycinate",
-        "Thorne Research Magnesium"
+        "Nature's Bounty Magnesium Oxide",
+        "Thorne Research Magnesium Citrate"
       ],
       "error": null
     }
@@ -109,8 +115,8 @@
     {
       "brand": "Garden",
       "found": true,
-      "top_hit_url": "https://www.gardenoflife.com/",
-      "top_hit_title": "Clean Vitamins and Supplements | Garden of Life"
+      "top_hit_url": "https://www.htgsupply.com/product-category/nutrients/supplements/",
+      "top_hit_title": "Supplements for Hydroponic Indoor Gardening | HTG Supply"
     },
     {
       "brand": "Jarrow",
@@ -119,10 +125,22 @@
       "top_hit_title": "Jarrow Formulas | High Quality Dietary Supplements"
     },
     {
-      "brand": "Klaire",
+      "brand": "Jigsaw",
       "found": true,
-      "top_hit_url": "https://www.amazon.com/stores/KlaireLabs/page/016CDE92-E1A7-44E9-8C8A-AFD13685E1D8",
-      "top_hit_title": "Klaire Labs: Shop All Products - amazon.com"
+      "top_hit_url": "https://www.jigsawhealth.com/",
+      "top_hit_title": "It's Fun To Feel Good\u00ae | High-Quality Nutritional Supplements"
+    },
+    {
+      "brand": "KAL",
+      "found": true,
+      "top_hit_url": "https://www.amazon.com/stores/KAL/page/8940DE58-05DE-4073-9277-148E1C7317C7",
+      "top_hit_title": "Amazon.com: KAL"
+    },
+    {
+      "brand": "Kirkland",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/Kirkland_Signature_Psyllium_Fiber_Supplement",
+      "top_hit_title": "Kirkland Signature Psyllium Fiber Supplement"
     },
     {
       "brand": "Life",
@@ -135,18 +153,6 @@
       "found": true,
       "top_hit_url": "https://mrmnutrition.com/",
       "top_hit_title": "Boost Your Health with Essential Nutritional Supplements \u2013 MRM Nutrition"
-    },
-    {
-      "brand": "MegaFood",
-      "found": true,
-      "top_hit_url": "https://megafood.com/",
-      "top_hit_title": "MegaFood: Real Food Vitamins with Added Nutrients | MegaFood"
-    },
-    {
-      "brand": "NOW",
-      "found": true,
-      "top_hit_url": "https://grokipedia.com/page/central_casting_heroes_now_role_playing_game_supplement",
-      "top_hit_title": "Central Casting: Heroes Now! (role-playing game supplement)"
     }
   ]
 }
