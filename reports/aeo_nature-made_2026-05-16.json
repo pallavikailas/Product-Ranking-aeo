@@ -1,0 +1,158 @@
+{
+  "query": "best magnesium supplement for seniors",
+  "target": "Nature Made",
+  "overall": 32.2,
+  "grade": "F",
+  "mention_rate": 0.3333333333333333,
+  "avg_position": 9.5,
+  "sentiment_score": 10.0,
+  "citation_score": 90.0,
+  "per_model": [
+    {
+      "model": "Llama 3.3 70B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Garden of Life Magnesium",
+        "Nature's Bounty Magnesium",
+        "Jarrow Formulas Magnesium Optimizer",
+        "Doctor's Best Magnesium",
+        "NOW Foods Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "GPT-OSS 120B",
+      "mentioned": true,
+      "position": 9,
+      "sentiment": "Positive",
+      "competitors": [
+        "Thorne Research Magnesium Bisglycinate Powder",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "Life Extension Magnesium Caps",
+        "Doctor\u2019s Best High Absorption Magnesium Glycinate",
+        "Garden of Life Vitamin Code Magnesium"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 4 Scout 17B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Nature's Bounty Magnesium, 400mg",
+        "Garden of Life Magnesium",
+        "Thorne Research Magnesium Citrate",
+        "Jarrow Formulas Magnesium Optimizer",
+        "Doctor's Best Magnesium"
+      ],
+      "error": null
+    },
+    {
+      "model": "Compound",
+      "mentioned": true,
+      "position": 10,
+      "sentiment": "Positive",
+      "competitors": [
+        "Thorne Magnesium Bisglycinate Powder",
+        "Pure Encapsulations Magnesium (Citrate) 200\u202fmg Capsules",
+        "Doctor\u2019s Best High Absorption Magnesium (Glycinate)",
+        "Life Extension Magnesium Caps (Magnesium Malate)",
+        "Klaire Labs Magnesium Glycinate"
+      ],
+      "error": null
+    },
+    {
+      "model": "Qwen3 32B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Garden of Life Raw Magnesium",
+        "Thorne Research Magnesium Citrate",
+        "Pure Encapsulations Magnesium Glycinate",
+        "Solgar Magnesium Bisglycinate Chelate",
+        "NOW Foods Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 3.1 8B Instant",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Doctor's Best Magnesium L",
+        "Jarrow Formulas Magnesium Citrate",
+        "Nature's Bounty Magnesium Glycinate",
+        "Garden of Life RAW Magnesium",
+        "Thorne Research Magnesium Citrate"
+      ],
+      "error": null
+    }
+  ],
+  "verifications": [
+    {
+      "brand": "Country",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/merc_supplement_1_in_country",
+      "top_hit_title": "Merc Supplement 1: In Country"
+    },
+    {
+      "brand": "Designs",
+      "found": true,
+      "top_hit_url": "https://www.designsforhealth.com/",
+      "top_hit_title": "Designs for Health - Home | Superior Supplement Products - Science First"
+    },
+    {
+      "brand": "Doctor's",
+      "found": true,
+      "top_hit_url": "https://www.doctorsbest.com/",
+      "top_hit_title": "Doctor's Best"
+    },
+    {
+      "brand": "Doctor\u2019s",
+      "found": false,
+      "top_hit_url": null,
+      "top_hit_title": null
+    },
+    {
+      "brand": "Garden",
+      "found": true,
+      "top_hit_url": "https://www.gardenoflife.com/",
+      "top_hit_title": "Clean Vitamins and Supplements | Garden of Life"
+    },
+    {
+      "brand": "Jarrow",
+      "found": true,
+      "top_hit_url": "https://jarrow.com/",
+      "top_hit_title": "Jarrow Formulas | High Quality Dietary Supplements"
+    },
+    {
+      "brand": "Jigsaw",
+      "found": true,
+      "top_hit_url": "https://www.jigsawhealth.com/",
+      "top_hit_title": "It's Fun To Feel Good\u00ae | High-Quality Nutritional Supplements"
+    },
+    {
+      "brand": "Klaire",
+      "found": true,
+      "top_hit_url": "https://www.amazon.com/Vitamin-B-Supplements-Klaire-Labs/s?keywords=Vitamin+B+Supplements&rh=n:3774671,p_89:Klaire+Labs&c=ts&ts_id=3774671",
+      "top_hit_title": "Amazon.com: Vitamin B Supplements - Klaire Labs / Vitamin..."
+    },
+    {
+      "brand": "Life",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/Beginning_Life_Ayurvedic_supplement",
+      "top_hit_title": "Beginning Life (Ayurvedic supplement)"
+    },
+    {
+      "brand": "MRM",
+      "found": true,
+      "top_hit_url": "https://mrmnutrition.com/?srsltid=AfmBOopEGK5aUpICDalT94lJpaBW_Wi4oIrx20Xb2-yLeCx-CayFG9l9",
+      "top_hit_title": "MRM Nutrition"
+    }
+  ]
+}
