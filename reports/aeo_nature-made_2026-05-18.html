@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AEO Report — Nature Made</title>
+<style>
+:root {
+  --bg:#f5f7fa; --card:#fff; --border:#e2e8f0;
+  --text:#1a202c; --muted:#718096; --accent:#4f46e5;
+  --target-bg:#fff7ed; --target-border:#f97316;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+     background:var(--bg);color:var(--text);padding:24px}
+
+/* header */
+.header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);
+        color:#fff;border-radius:16px;padding:32px;margin-bottom:24px}
+.header h1{font-size:1.6rem;font-weight:700;margin-bottom:8px}
+.header .meta{opacity:.75;font-size:.9rem}
+
+/* score strip */
+.score-strip{display:flex;gap:20px;margin-bottom:24px;flex-wrap:wrap}
+.grade-box{border-radius:16px;width:120px;height:120px;display:flex;
+           flex-direction:column;align-items:center;justify-content:center;
+           flex-shrink:0;color:#fff}
+.grade-box .letter{font-size:3rem;font-weight:900;line-height:1}
+.grade-box .lbl{font-size:.8rem;opacity:.9;margin-top:4px}
+.score-detail{background:var(--card);border:1px solid var(--border);
+              border-radius:16px;padding:24px;flex:1;min-width:240px}
+.score-detail h2{font-size:.85rem;text-transform:uppercase;letter-spacing:.06em;
+                 color:var(--muted);margin-bottom:12px}
+.score-num{font-size:2.5rem;font-weight:800}
+.bar-wrap{background:#e2e8f0;border-radius:8px;height:12px;margin-top:12px;overflow:hidden}
+.bar-fill{height:100%;border-radius:8px;
+          background:linear-gradient(90deg,#ef4444 0%,#f97316 40%,#22c55e 100%)}
+.pills{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.pill{padding:4px 12px;border-radius:99px;font-size:.8rem;font-weight:600}
+.pill-green{background:#dcfce7;color:#15803d}
+.pill-amber{background:#fef9c3;color:#854d0e}
+.pill-red{background:#fee2e2;color:#b91c1c}
+
+/* section */
+section{margin-bottom:28px}
+section h2{font-size:1.1rem;font-weight:700;margin-bottom:14px;
+           padding-bottom:8px;border-bottom:2px solid var(--border)}
+
+/* badges */
+.badge{padding:3px 10px;border-radius:99px;font-size:.75rem;font-weight:600}
+.badge-rank{background:#dbeafe;color:#1d4ed8}
+.badge-mention{background:#fef9c3;color:#854d0e}
+.badge-miss{background:#f3f4f6;color:#6b7280}
+.badge-err{background:#fee2e2;color:#b91c1c}
+
+/* model cards */
+.model-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.model-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px}
+.model-card.err{opacity:.6}
+.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.card-name{font-weight:700;font-size:.95rem}
+.card-meta{display:flex;gap:16px;font-size:.82rem;color:var(--muted);margin-bottom:12px}
+.product-list{list-style:none;padding:0;font-size:.82rem;max-height:230px;overflow-y:auto}
+.product-list li{padding:4px 6px;border-radius:6px;margin-bottom:2px;line-height:1.4}
+.product-list li.hi{background:var(--target-bg);
+                    border-left:3px solid var(--target-border);padding-left:8px}
+.raw-toggle{margin-top:12px;font-size:.8rem}
+.raw-toggle summary{cursor:pointer;color:var(--muted)}
+.raw-toggle pre{background:#f8fafc;border:1px solid var(--border);border-radius:8px;
+                padding:10px;margin-top:8px;white-space:pre-wrap;font-size:.75rem;
+                max-height:200px;overflow-y:auto}
+
+/* competitor table */
+.comp-table{width:100%;border-collapse:collapse;background:var(--card);
+            border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:.88rem}
+.comp-table th{background:#f8fafc;padding:10px 14px;text-align:left;font-weight:600;
+               color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+.comp-table td{padding:9px 14px;border-top:1px solid var(--border)}
+.comp-table tr.hi td{background:var(--target-bg);font-weight:700}
+.sov-wrap{display:flex;align-items:center;gap:8px}
+.sov-bar{height:8px;border-radius:4px;background:var(--accent);min-width:4px}
+.sov-wrap span{font-size:.8rem;color:var(--muted)}
+
+/* recommendations */
+.rec-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:20px}
+.rec-box ul{padding-left:20px}
+.rec-box li{margin-bottom:8px;font-size:.9rem;line-height:1.5}
+
+/* footer */
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:32px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>AEO Diagnostic Report</h1>
+  <p class="meta">Query: <strong>"best magnesium supplement for seniors"</strong> &nbsp;·&nbsp; Target: <strong>Nature Made</strong></p>
+</div>
+
+<div class="score-strip">
+  <div class="grade-box" style="background:#ef6c00">
+    <span class="letter">D</span>
+    <span class="lbl">AEO Grade</span>
+  </div>
+  <div class="score-detail">
+    <h2>Overall AEO Score</h2>
+    <span class="score-num" style="color:#ef6c00">48.0</span>
+    <span style="color:var(--muted)">/100</span>
+    <div class="bar-wrap"><div class="bar-fill" style="width:48%"></div></div>
+    <div class="pills">
+      <span class="pill pill-amber">
+        Mentioned 50% of models
+      </span>
+      <span class="pill pill-amber">
+        Avg position 5.0
+      </span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <h2>Per-Model Breakdown</h2>
+  <table class="comp-table">
+    <thead><tr><th>Model</th><th>Rank</th><th>Sentiment</th><th>Top Competitors</th><th>Error</th></tr></thead>
+    <tbody>
+<tr>
+  <td>Llama 3.3 70B</td>
+  <td><span class="badge badge-miss">Not found</span></td>
+  <td>Neutral</td>
+  <td style="font-size:.82rem;color:#64748b">Garden of Life Magnesium, Nature's Bounty Magnesium, Jarrow Formulas Magnesium Optimizer</td>
+  <td></td>
+</tr>
+<tr>
+  <td>GPT-OSS 120B</td>
+  <td><span class="badge badge-rank">#1</span></td>
+  <td>Positive</td>
+  <td style="font-size:.82rem;color:#64748b">Doctor's Best High Absorption Magnesium (Magnesium Glycinate), Thorne Research Magnesium Bisglycinate, Pure Encapsulations Magnesium (Citrate)</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Llama 4 Scout 17B</td>
+  <td><span class="badge badge-miss">Not found</span></td>
+  <td>Neutral</td>
+  <td style="font-size:.82rem;color:#64748b">Nature's Bounty Magnesium, Garden of Life Magnesium, Thorne Research Magnesium</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Compound</td>
+  <td><span class="badge badge-rank">#4</span></td>
+  <td>Positive</td>
+  <td style="font-size:.82rem;color:#64748b">Thorne Research Magnesium Bisglycinate, Doctor's Best High Absorption Magnesium, KAL Magnesium Glycinate 400</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Qwen3 32B</td>
+  <td><span class="badge badge-rank">#10</span></td>
+  <td>Positive</td>
+  <td style="font-size:.82rem;color:#64748b">Garden of Life Mykind Organics, Thorne Research, Pure Encapsulations</td>
+  <td></td>
+</tr>
+<tr>
+  <td>Llama 3.1 8B Instant</td>
+  <td><span class="badge badge-miss">Not found</span></td>
+  <td>Neutral</td>
+  <td style="font-size:.82rem;color:#64748b">Doctor's Best Magnesium Citrate, Garden of Life RAW Magnesium, Jarrow Formulas Magnesium Citrate</td>
+  <td></td>
+</tr></tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Citation Verification (100% found on web)</h2>
+  <table class="comp-table">
+    <thead><tr><th>Brand</th><th>Top Result</th></tr></thead>
+    <tbody><tr><td>✅ Country</td><td><a href="https://grokipedia.com/page/merc_supplement_1_in_country" target="_blank">Merc Supplement 1: In Country</a></td></tr><tr><td>✅ Doctor's</td><td><a href="https://www.doctorsbest.com/collections/supplements" target="_blank">Supplements - Doctor's Best</a></td></tr><tr><td>✅ Garden</td><td><a href="https://www.htgsupply.com/product-category/nutrients/supplements/" target="_blank">Supplements for Hydroponic Indoor Gardening | HTG Supply</a></td></tr><tr><td>✅ Jarrow</td><td><a href="https://jarrow.com/" target="_blank">Jarrow Formulas | High Quality Dietary Supplements</a></td></tr><tr><td>✅ Jigsaw</td><td><a href="https://www.jigsawhealth.com/" target="_blank">It's Fun To Feel Good® | High-Quality Nutritional Supplements</a></td></tr><tr><td>✅ KAL</td><td><a href="https://www.kalvitamins.com/" target="_blank">KAL Vitamins | Since 1932 – Kal Vitamins</a></td></tr><tr><td>✅ Klaire</td><td><a href="https://www.amazon.com/Vitamin-B-Supplements-Klaire-Labs/s?keywords=Vitamin+B+Supplements&rh=n:3774671,p_89:Klaire+Labs&c=ts&ts_id=3774671" target="_blank">Amazon.com: Vitamin B Supplements - Klaire Labs / Vitamin...</a></td></tr><tr><td>✅ Life</td><td><a href="https://www.lifeextension.com/" target="_blank">Vitamins and Supplements Rooted in Science - Life Extension</a></td></tr><tr><td>✅ MRM</td><td><a href="https://mrmnutrition.com/" target="_blank">Boost Your Health with Essential Nutritional Supplements – MRM Nutrition</a></td></tr><tr><td>✅ MegaFood</td><td><a href="https://megafood.com/" target="_blank">MegaFood: Real Food Vitamins with Added Nutrients | MegaFood</a></td></tr></tbody>
+  </table>
+</section>
+
+<footer>Generated by <strong>AEO Diagnostic</strong> &mdash; LangChain · LangGraph · DuckDuckGo</footer>
+</body>
+</html>
