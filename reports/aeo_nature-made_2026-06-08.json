@@ -1,0 +1,158 @@
+{
+  "query": "best magnesium supplement for seniors",
+  "target": "Nature Made",
+  "overall": 32.2,
+  "grade": "F",
+  "mention_rate": 0.3333333333333333,
+  "avg_position": 6.5,
+  "sentiment_score": 10.0,
+  "citation_score": 90.0,
+  "per_model": [
+    {
+      "model": "Llama 3.3 70B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Garden of Life Magnesium",
+        "Nature's Bounty Magnesium",
+        "Jarrow Formulas Magnesium Optimizer",
+        "Doctor's Best Magnesium",
+        "Thorne Research Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "GPT-OSS 120B",
+      "mentioned": true,
+      "position": 9,
+      "sentiment": "Positive",
+      "competitors": [
+        "Thorne Research Magnesium Bisglycinate",
+        "Doctor\u2019s Best High Absorption Magnesium (Magnesium Glycinate)",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "Garden of Life Vitamin Code Magnesium",
+        "NOW Foods Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 4 Scout 17B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Nature's Bounty Magnesium, 400mg",
+        "Garden of Life Magnesium",
+        "Thorne Research Magnesium Citrate",
+        "NOW Foods Magnesium Glycinate",
+        "Jarrow Formulas Magnesium Optimizer"
+      ],
+      "error": null
+    },
+    {
+      "model": "Compound",
+      "mentioned": true,
+      "position": 4,
+      "sentiment": "Positive",
+      "competitors": [
+        "Thorne Research Magnesium Bisglycinate Powder",
+        "Pure Encapsulations Magnesium (Citrate/Malate)",
+        "Doctor's Best High Absorption Magnesium Glycinate",
+        "Life Extension Magnesium Caps",
+        "NOW Foods Magnesium Citrate Softgels"
+      ],
+      "error": null
+    },
+    {
+      "model": "Qwen3 32B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Thorne Research Magnesium Glycinate",
+        "Garden of Life Raw Magnesium",
+        "Pure Encapsulations Magnesium Glycinate",
+        "Klaire Labs Magtein (Magnesium L",
+        "Solgar Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 3.1 8B Instant",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Doctor's Best Magnesium L",
+        "Garden of Life RAW Magnesium",
+        "Jarrow Formulas Magnesium Citrate",
+        "Nature's Bounty Magnesium Oxide",
+        "Thorne Research Magnesium Citrate"
+      ],
+      "error": null
+    }
+  ],
+  "verifications": [
+    {
+      "brand": "Country",
+      "found": true,
+      "top_hit_url": "https://countrylifevitamins.com/?srsltid=AfmBOoqT-XyCjAXujxYgLpGAE-Gss2mv5ZGuKZhC91qLg_vgtzmWuFUv",
+      "top_hit_title": "Country Life Vitamins"
+    },
+    {
+      "brand": "Doctor's",
+      "found": true,
+      "top_hit_url": "https://doctorsrecipes.com/",
+      "top_hit_title": "Doctor's Recipes Supplements | Vitamins, Protein, Keto Friendly"
+    },
+    {
+      "brand": "Doctor\u2019s",
+      "found": false,
+      "top_hit_url": null,
+      "top_hit_title": null
+    },
+    {
+      "brand": "Douglas",
+      "found": true,
+      "top_hit_url": "https://supplementfirst.com/collections/douglas-laboratories",
+      "top_hit_title": "Douglas Laboratories Supplements: High-Quality... | Supplement First"
+    },
+    {
+      "brand": "Garden",
+      "found": true,
+      "top_hit_url": "https://www.gardenoflife.com/?srsltid=AfmBOooAxlurM1xvqkYOtNOWwM3hW3OPKpufTlP2bWtHkN8V0v2qvBf4",
+      "top_hit_title": "Garden of Life: Clean Vitamins and Supplements"
+    },
+    {
+      "brand": "Jarrow",
+      "found": true,
+      "top_hit_url": "https://jarrow.com/",
+      "top_hit_title": "Jarrow Formulas | High Quality Dietary Supplements"
+    },
+    {
+      "brand": "Kirkland",
+      "found": true,
+      "top_hit_url": "https://www.kirklandcompounding.com/supplements",
+      "top_hit_title": "SUPPLEMENTS | Kirkland Compounding Pharmacy"
+    },
+    {
+      "brand": "Klaire",
+      "found": true,
+      "top_hit_url": "https://www.nhc.com/brand/klaire-labs",
+      "top_hit_title": "Shop our Naturally Healthy Concepts range of Klaire Labs"
+    },
+    {
+      "brand": "Life",
+      "found": true,
+      "top_hit_url": "https://www.lifeextension.com/",
+      "top_hit_title": "Vitamins and Supplements Rooted in Science - Life Extension"
+    },
+    {
+      "brand": "MRM",
+      "found": true,
+      "top_hit_url": "https://www.amazon.com/mrm-supplements/s?k=mrm+supplements",
+      "top_hit_title": "Mrm Supplements - Amazon.com"
+    }
+  ]
+}
