@@ -1,0 +1,158 @@
+{
+  "query": "best magnesium supplement for seniors",
+  "target": "Nature Made",
+  "overall": 42.1,
+  "grade": "D",
+  "mention_rate": 0.3333333333333333,
+  "avg_position": 4.5,
+  "sentiment_score": 21.7,
+  "citation_score": 90.0,
+  "per_model": [
+    {
+      "model": "Llama 3.3 70B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Garden of Life Magnesium",
+        "Nature's Bounty Magnesium",
+        "Jarrow Formulas Magnesium Optimizer",
+        "Doctor's Best Magnesium",
+        "NOW Foods Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "GPT-OSS 120B",
+      "mentioned": true,
+      "position": 6,
+      "sentiment": "Positive",
+      "competitors": [
+        "Thorne Research Magnesium Bisglycinate",
+        "Doctor's Best High Absorption Magnesium",
+        "KAL Magnesium Glycinate 400",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "Jigsaw Health Magnesium SRT (Sustained Release)"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 4 Scout 17B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Nature's Bounty Magnesium, 400mg",
+        "Garden of Life Magnesium",
+        "Thorne Research Magnesium Citrate",
+        "NOW Foods Magnesium Glycinate",
+        "Doctor's Best Magnesium"
+      ],
+      "error": null
+    },
+    {
+      "model": "Compound",
+      "mentioned": true,
+      "position": 3,
+      "sentiment": "Positive",
+      "competitors": [
+        "Doctor's Best High Absorption Magnesium (Magnesium Glycinate)",
+        "Thorne Research Magnesium Bisglycinate",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "NOW Foods Magnesium Citrate",
+        "Solgar Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "Qwen3 32B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Pure Encapsulations Magnesium Glycinate",
+        "Thorne Research Magnesium Glycinate",
+        "Garden of Life Raw Magnesium (Organic)",
+        "Now Foods Magnesium Citrate",
+        "Nature\u2019s Way Adult Mag Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 3.1 8B Instant",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Doctor's Best Magnesium L",
+        "Jarrow Formulas Magnesium Citrate",
+        "Garden of Life RAW Magnesium",
+        "Nature's Bounty Magnesium",
+        "Vitafusion Magnesium Gummies"
+      ],
+      "error": null
+    }
+  ],
+  "verifications": [
+    {
+      "brand": "Country",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/merc_supplement_1_in_country",
+      "top_hit_title": "Merc Supplement 1: In Country"
+    },
+    {
+      "brand": "Designs",
+      "found": true,
+      "top_hit_url": "https://www.designsforhealth.com/",
+      "top_hit_title": "Home | Superior Supplement Products - Science... - Designs for Health"
+    },
+    {
+      "brand": "Doctor's",
+      "found": true,
+      "top_hit_url": "https://www.doctorsbest.com/collections/supplements",
+      "top_hit_title": "Supplements - Doctor's Best"
+    },
+    {
+      "brand": "Doctor\u2019s",
+      "found": false,
+      "top_hit_url": null,
+      "top_hit_title": null
+    },
+    {
+      "brand": "Garden",
+      "found": true,
+      "top_hit_url": "https://www.gardenoflife.com/",
+      "top_hit_title": "Clean Vitamins and Supplements | Garden of Life"
+    },
+    {
+      "brand": "Jarrow",
+      "found": true,
+      "top_hit_url": "https://jarrow.com/?srsltid=AfmBOop6fNEWj1wFxwLwXduMPueyIp3bYvYNBfS0Vq-ZD7QhjhZxsizZ",
+      "top_hit_title": "Jarrow Formulas"
+    },
+    {
+      "brand": "Jigsaw",
+      "found": true,
+      "top_hit_url": "https://www.jigsawhealth.com/",
+      "top_hit_title": "It's Fun To Feel Good\u00ae | High-Quality Nutritional Supplements"
+    },
+    {
+      "brand": "KAL",
+      "found": true,
+      "top_hit_url": "https://www.kalvitamins.com/?srsltid=AfmBOoqZU9CNm_wI6yvz3a1QmcST2iMP4ZymfInM6wnoohaeWclaJ35V",
+      "top_hit_title": "KAL Vitamins | Since 1932 \u2013 Kal Vitamins"
+    },
+    {
+      "brand": "Kirkland",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/Kirkland_Signature_Psyllium_Fiber_Supplement",
+      "top_hit_title": "Kirkland Signature Psyllium Fiber Supplement"
+    },
+    {
+      "brand": "Klaire",
+      "found": true,
+      "top_hit_url": "https://www.amazon.com/Klaire-Labs-Ultra-Menatetrenone-Hypoallergenic/dp/B07FSYG2BZ",
+      "top_hit_title": "Amazon.com: Klaire Labs SFI Health Ultra K2 Menaquinone - 4 - Vitamin ..."
+    }
+  ]
+}
