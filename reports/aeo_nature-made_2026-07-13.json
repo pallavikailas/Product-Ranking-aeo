@@ -1,0 +1,158 @@
+{
+  "query": "best magnesium supplement for seniors",
+  "target": "Nature Made",
+  "overall": 53.2,
+  "grade": "D",
+  "mention_rate": 0.3333333333333333,
+  "avg_position": 2.5,
+  "sentiment_score": 10.0,
+  "citation_score": 90.0,
+  "per_model": [
+    {
+      "model": "Llama 3.3 70B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Garden of Life Magnesium",
+        "Nature's Bounty Magnesium",
+        "Jarrow Formulas Magnesium Optimizer",
+        "Doctor's Best Magnesium",
+        "Thorne Research Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "GPT-OSS 120B",
+      "mentioned": true,
+      "position": 1,
+      "sentiment": "Positive",
+      "competitors": [
+        "Doctor's Best High Absorption Magnesium",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "Thorne Research Magnesium Bisglycinate",
+        "Life Extension Magnesium Caps",
+        "NOW Foods Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 4 Scout 17B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Nature's Bounty Magnesium, 400mg",
+        "Garden of Life Magnesium",
+        "Thorne Research Magnesium Citrate",
+        "NOW Foods Magnesium Glycinate",
+        "Doctor's Best Magnesium"
+      ],
+      "error": null
+    },
+    {
+      "model": "Compound",
+      "mentioned": true,
+      "position": 4,
+      "sentiment": "Positive",
+      "competitors": [
+        "Doctor\u2019s\u202fBest High Absorption Magnesium (Magnesium Glycinate)",
+        "Pure Encapsulations Magnesium (Citrate\u202f+\u202fGlycinate)",
+        "Thorne Research Magnesium Bisglycinate Powder",
+        "Life Extension Magnesium Caps (Magnesium Citrate)",
+        "NOW Foods Magnesium Citrate (Capsules)"
+      ],
+      "error": null
+    },
+    {
+      "model": "Qwen3 32B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Garden of Life RAW Organic Magnesium",
+        "Thorne Research Basic Magnesium",
+        "Pure Encapsulations Magnesium Citrate",
+        "Nature\u2019s Way Magnesium Glycinate",
+        "Solgar Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 3.1 8B Instant",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Garden of Life Magnesium",
+        "Jarrow Formulas Magnesium Citrate",
+        "Doctor's Best Magnesium L",
+        "Nature's Bounty Magnesium Oxide",
+        "Thorne Research Magnesium Citrate"
+      ],
+      "error": null
+    }
+  ],
+  "verifications": [
+    {
+      "brand": "Country",
+      "found": true,
+      "top_hit_url": "https://countrylifevitamins.com/",
+      "top_hit_title": "Country Life Vitamins"
+    },
+    {
+      "brand": "Doctor's",
+      "found": true,
+      "top_hit_url": "https://www.doctorsbest.com/",
+      "top_hit_title": "Doctor's Best"
+    },
+    {
+      "brand": "Doctor\u2019s",
+      "found": false,
+      "top_hit_url": null,
+      "top_hit_title": null
+    },
+    {
+      "brand": "Garden",
+      "found": true,
+      "top_hit_url": "https://www.gardenoflife.com/",
+      "top_hit_title": "Clean Vitamins and Supplements | Garden of Life"
+    },
+    {
+      "brand": "Jarrow",
+      "found": true,
+      "top_hit_url": "https://jarrow.com/",
+      "top_hit_title": "Jarrow | 40 years of proven science to support living better, longer."
+    },
+    {
+      "brand": "KAL",
+      "found": true,
+      "top_hit_url": "https://www.kalvitamins.com/",
+      "top_hit_title": "KAL Vitamins | Since 1932"
+    },
+    {
+      "brand": "Life",
+      "found": true,
+      "top_hit_url": "https://www.lifeextension.com/",
+      "top_hit_title": "Vitamins and Supplements Rooted in Science - Life Extension"
+    },
+    {
+      "brand": "MRM",
+      "found": true,
+      "top_hit_url": "https://mrmnutrition.com/",
+      "top_hit_title": "Boost Your Health with Essential Nutritional Supplements \u2013 MRM Nutrition"
+    },
+    {
+      "brand": "MegaFood",
+      "found": true,
+      "top_hit_url": "https://megafood.com/",
+      "top_hit_title": "MegaFood: Real Food Vitamins with Added Nutrients | MegaFood"
+    },
+    {
+      "brand": "Megan",
+      "found": true,
+      "top_hit_url": "https://megansmiraclestudio.com/en-gb/products/apitherapy-supplement",
+      "top_hit_title": "Honeybee Apitherapy Supplement \u2013 Megan\u2019s Miracle"
+    }
+  ]
+}
