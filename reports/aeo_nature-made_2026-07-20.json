@@ -1,0 +1,146 @@
+{
+  "query": "best magnesium supplement for seniors",
+  "target": "Nature Made",
+  "overall": 53.6,
+  "grade": "D",
+  "mention_rate": 0.3333333333333333,
+  "avg_position": 2.5,
+  "sentiment_score": 15.0,
+  "citation_score": 90.0,
+  "per_model": [
+    {
+      "model": "Llama 3.3 70B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Garden of Life Magnesium",
+        "Nature's Bounty Magnesium",
+        "Jarrow Formulas Magnesium Optimizer",
+        "Doctor's Best Magnesium",
+        "Thorne Research Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "GPT-OSS 120B",
+      "mentioned": true,
+      "position": 4,
+      "sentiment": "Positive",
+      "competitors": [
+        "Pure Encapsulations Magnesium (Citrate) 200\u202fmg",
+        "Thorne Research Magnesium Bisglycinate",
+        "KAL Magnesium Glycinate 400",
+        "Doctor\u2019s Best High Absorption Magnesium (Glycinate)",
+        "NOW Foods Magnesium Citrate 200\u202fmg"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 4 Scout 17B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `meta-llama/llama-4-scout-17b-16e-instruct` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+      "model": "Compound",
+      "mentioned": true,
+      "position": 1,
+      "sentiment": "Positive",
+      "competitors": [
+        "Doctor\u2019s Best High Absorption Magnesium (Glycinate)",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "Thorne Research Magnesium Bisglycinate",
+        "NOW Foods Magnesium Citrate",
+        "Solgar Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "Qwen3 32B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `qwen/qwen3-32b` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+      "model": "Llama 3.1 8B Instant",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [
+        "Doctor's Best Magnesium L",
+        "Garden of Life RAW Magnesium",
+        "Jarrow Formulas Magnesium Citrate",
+        "Nature's Bounty Magnesium Oxide",
+        "Thorne Research Magnesium Citrate"
+      ],
+      "error": null
+    }
+  ],
+  "verifications": [
+    {
+      "brand": "Doctor's",
+      "found": true,
+      "top_hit_url": "https://www.doctorsbest.com/",
+      "top_hit_title": "Doctor's Best"
+    },
+    {
+      "brand": "Doctor\u2019s",
+      "found": false,
+      "top_hit_url": null,
+      "top_hit_title": null
+    },
+    {
+      "brand": "Garden",
+      "found": true,
+      "top_hit_url": "https://www.gardenoflife.com/",
+      "top_hit_title": "Clean Vitamins and Supplements | Garden of Life"
+    },
+    {
+      "brand": "Jarrow",
+      "found": true,
+      "top_hit_url": "https://jarrow.com/",
+      "top_hit_title": "Jarrow | 40 years of proven science to support living better, longer."
+    },
+    {
+      "brand": "KAL",
+      "found": true,
+      "top_hit_url": "https://www.kalvitamins.com/",
+      "top_hit_title": "KAL Vitamins | Since 1932 \u2013 Kal Vitamins"
+    },
+    {
+      "brand": "Life",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/Beginning_Life_Ayurvedic_supplement",
+      "top_hit_title": "Beginning Life (Ayurvedic supplement)"
+    },
+    {
+      "brand": "MRM",
+      "found": true,
+      "top_hit_url": "https://mrmnutrition.com/",
+      "top_hit_title": "Boost Your Health with Essential Nutritional Supplements \u2013 MRM Nutrition"
+    },
+    {
+      "brand": "MegaFood",
+      "found": true,
+      "top_hit_url": "https://megafood.com/",
+      "top_hit_title": "MegaFood: Real Food Vitamins with Added Nutrients | MegaFood"
+    },
+    {
+      "brand": "NOW",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/central_casting_heroes_now_role_playing_game_supplement",
+      "top_hit_title": "Central Casting: Heroes Now! (role-playing game supplement)"
+    },
+    {
+      "brand": "Nature",
+      "found": true,
+      "top_hit_url": "https://www.naturemade.com/",
+      "top_hit_title": "Nature Made\u00ae \u2502 #1 Pharmacist Recommended Vitamin & Supplement Brand"
+    }
+  ]
+}
