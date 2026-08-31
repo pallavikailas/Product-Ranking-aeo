@@ -1,0 +1,134 @@
+{
+  "query": "best magnesium supplement for seniors",
+  "target": "Nature Made",
+  "overall": 54.8,
+  "grade": "D",
+  "mention_rate": 0.3333333333333333,
+  "avg_position": 2.5,
+  "sentiment_score": 30.0,
+  "citation_score": 90.0,
+  "per_model": [
+    {
+      "model": "Llama 3.3 70B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `llama-3.3-70b-versatile` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+      "model": "GPT-OSS 120B",
+      "mentioned": true,
+      "position": 1,
+      "sentiment": "Positive",
+      "competitors": [
+        "Doctor's Best High Absorption Magnesium (Magnesium Glycinate)",
+        "Thorne Research Magnesium Bisglycinate",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "Life Extension Magnesium Caps (Magnesium Citrate)",
+        "NOW Foods Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 4 Scout 17B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `meta-llama/llama-4-scout-17b-16e-instruct` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+      "model": "Compound",
+      "mentioned": true,
+      "position": 4,
+      "sentiment": "Positive",
+      "competitors": [
+        "Pure Encapsulations Magnesium (Citrate) 200\u202fmg",
+        "Thorne Research Magnesium Bisglycinate 150\u202fmg",
+        "Doctor\u2019s Best High Absorption Magnesium Glycinate",
+        "Life Extension Magnesium Optimizer (Citrate & Malate)",
+        "NOW Foods Magnesium Citrate 200\u202fmg"
+      ],
+      "error": null
+    },
+    {
+      "model": "Qwen3 32B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `qwen/qwen3-32b` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+      "model": "Llama 3.1 8B Instant",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `llama-3.1-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    }
+  ],
+  "verifications": [
+    {
+      "brand": "Doctor's",
+      "found": true,
+      "top_hit_url": "https://www.doctorsbest.com/",
+      "top_hit_title": "Doctor's Best"
+    },
+    {
+      "brand": "Doctor\u2019s",
+      "found": false,
+      "top_hit_url": null,
+      "top_hit_title": null
+    },
+    {
+      "brand": "Garden",
+      "found": true,
+      "top_hit_url": "https://www.htgsupply.com/product-category/nutrients/supplements/",
+      "top_hit_title": "Indoor Garden Supplements - Hydroponic Nutrients"
+    },
+    {
+      "brand": "Jarrow",
+      "found": true,
+      "top_hit_url": "https://jarrow.com/",
+      "top_hit_title": "Jarrow | 40 years of proven science to support living better, longer."
+    },
+    {
+      "brand": "Klaire",
+      "found": true,
+      "top_hit_url": "https://us.sfihealth.com/products",
+      "top_hit_title": "Nutritional Supplement Products - Klaire Labs - SFI Health"
+    },
+    {
+      "brand": "Life",
+      "found": true,
+      "top_hit_url": "https://www.lifeextension.com/",
+      "top_hit_title": "Vitamins and Supplements Rooted in Science - Life Extension"
+    },
+    {
+      "brand": "MegaFood",
+      "found": true,
+      "top_hit_url": "https://megafood.com/",
+      "top_hit_title": "MegaFood: Real Food Vitamins with Added Nutrients | MegaFood"
+    },
+    {
+      "brand": "NOW",
+      "found": true,
+      "top_hit_url": "https://www.nowfoods.com/products/supplements",
+      "top_hit_title": "Nutritional Supplements | Vitamins and Supplements | NOW Foods"
+    },
+    {
+      "brand": "Nature",
+      "found": true,
+      "top_hit_url": "https://www.naturemade.com/",
+      "top_hit_title": "Nature Made\u00ae \u2502 #1 Pharmacist Recommended Vitamin & Supplement Brand"
+    },
+    {
+      "brand": "Pure",
+      "found": true,
+      "top_hit_url": "https://www.pureencapsulations.com/",
+      "top_hit_title": "Daily Nutritional Supplements | Pure Encapsulations\u00ae"
+    }
+  ]
+}
