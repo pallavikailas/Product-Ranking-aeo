@@ -1,0 +1,134 @@
+{
+  "query": "best magnesium supplement for seniors",
+  "target": "Nature Made",
+  "overall": 51.4,
+  "grade": "D",
+  "mention_rate": 0.3333333333333333,
+  "avg_position": 3.5,
+  "sentiment_score": 65.0,
+  "citation_score": 90.0,
+  "per_model": [
+    {
+      "model": "Llama 3.3 70B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `llama-3.3-70b-versatile` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+      "model": "GPT-OSS 120B",
+      "mentioned": true,
+      "position": 3,
+      "sentiment": "Positive",
+      "competitors": [
+        "Doctor's Best High Absorption Magnesium (Magnesium Glycinate)",
+        "KAL Magnesium Glycinate 400",
+        "Thorne Research Magnesium Bisglycinate",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "NOW Foods Magnesium Caps"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 4 Scout 17B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `meta-llama/llama-4-scout-17b-16e-instruct` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+      "model": "Compound",
+      "mentioned": true,
+      "position": 4,
+      "sentiment": "Positive",
+      "competitors": [
+        "Thorne Research Magnesium Bisglycinate",
+        "Doctor\u2019s Best High Absorption Magnesium (Magnesium Glycinate)",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "Life Extension Magnesium Caps (Magnesium Oxide & Citrate Blend)",
+        "Solgar Magnesium (Citrate)"
+      ],
+      "error": null
+    },
+    {
+      "model": "Qwen3 32B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `qwen/qwen3-32b` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+      "model": "Llama 3.1 8B Instant",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `llama-3.1-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    }
+  ],
+  "verifications": [
+    {
+      "brand": "Doctor's",
+      "found": true,
+      "top_hit_url": "https://www.doctorsbest.com/",
+      "top_hit_title": "Doctor's Best"
+    },
+    {
+      "brand": "Doctor\u2019s",
+      "found": false,
+      "top_hit_url": null,
+      "top_hit_title": null
+    },
+    {
+      "brand": "Garden",
+      "found": true,
+      "top_hit_url": "https://www.gardenoflife.com/",
+      "top_hit_title": "Clean Vitamins and Supplements | Garden of Life"
+    },
+    {
+      "brand": "Jarrow",
+      "found": true,
+      "top_hit_url": "https://jarrow.com/",
+      "top_hit_title": "Jarrow | 40 years of proven science to support living better ..."
+    },
+    {
+      "brand": "Jigsaw",
+      "found": true,
+      "top_hit_url": "https://www.jigsawhealth.com/",
+      "top_hit_title": "It's Fun To Feel Good\u00ae | High-Quality Nutritional Supplements"
+    },
+    {
+      "brand": "KAL",
+      "found": true,
+      "top_hit_url": "https://www.kalvitamins.com/",
+      "top_hit_title": "KAL Vitamins | Since 1932"
+    },
+    {
+      "brand": "Life",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/Beginning_Life_Ayurvedic_supplement",
+      "top_hit_title": "Beginning Life (Ayurvedic supplement)"
+    },
+    {
+      "brand": "MegaFood",
+      "found": true,
+      "top_hit_url": "https://megafood.com/",
+      "top_hit_title": "MegaFood: Real Food Vitamins with Added Nutrients | MegaFood"
+    },
+    {
+      "brand": "NOW",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/central_casting_heroes_now_role_playing_game_supplement",
+      "top_hit_title": "Central Casting: Heroes Now! (role-playing game supplement)"
+    },
+    {
+      "brand": "Nature",
+      "found": true,
+      "top_hit_url": "https://www.naturemade.com/",
+      "top_hit_title": "Nature Made\u00ae \u2502 #1 Pharmacist Recommended Vitamin & Supplement ..."
+    }
+  ]
+}
