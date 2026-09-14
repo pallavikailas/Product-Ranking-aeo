@@ -1,0 +1,134 @@
+{
+  "query": "best magnesium supplement for seniors",
+  "target": "Nature Made",
+  "overall": 45.8,
+  "grade": "D",
+  "mention_rate": 0.3333333333333333,
+  "avg_position": 4.0,
+  "sentiment_score": 30.0,
+  "citation_score": 90.0,
+  "per_model": [
+    {
+      "model": "Llama 3.3 70B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `llama-3.3-70b-versatile` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+      "model": "GPT-OSS 120B",
+      "mentioned": true,
+      "position": 4,
+      "sentiment": "Positive",
+      "competitors": [
+        "Doctor\u2019s Best High Absorption Magnesium (Magnesium Glycinate)",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "Thorne Research Magnesium Bisglycinate",
+        "Kirkland Signature Magnesium Citrate",
+        "Garden of Life Vitamin Code Magnesium"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 4 Scout 17B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `meta-llama/llama-4-scout-17b-16e-instruct` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+      "model": "Compound",
+      "mentioned": true,
+      "position": 4,
+      "sentiment": "Positive",
+      "competitors": [
+        "Pure Encapsulations Magnesium (Glycinate) 120 mg",
+        "Thorne Research Magnesium Bisglycinate 150 mg",
+        "Doctor\u2019s Best High Absorption Magnesium (Chelated Magnesium Glycinate)",
+        "NOW Foods Magnesium Citrate 200 mg",
+        "Life Extension Magnesium Caps 400 mg (Magnesium Oxide + Citrate)"
+      ],
+      "error": null
+    },
+    {
+      "model": "Qwen3 32B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `qwen/qwen3-32b` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+      "model": "Llama 3.1 8B Instant",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `llama-3.1-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    }
+  ],
+  "verifications": [
+    {
+      "brand": "Doctor\u2019s",
+      "found": false,
+      "top_hit_url": null,
+      "top_hit_title": null
+    },
+    {
+      "brand": "Garden",
+      "found": true,
+      "top_hit_url": "https://www.bing.com/aclick?ld=e89AY6Ikk2oyZaFuAfw9ePrjVUCUxbpl5fEbEAK1qjJ_rJ5SkvdHinUYDInqtgVDC9WBTabLFqLPVMcjLwO_hl8Mre3NlvOIt1HtdDuq4D7zIUcFrYGn5giB-UOs6rQM6DirPqjqgRu55zdwLyh3Ep25Uh6XIMBm_GdnemEk_aaKrEkfaAYAN6RvfopsMB8q_ezcN8pb-2BNLvGjKugs1ZOvjiQoo&u=aHR0cHMlM2ElMmYlMmZ3d3cuYW1hem9uLmNvbSUyZnMlMmYlM2ZpZSUzZFVURjglMjZrZXl3b3JkcyUzZGdhcmRlbiUyYnN1cHBsZW1lbnQlMjZpbmRleCUzZGFwcyUyNnRhZyUzZG1oMGItMjAlMjZyZWYlM2RwZF9zbF8zMDYzYTYxZG1sX2UlMjZhZGdycGlkJTNkMTM0MjUwNjIyMTI4MjgxMSUyNmh2YWRpZCUzZDgzOTA2OTE1Njc1MDU2JTI2aHZuZXR3JTNkbyUyNmh2cW10JTNkZSUyNmh2Ym10JTNkYmUlMjZodmRldiUzZGMlMjZodmxvY2ludCUzZCUyNmh2bG9jcGh5JTNkNjcxMTMlMjZodnRhcmdpZCUzZGt3ZC04MzkwNzgwNjA1Njc5OSUzYWxvYy0xOTAlMjZoeWRhZGNyJTNkMTAzMjJfMTM3NTkzMjMlMjZtY2lkJTNkN2U3ODEyNjdmMDZhMzEyOTlmNjg3NWUwYTBmMDliNTMlMjZodm9jaWppZCUzZDE3NDMzNzY0MjkzNTg3MzUwMTU2LS0lMjZodmV4cGxuJTNkMCUyNmdiJTNkMg&rlid=7f2595a45a021ebaf38dff0c4f8e5e82",
+      "top_hit_title": "Garden Supplement - Amazon\u00ae Official Site"
+    },
+    {
+      "brand": "Jarrow",
+      "found": true,
+      "top_hit_url": "https://jarrow.com/",
+      "top_hit_title": "Jarrow Formulas"
+    },
+    {
+      "brand": "KAL",
+      "found": true,
+      "top_hit_url": "https://www.kalvitamins.com/",
+      "top_hit_title": "KAL Vitamins | Since 1932 \u2013 Kal Vitamins"
+    },
+    {
+      "brand": "Kirkland",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/Kirkland_Signature_Psyllium_Fiber_Supplement",
+      "top_hit_title": "Kirkland Signature Psyllium Fiber Supplement"
+    },
+    {
+      "brand": "Life",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/Beginning_Life_Ayurvedic_supplement",
+      "top_hit_title": "Beginning Life (Ayurvedic supplement)"
+    },
+    {
+      "brand": "NOW",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/central_casting_heroes_now_role_playing_game_supplement",
+      "top_hit_title": "Central Casting: Heroes Now! (role-playing game supplement)"
+    },
+    {
+      "brand": "Nature",
+      "found": true,
+      "top_hit_url": "https://www.naturemade.com/",
+      "top_hit_title": "Nature Made\u00ae \u2502 #1 Pharmacist Recommended Vitamin & Supplement Brand"
+    },
+    {
+      "brand": "Pure",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/Pure_Saffron_dietary_supplement",
+      "top_hit_title": "Pure Saffron (dietary supplement)"
+    },
+    {
+      "brand": "Solgar",
+      "found": true,
+      "top_hit_url": "https://www.solgar.com/",
+      "top_hit_title": "Home \u2013 Premium Vitamins & Supplements Since 1947 | Solgar\u00ae"
+    }
+  ]
+}
