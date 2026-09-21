@@ -1,0 +1,134 @@
+{
+  "query": "best magnesium supplement for seniors",
+  "target": "Nature Made",
+  "overall": 36.4,
+  "grade": "F",
+  "mention_rate": 0.3333333333333333,
+  "avg_position": 6.5,
+  "sentiment_score": 65.0,
+  "citation_score": 90.0,
+  "per_model": [
+    {
+      "model": "Llama 3.3 70B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `llama-3.3-70b-versatile` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+      "model": "GPT-OSS 120B",
+      "mentioned": true,
+      "position": 9,
+      "sentiment": "Positive",
+      "competitors": [
+        "Thorne Research Magnesium Bisglycinate",
+        "Doctor's Best High Absorption Magnesium (Magnesium Glycinate)",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "Garden of Life Vitamin Code Magnesium",
+        "NOW Foods Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "Llama 4 Scout 17B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `meta-llama/llama-4-scout-17b-16e-instruct` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+      "model": "Compound",
+      "mentioned": true,
+      "position": 4,
+      "sentiment": "Positive",
+      "competitors": [
+        "Doctor's Best High Absorption Magnesium Glycinate",
+        "Thorne Research Magnesium Bisglycinate",
+        "Pure Encapsulations Magnesium (Citrate)",
+        "KAL Magnesium Glycinate 400",
+        "NOW Foods Magnesium Citrate"
+      ],
+      "error": null
+    },
+    {
+      "model": "Qwen3 32B",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `qwen/qwen3-32b` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    },
+    {
+      "model": "Llama 3.1 8B Instant",
+      "mentioned": false,
+      "position": null,
+      "sentiment": "Neutral",
+      "competitors": [],
+      "error": "Error code: 404 - {'error': {'message': 'The model `llama-3.1-8b-instant` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'code': 'model_not_found'}}"
+    }
+  ],
+  "verifications": [
+    {
+      "brand": "Doctor's",
+      "found": true,
+      "top_hit_url": "https://www.doctorsbest.com/",
+      "top_hit_title": "Doctor's Best"
+    },
+    {
+      "brand": "Garden",
+      "found": true,
+      "top_hit_url": "https://www.htgsupply.com/product-category/nutrients/supplements/",
+      "top_hit_title": "Indoor Garden Supplements - Hydroponic Nutrients"
+    },
+    {
+      "brand": "Jigsaw",
+      "found": true,
+      "top_hit_url": "https://www.jigsawhealth.com/",
+      "top_hit_title": "It's Fun To Feel Good\u00ae | High-Quality Nutritional Supplements"
+    },
+    {
+      "brand": "KAL",
+      "found": true,
+      "top_hit_url": "https://www.kalvitamins.com/",
+      "top_hit_title": "KAL Vitamins | Since 1932 \u2013 Kal Vitamins"
+    },
+    {
+      "brand": "Kirkland",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/Kirkland_Signature_Psyllium_Fiber_Supplement",
+      "top_hit_title": "Kirkland Signature Psyllium Fiber Supplement"
+    },
+    {
+      "brand": "Life",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/Beginning_Life_Ayurvedic_supplement",
+      "top_hit_title": "Beginning Life (Ayurvedic supplement)"
+    },
+    {
+      "brand": "MegaFood",
+      "found": true,
+      "top_hit_url": "https://megafood.com/",
+      "top_hit_title": "MegaFood: Real Food Vitamins with Added Nutrients | MegaFood"
+    },
+    {
+      "brand": "NOW",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/central_casting_heroes_now_role_playing_game_supplement",
+      "top_hit_title": "Central Casting: Heroes Now! (role-playing game supplement)"
+    },
+    {
+      "brand": "Nature",
+      "found": false,
+      "top_hit_url": null,
+      "top_hit_title": null
+    },
+    {
+      "brand": "Pure",
+      "found": true,
+      "top_hit_url": "https://grokipedia.com/page/Pure_Saffron_dietary_supplement",
+      "top_hit_title": "Pure Saffron (dietary supplement)"
+    }
+  ]
+}
